@@ -1,0 +1,30 @@
+{
+  "name": "moheera",
+  "version": "0.0.0",
+  "authors": [
+    "munzir <munzir.suliman@outlook.com>"
+  ],
+  "description": "An app to connect moheera community",
+  "keywords": [
+    "connect"
+  ],
+  "license": "moheera",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "angular": "~1.3.0",
+    "angular-bootstrap": "~0.12.0",
+    "angular-resource": "~1.3.8",
+    "angular-ui-router": "~0.2.13"
+  },
+  "resolutions": {
+    "angular": ">= 1.0.8"
+  }
+}

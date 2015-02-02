@@ -1,0 +1,69 @@
+<div class="row" style="background-color:#fff;">
+	<!-- Error message -->
+	<div data-ng-show="error" class="text-center alert alert-danger col-md-12">
+		<strong data-ng-bind="error"></strong>
+	</div><!-- End error message -->
+
+	<!-- remove product -->
+	<span ng-show="user._id == product.user" ng-click="showRemoveProductBox()" class="glyphicon glyphicon-remove" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
+	<!-- end remove product-->
+
+	<!-- edit product -->
+	<a ng-show="user._id == product.user" href="/profile/product/{{product.name}}/edit">
+		<span class="glyphicon glyphicon-edit" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
+	</a><!-- end edit product-->
+
+	<!-- Remove Product Box -->
+	<div ng-show="removeProductBox" class="text-center text-danger">
+		<div class="alert alert-danger" role="alert">
+			<h5>Are you sure you wants to remove this product?</h5>
+			<button ng-click="removeProduct()" class="btn btn-lg btn-danger">Remove</button>
+			<button ng-click="cancelRemoveProduct()" class="btn btn-lg btn-success">Cancel</button>
+		</div>
+	</div> <!-- End Remove Product Box -->
+
+	<!-- Product Inof -->
+	<div product-box-product-directive="product"></div><!-- End Product Inof -->
+
+	<!-- Quantity -->
+	<div class="col-xs-12 col-sm-12 col-md-4 col-md-push-8" ng-class="{'alert alert-success': product.quantity > 0, 'alert alert-danger': product.quantity == 0}">{{product.quantity}} Available</div><!-- End Quantity -->
+
+	<!-- product heart,cart and comments buttons -->
+	<div class="col-xs-12 col-sm-12  col-md-8 col-md-pull-4" style="margin-bottom:4%;padding-bottom:2%;background-color:#fff;">
+		<!-- heart -->
+		<div heart-icon-product-directive="product"></div><!-- End Heart -->
+		<!-- Comment -->
+		<div comment-icon-product-directive="product"></div> <!-- End comment -->
+		<!-- Cart -->
+		<div cart-icon-product-directive="product"></div> <!-- End Cart -->
+	</div>
+	<!-- end product heart,cart and comments buttons -->
+</div>
+<!-- add comments -->
+<div class="row" style="background-color:#fff;padding-top:2%;">
+	<div class="col-md-12">
+		<form name="commentForm" role="form" autocomplete="off">
+			<div class="form-group">
+				<textarea ng-model="newComment" class="form-control" rows="3" required></textarea>
+				<button ng-click="addComment()" ng-disabled="commentForm.$invalid" class="btn btn-primary btn-lg btn-block text-center">Comment</button>
+			</div>
+		</form>
+	</div>
+</div><!-- end add comments -->
+
+<!-- comments -->
+<div class="row" style="background-color:#fff;padding-top:2%;margin-top:2%;" ng-repeat="comment in product.comment">
+	<!-- remove button , show to the comment author only -->
+	<div class="col-md-12 text-right">
+		<i ng-show="user._id == comment.author[0]._id" ng-click="removeComment($index, comment._id, product._id)" class="glyphicon glyphicon-remove text-muted"></i>
+	</div><!-- End remove button -->
+	<div class="col-md-12">
+		<span class="glyphicon glyphicon-user">{{comment.author[0].name}}</span>
+	</div>
+	<div class="col-md-12">
+		<h5>{{comment.content}}</h5>
+	</div>
+	<div class="col-md-12">
+		<p class="text-muted">{{comment.created | date:'MM/dd/yyyy  HH:mm Z'}}</p>
+	</div>
+</div> <!-- end comments -->

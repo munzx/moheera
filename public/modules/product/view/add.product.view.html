@@ -1,0 +1,95 @@
+<div class="row" style="background-color:#fff;">
+    <div class="col-md-12 text-center" style="margin:10% 0;" ng-show="loading">
+        <img src="public/modules/home/img/loading.gif">
+    </div>
+    <div class="col-md-12" ng-hide="loading">
+        <form name="newProductForm" class="form" method="post" id="info" novalidate>
+            <h4 class="text-center">New Product</h4>
+            <fieldset>
+                <div data-ng-show="error" class="alert alert-danger text-center">
+                    <strong data-ng-bind="error"></strong>
+                </div>
+                <div class="form-group">
+                    <div class="controls">
+                        <input type="text" ng-maxlength="70" name="name" data-ng-model="newProduct.name" class="form-control" placeholder="Name" required>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.name.$error.required && newProductForm.name.$dirty">
+                            Name field is required
+                        </h5>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.name.$error.maxlength && newProductForm.name.$dirty">
+                           Maxlength is 70 charecters
+                        </h5>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="controls">
+                        <input type="number" max="100000" min="1" name="price" data-ng-model="newProduct.price" class="form-control" placeholder="Price" required>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.price.$error.required && newProductForm.price.$dirty">
+                            Price field is required
+                        </h5>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.price.$error.max && newProductForm.price.$dirty">
+                            Price can not exceed 100000
+                        </h5>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.price.$error.min && newProductForm.price.$dirty">
+                           Price can not be that low!
+                        </h5>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="controls">
+                        <select name="quantity" data-ng-model="newProduct.quantity" ng-options="num for num in count()" class="form-control" required>
+                           <option value="">-- Select Quantity --</option>
+                        </select>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.quantity.$error.required && newProductForm.quantity.$dirty">
+                           Quantity field is required
+                        </h5>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="controls">
+                        <select name="category" data-ng-model="newProduct.category" ng-options="cat for cat in categoryOptions" class="form-control" required>
+                           <option value="">-- Select Category --</option>
+                        </select>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.category.$error.required && newProductForm.category.$dirty">
+                           Category field is required
+                        </h5>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="controls">
+                        <textarea rows="10" ng-maxlength="400" name="desc" data-ng-model="newProduct.desc" class="form-control" placeholder="Description" required>
+                        </textarea>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.desc.$error.maxlength && newProductForm.desc.$dirty">
+                            Maxlength is 400 charecters
+                        </h5>
+                        <h5 class="alert alert-danger" ng-show="newProductForm.desc.$error.required && newProductForm.desc.$dirty">
+                           Description field is required
+                        </h5>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <img  id='image1Preview' src="/public/modules/config/img/1.jpg" class="img-responsive">
+                            <input style="display: none;" type="file" data-ng-model="newProduct.image1" watch-image-config-directive accept="image/*" id="image1" class="form-control" placeholder="Image" required>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                        <img id='image2Preview' src="/public/modules/config/img/2.jpg" class="img-responsive">
+                            <input style="display: none;" type="file" data-ng-model="newProduct.image2" watch-image-config-directive accept="image/*" id="image2" class="form-control" placeholder="Image" required>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <img id='image3Preview' src="/public/modules/config/img/3.jpg" class="img-responsive">
+                            <input style="display: none;" type="file" data-ng-model="newProduct.image3" watch-image-config-directive accept="image/*" id="image3" class="form-control" placeholder="Image" required>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <img id='image4Preview' src="/public/modules/config/img/4.jpg" class="img-responsive">
+                            <input style="display: none;" type="file" data-ng-model="newProduct.image4" watch-image-config-directive accept="image/*" id="image4" class="form-control" placeholder="Image" required>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button data-ng-click="addProduct()" ng-disabled="newProductForm.$invalid" class="btn btn-primary btn-lg btn-block">Save & Close</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

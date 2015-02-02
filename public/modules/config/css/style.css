@@ -1,0 +1,48 @@
+body {
+	font-weight: 300;
+	line-height: 1.42857143;
+	padding-top: 90px;
+	padding-bottom: 120px;
+	background-color: #EEEEEE;
+}
+
+.form-bg {
+	background-color: #fff;
+	border: 15px solid;
+	border-radius: 0;
+	border-color: #fff;
+	margin-top: 50px;
+}
+
+input.pristine {
+	border-color: #fff;
+}
+
+input.ng-invalid.ng-dirty {
+	border-color: #C9302C;
+}
+
+input.ng-valid {
+	border-color: #449D44;
+}
+
+textarea {
+	resize: none;
+}
+
+.add-space {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+#nav {
+	opacity: 0.85;
+}
+
+#footer {
+	opacity: 0.85;
+}

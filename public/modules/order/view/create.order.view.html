@@ -1,0 +1,60 @@
+<div class="row" ng-hide="cart.length">
+	<div class="col-md-10 col-md-offset-1">
+		<h4 class="alert alert-danger text-center">No products found in you cart</h4>
+	</div>
+</div>
+
+<div style="background-color:#fff;" class="row" ng-show="cart.length">
+	<div class="col-md-12">
+		<div data-ng-show="error" class="alert alert-danger text-center">
+			<p ng-repeat="err in error">Product {{err.name}} is not available!</p>
+		</div>
+		<h1 class="text-center">New Order</h1>
+
+		<div class="col-md-12">
+			<form name="newOrder" class="form-horizontal" method="post" id="info" novalidate>
+				<table class="table">
+					<tr>
+						<th>Full Name</th>
+						<td>{{user.firstName}} {{user.lastName}}</td>
+					</tr>
+					<tr>
+						<th>Mobile Phone</th>
+						<td><input ng-model="newOrder.mobilePhone" type="text" class="form-control" required></td>
+					</tr>
+					<tr>
+						<th>Total Quantity</th>
+						<td>{{cartInfo().totalQuantity}}</td>
+					</tr>
+					<tr>
+						<th class="text-success">Total Price</th>
+						<td class="alert alert-success">AED <b><i>{{cartInfo().totalPrice}}</i></b></td>
+					</tr>
+					<tr>
+						<th>Address</th>
+						<td>
+							<textarea ng-model="newOrder.address" class="form-control" required></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>Remarks</th>
+						<td>
+							<textarea ng-model="newOrder.remarks" class="form-control"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button ng-disabled="newOrder.$invalid" class="btn btn-primary btn-lg btn-block" ng-click="confirmOrder()">Confirm Order</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+		<h4 class="text-center">Products</h4>
+		<br />
+
+		<!-- Product Inof -->
+		<div ng-repeat='item in cart' product-box-product-directive="item"></div><!-- End Product Inof -->
+	</div>
+</div>

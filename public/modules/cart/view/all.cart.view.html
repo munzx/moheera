@@ -1,0 +1,48 @@
+<div class="row" ng-hide="cart.length">
+	<div class="col-md-12">
+		<h4 class="alert alert-danger text-center">Your cart is empty!</h4>
+	</div>
+</div>
+
+<div class="row" ng-show="cart.length">
+	<div class="col-md-12">
+		<button ng-click="goToOrder()" class="btn btn-primary btn-lg btn-block">Order Now</button>
+	</div>
+</div>
+
+<div class="row" ng-show="error">
+	<div class="col-md-12">
+		<h5 class="alert alert-danger text-center" data-ng-bind="error"></h5>
+	</div>
+</div>
+
+<div class="row" style="background-color:#fff;" ng-repeat="item in cart" style="margin-top:5%;">
+	<div class="col-md-12" style="margin-bottom:4%;">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{item.name}}</td>
+					<td>Aed {{item.price}}</td>
+					<td>
+						<button ng-click="onePlusQuantity($index)" class="btn btn-primary btn-sm glyphicon glyphicon-plus"></button>
+						<b>{{item.quantity}}</b>
+						<button ng-click="oneMinusQuantity($index)" class="btn btn-primary btn-sm  glyphicon glyphicon-minus"></button>
+					</td>
+					<td><button ng-click="removeCartProduct($index)" class="btn btn-danger btn-sm  glyphicon glyphicon-remove"></button></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Product Inof -->
+		<div product-box-product-directive="item"></div><!-- End Product Inof -->
+
+	</div>
+</div>

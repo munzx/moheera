@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="moheera">
+<head>
+	<meta charset="utf-8">
+	<title>Moheera App</title>
+	<!-- CSS asset files -->
+	<link rel="stylesheet" type="text/css" href="/asset/bootstrap/dist/css/bootstrap.min.css">
+	<!-- App CSS file -->
+	<link rel="stylesheet" type="text/css" href="/public/dest/app.min.css">
+	<!-- Flat css on top of bootstrap , this is the recommended method -->
+	<link rel="stylesheet" type="text/css" href="/public/modules/config/css/flatui.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<base href="/">
+</head>
+<body>
+
+	<header ng-include="'public/modules/config/view/nav.html'"></header>
+
+
+	<section>
+		<!-- if the user is registred then pull thier info in the server side and make it availiable --> 
+		<% if(isAuthenticated){ %>
+			<script type="text/javascript" id="userInfoBlock">
+				//inject the user info retrieved from the server into a window object
+				window.userInfo = <%-JSON.stringify(userInfo)%>;
+			</script>
+		<% } %>
+	</section>
+
+	<div class="container">
+		<div data-ui-view></div>
+	</div>
+
+	<footer ng-include="'public/modules/config/view/footer.html'"></footer>
+
+	<!-- JS asset files -->
+	<script type="text/javascript" src="/asset/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/asset/angular-resource/angular-resource.min.js"></script>
+	<script type="text/javascript" src="/asset/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+	<!-- Bootstrap -->
+	<script type="text/javascript" src="/asset/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script type="text/javascript" src="/asset/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+	<!-- App JS file -->
+	<script type="text/javascript" src="/public/dest/app.min.js"></script>
+
+</body>
+</html>

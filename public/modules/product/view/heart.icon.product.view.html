@@ -1,0 +1,4 @@
+<div type="button" onclick="this.blur();" class="box" ng-click="heartProduct(product._id)" ng-class="{'alert-danger': isChecked == true && product.heart.length > 0, 'alert-warning': isChecked == false && product.heart.length > 0, 'alert-default': isChecked == false && product.heart.length == 0}">
+	<span class="glyphicon glyphicon-heart" style="font-size:20px;" aria-hidden="true"></span>
+	<span class="text-muted">{{product.heart.length}}</span>
+</div>

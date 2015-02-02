@@ -1,0 +1,35 @@
+<div class="row" ng-hide="orderInfo.length">
+	<div class="col-md-12">
+		<h4 class="alert alert-danger text-center">You don't have any orders!</h4>
+	</div>
+</div>
+<div style="background-color:#fff;" class="row" ng-show="orderInfo.length">
+	<div class="col-md-12">
+	<select class="form-control label-primary" ng-model="getStatus">
+		<option value="">All</option>
+		<option ng-repeat="option in statusOptions" value="{{option}}">{{option}}</option>
+	</select>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Status</th>
+						<th>Date</th>
+						<th>Quantity</th>
+						<th>Total price</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="product in orderInfo">
+						<tr ng-repeat="order in product.order | statusOrderFilter:getStatus | orderBy: order.created" ng-class="{'alert alert-warning': order.status=='pending', 'alert alert-danger': order.status=='canceled', 'alert alert-success': order.status=='delivered', 'alert alert-info': order.status=='processing'}">
+							<td>{{order.status}}</td>
+							<td>{{order.created | date:'MM/dd/yyyy  HH:mm Z'}}</td>
+							<td>{{order.quantity}}</td>
+							<td>{{order.price}}</td>
+							<td><a ng-href="" ng-click="orderDetails(product._id, order._id)"><i class="glyphicon glyphicon-plus"></i></a></td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

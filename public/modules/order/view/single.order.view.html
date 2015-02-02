@@ -1,0 +1,108 @@
+<div class="row" style="background-color:#fff;">
+	<div class="col-md-12">
+		<div data-ng-show="error" class="text-center alert alert-danger">
+			<strong data-ng-bind="error"></strong>
+		</div>
+		<div  data-ng-show="success" class="alert alert-success text-center">
+		<strong>Order Updated Successfully</strong>
+		</div>
+		<h4  class="text-center">Order Information</h4>
+		<table class="table table-responsive">
+			<tr>
+				<th>Full Name</th>
+				<td>{{orderInfo.user[0].firstName}} {{orderInfo.user[0].lastName}}</td>
+			</tr>
+			<tr>
+				<th>Mobile Phone</th>
+				<td>{{orderInfo.mobilePhone}}</td>
+			</tr>
+			<tr>
+				<th>Address</th>
+				<td>{{orderInfo.address}}</td>
+			</tr>
+			<tr>
+				<th>Total Quantity</th>
+				<td>{{orderInfo.quantity}}</td>
+			</tr>
+			<tr>
+				<th>Total Price</th>
+				<td>AED {{orderInfo.price}}</td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td>{{orderInfo.created | date:'MM/dd/yyyy  HH:mm Z'}}</td>
+			</tr>
+			<tr>
+				<th>Cusomer Remarks</th>
+				<td>{{orderInfo.remarks}}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td ng-show="productInfo.user == user._id">
+					<select class="form-control" ng-model="orderInfo.status" ng-class="{'alert alert-warning': orderInfo.status=='pending', 'alert alert-danger': orderInfo.status=='canceled', 'alert alert-success': orderInfo.status=='delivered', 'alert alert-info': orderInfo.status=='processing'}">
+						<option ng-repeat="option in statusOptions" value="{{option}}">{{option}}</option>
+					</select>
+				</td>
+				<td ng-show="productInfo.user != user._id" class="form-control" ng-model="orderInfo.status" ng-class="{'alert alert-warning': orderInfo.status=='pending', 'alert alert-danger': orderInfo.status=='canceled', 'alert alert-success': orderInfo.status=='delivered', 'alert alert-info': orderInfo.status=='processing'}">
+				{{orderInfo.status}}
+				</td>
+			</tr>
+			<tr>
+				<th>Update Remarks</th>
+				<td><textarea ng-model="updateRemarks" type="text" class="form-control"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button ng-click="updateOrder()" class="btn btn-primary btn-lg btn-block">Update</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="col-md-12" ng-show="orderInfo.statusHistory.length">
+		<h4 class="text-center">Order History</h4>
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+					<th class="col-md-3">Old Status</th>
+					<th class="col-md-6">Update Remarks</th>
+					<th class="col-md-3">Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in orderInfo.statusHistory | orderBy: item.created" ng-class="{'warning': item.oldStatus=='pending', 'danger': item.oldStatus=='canceled', 'success': item.oldStatus=='delivered', 'info': item.oldStatus=='processing'}">
+					<td>{{item.oldStatus}}</td>
+					<td>{{item.updateRemarks}}</td>
+					<td>{{item.created | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-md-12">
+		<h4  class="text-center">Product Information</h4>
+		<div class="col-md-12" style="margin-bottom:4%;">
+			<table class="table table-hover table-responsive">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{productInfo.name}}</td>
+						<td>Aed {{productInfo.price}}</td>
+						<td>{{productInfo.quantity}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Product Inof -->
+		<div product-box-product-directive="productInfo"></div><!-- End Product Inof -->
+	</div>
+
+</div>
+</div>

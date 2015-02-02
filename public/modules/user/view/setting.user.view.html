@@ -1,0 +1,76 @@
+<div class="row" style="background-color:#fff;">
+	<h3 class="text-center">Edit {{userInfo.name}} profile</h3>
+	<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+		<form name="userForm" class="signin form-horizontal" autocomplete="off"  enctype="multipart/form-data">
+			<fieldset>
+				<div data-ng-show="error" class="text-center alert alert-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+				<div  data-ng-show="success" class="alert alert-success text-center">
+					<strong>Profile Saved Successfully</strong>
+				</div>
+				<div class="form-group">
+					<img id='bannerPreview' src='public/modules/config/img/banner.jpg' class="img-responsive">
+					<input type="file" style="display: none;" watch-image-config-directive accept="image/*" id="banner" class="form-control">
+				</div>
+				<div class="form-group">
+					<img id='logoPreview' src='public/modules/config/img/user.png' class="img-responsive profile-center">
+					<input type="file" style="display: none;" watch-image-config-directive accept="image/*" id="logo" class="form-control" >
+				</div>
+				<div class="form-group">
+					<label for="firstName">First Name</label>
+					<input type="text" class="form-control" ng-minlength="4" ng-maxlength="40" name="firstName" data-ng-model="userInfo.firstName" placeholder="First Name" required>
+					<h5 ng-show="userForm.firstName.$error.required && userForm.firstName.$dirty" class="alert alert-danger text-center">
+						First Name is required
+					</h5>
+					<h5 ng-show="userForm.firstName.$error.minlength && userForm.firstName.$dirty" class="alert alert-danger text-center">
+						First name should have more than 3 charecters
+					</h5>
+					<h5 ng-show="userForm.firstName.$error.maxlength && userForm.firstName.$dirty" class="alert alert-danger text-center">
+						First name should have not more than 40 charecters
+					</h5>
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last Name</label>
+					<input type="text" class="form-control" ng-minlength="4" ng-maxlength="40" name="lastName" data-ng-model="userInfo.lastName" placeholder="Last Name" required>
+					<h5 ng-show="userForm.lastName.$error.required && userForm.lastName.$dirty" class="alert alert-danger text-center">
+						Last Name is required
+					</h5>
+					<h5 ng-show="userForm.lastName.$error.minlength && userForm.lastName.$dirty" class="alert alert-danger text-center">
+						Last name should have more than 3 charecters
+					</h5>
+					<h5 ng-show="userForm.lastName.$error.maxlength && userForm.lastName.$dirty" class="alert alert-danger text-center">
+						Last name should have not more than 40 charecters
+					</h5>
+				</div>
+				<div class="form-group">
+					<label for="email">Mobile Phone</label>
+					<input type="text" class="form-control" ng-minlength="7" ng-maxlength="40" name="mobilePhone" data-ng-model="userInfo.mobilePhone" placeholder="Mobile Phone Number">
+					<h5 ng-show="userForm.mobilePhone.$error.minlength && userForm.mobilePhone.$dirty" class="alert alert-danger text-center">
+						Mobile Phone should consist of 7 digits at least
+					</h5>
+					<h5 ng-show="userForm.mobilePhone.$error.maxlength && userForm.mobilePhone.$dirty" class="alert alert-danger text-center">
+						Mobile Phone should consist of 40 digits maximum
+					</h5>
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" name="email" data-ng-model="userInfo.email" placeholder="Email" required>
+					<h5 ng-show="userForm.email.$error && userForm.email.$dirty" class="alert alert-danger text-center">
+						Invalid Email address
+					</h5>
+				</div>
+				<div class="form-group">
+					<label for="email">Page Description</label>
+					<textarea class="form-control" rows="4" data-ng-model="userInfo.pageDesc" placeholder="Page Description"></textarea>
+				</div>
+				<div class="text-center form-group">
+					<button ng-click='updateAccount()' ng-disabled="userForm.$invalid" class="btn btn-lg btn-primary btn-block">Save Profile</button>
+				</div>
+				<div class="text-center form-group">
+					<button ng-click="removeAccount()" class="btn btn-lg btn-danger btn-block">Remove Account</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
