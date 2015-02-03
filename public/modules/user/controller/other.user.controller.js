@@ -14,18 +14,22 @@ angular.module('userModule').controller('otherUserControlller', ['registerUserCo
 		}
 
 		$scope.banner = function () {
-			if($scope.userInfo.banner){
-				return 'public/uploads/' + userInfo.banner;
-			} else {
-				return 'public/modules/config/img/banner.jpg';
+			if($scope.userInfo){
+				if($scope.userInfo.banner){
+					return 'public/uploads/' + $scope.userInfo.banner;
+				} else {
+					return 'public/modules/config/img/banner.jpg';
+				}
 			}
 		}
 
 		$scope.logo = function () {
-			if($scope.userInfo.logo){
-				return 'public/uploads/' + userInfo.logo;
-			} else {
-				return 'public/modules/config/img/user.png';
+			if($scope.userInfo){
+				if($scope.userInfo.logo){
+					return 'public/uploads/' + $scope.userInfo.logo;
+				} else {
+					return 'public/modules/config/img/user.png';
+				}
 			}
 		}
 
