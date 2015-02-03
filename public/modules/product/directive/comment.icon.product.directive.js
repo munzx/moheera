@@ -38,6 +38,18 @@ angular.module('productModule').directive('commentIconProductDirective', ['regis
 				scope.isChecked = getStatus();
 			});
 
+			if(user){
+				if(scope.product){
+					if(user._id == scope.product.user){
+						scope.productLink = '/profile/product/' + scope.product.name;
+					} else {
+						scope.productLink = '/' + scope.product.userName + '/' + scope.product.name;
+					}
+				}
+			} else if(scope.product){
+				scope.productLink = '/' + scope.product.userName + '/' + scope.product.name;
+			}
+
 			scope.addComment = function () {
 				if($scope.newComment){
 					connectCommentProductFactory.save({id: $scope.product._id},{content: $scope.newComment}, function (response) {

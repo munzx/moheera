@@ -1,4 +1,6 @@
 <div type="button" class="box" ng-class="{'alert-info': product.comment.length > 0, 'alert-default': product.comment.length == 0}">
-	<span class="glyphicon glyphicon-comment" style="font-size:20px;" aria-hidden="true"></span>
-	<span class="text-muted">{{product.comment.length}}</span>
+	<a ng-href="{{productLink}}">
+		<span class="glyphicon glyphicon-comment" style="font-size:20px;" aria-hidden="true"></span>
+		<span class="text-muted">{{product.comment.length}}</span>
+	</a>
 </div>
