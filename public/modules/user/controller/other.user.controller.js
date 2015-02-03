@@ -13,16 +13,22 @@ angular.module('userModule').controller('otherUserControlller', ['registerUserCo
 			$location.path('/profile');
 		}
 
-		//show the user banner if found or the image placeholder if not found
 		$scope.banner = function () {
-			if($scope.userInfo){
-				if($scope.userInfo.banner){
-					return 'public/uploads/' + $scope.userInfo.banner;
-				} else {
-					return 'public/modules/config/img/banner.jpg';
-				}
+			if($scope.userInfo.banner){
+				return 'public/uploads/' + userInfo.banner;
+			} else {
+				return 'public/modules/config/img/banner.jpg';
 			}
 		}
+
+		$scope.logo = function () {
+			if($scope.userInfo.logo){
+				return 'public/uploads/' + userInfo.logo;
+			} else {
+				return 'public/modules/config/img/user.png';
+			}
+		}
+
 	}, function (err) {
 		$location.path('/notfound');
 	});
