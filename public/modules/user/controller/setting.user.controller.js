@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('userModule').controller('settingUserController', ['$scope', '$location', 'connectUserFactory', 'registerUserConfigFactory', function ($scope, $location, connectUserFactory, registerUserConfigFactory) {
+angular.module('userModule').controller('settingUserController', ['$scope', '$location', 'connectUserFactory', 'registerUserConfigFactory', '$state', function ($scope, $location, connectUserFactory, registerUserConfigFactory, $state) {
 	$scope.userInfo = registerUserConfigFactory.getUser();
 
 	$scope.removeAccount = function () {
@@ -22,7 +22,8 @@ angular.module('userModule').controller('settingUserController', ['$scope', '$lo
 
 		connectUserFactory.update(fd, function (response) {
 			$scope.success = true;
-			$scope.userInfo.banner = 'public/uploads/4828591ef13f96cc1ef2df872717a712.jpg';
+			$scope.userInfo.banner = response.banner;
+			$scope.userInfo.logo = response.logo;
 		}, function (error) {
 			$scope.error = error.data.message;
 		});
