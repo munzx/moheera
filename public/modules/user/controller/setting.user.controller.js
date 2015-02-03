@@ -2,12 +2,16 @@
 
 angular.module('userModule').controller('settingUserController', ['$scope', '$location', 'connectUserFactory', 'registerUserConfigFactory', '$state', function ($scope, $location, connectUserFactory, registerUserConfigFactory, $state) {
 	$scope.userInfo = registerUserConfigFactory.getUser();
+	//hide loading image
+	$scope.loading = false;
 
 	$scope.removeAccount = function () {
 		$location.path('/profile/remove');
 	}
 
 	$scope.updateAccount = function () {
+		//show loading image
+		$scope.loading = true;
 		// userInfo is inherted from the profile controller , this is due to the fact
 		// that this conntroller is child controller of the profile controller , this is
 		// done through the ui-router
@@ -21,10 +25,12 @@ angular.module('userModule').controller('settingUserController', ['$scope', '$lo
 		fd.append('pageDesc', $scope.userInfo.pageDesc);
 
 		connectUserFactory.update(fd, function (response) {
+			$scope.loading = false;
 			$scope.success = true;
 			$scope.userInfo.banner = response.banner;
 			$scope.userInfo.logo = response.logo;
 		}, function (error) {
+			$scope.loading = false;
 			$scope.error = error.data.message;
 		});
 	}
