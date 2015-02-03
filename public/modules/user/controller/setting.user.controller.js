@@ -2,6 +2,7 @@
 
 angular.module('userModule').controller('settingUserController', ['$scope', '$location', 'connectUserFactory', 'registerUserConfigFactory', '$state', function ($scope, $location, connectUserFactory, registerUserConfigFactory, $state) {
 	$scope.userInfo = registerUserConfigFactory.getUser();
+
 	$scope.removeAccount = function () {
 		$location.path('/profile/remove');
 	}
