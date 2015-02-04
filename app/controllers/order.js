@@ -188,7 +188,7 @@ module.exports.update = function(req, res){
 	});
 }
 
-//Delete a specific product and a specific order
+//Delete a specific product in a specific order
 module.exports.delete = function(req, res){
 	products.findOneAndUpdate({_id: req.params.id}, {$pull: {'order': {'_id': req.params.orderId, 'user._id': req.user._id}} }, function (err) {
 		if(err){

@@ -17,6 +17,7 @@ angular.module('productModule').controller('singleProductController', ['$scope',
 
 	$scope.removeProduct = function () {
 		connectProductFactory.remove({id: $scope.product._id},function (response) {
+			$scope.user.cart = response.cart;
 			//go to profile page , use the state and pass empty parameter to reload the controller
 			$state.go('profile', {}, {reload: true});
 		}, function (err) {
