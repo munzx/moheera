@@ -93,6 +93,7 @@ module.exports.create = function(req, res){
 
 		//Check the quantity & product owners mobile phone numbers
 		selectedProducts.forEach(function (productItem) {
+			var getUserNumber = [];
 			//Get all "products" references in the cart that have quantity equals or less
 			//than the products
 			var quantityCheck = _.find(cartProducts, function (item) {
@@ -107,7 +108,13 @@ module.exports.create = function(req, res){
 			//if we get more than one product, then we will have
 			//a duplicate values , but its ok as the sms module
 			//takes care of the duplicated values
-			mobilePhoneNumbers.push(productItem.userMobilePhone);
+			users.findById(productItem.user, function (err, user) {
+				if(user){
+					if(user.mobilePhone){
+						mobilePhoneNumbers.push(user.mobilePhone);
+					}
+				}
+			});
 
 			//get the data of the product owner
 			//if we get more than one product, then we will have
