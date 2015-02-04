@@ -45,12 +45,6 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li ui-sref-active="active" ng-show="notLoggedLink">
-					<a ui-sref="signin"><b>SignIn</b></a>
-				</li>
-				<li  ui-sref-active="active" ng-show="notLoggedLink">
-					<a ui-sref="signup"><b>SignUp</b></a>
-				</li>
 				<li>
 					<form class="navbar-form navbar-left" role="search">
 					  <div class="form-group">
@@ -59,6 +53,12 @@
 					  <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></button>
 					  <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
 					</form>
+				</li>
+				<li ui-sref-active="active" ng-show="notLoggedLink">
+					<a ui-sref="signin"><b>SignIn</b></a>
+				</li>
+				<li  ui-sref-active="active" ng-show="notLoggedLink">
+					<a ui-sref="signup"><b>SignUp</b></a>
 				</li>
 				<li class="dropdown" dropdown ng-show="loggedLink" >
 					<a href class="dropdown-toggle" dropdown-toggle data-toggle="dropdown" is-open="status.isopen" dropdown-toggle ng-disabled="disabled">
