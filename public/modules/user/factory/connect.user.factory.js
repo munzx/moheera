@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('userModule').factory('connectUserFactory', ['$resource', function ($resource) {
-	return $resource('/user/:action/:byUserName',
+	return $resource('/api/v1/user/:action/:byUserName',
 		{
 			name: "@byUserName",
 			action: "@action"

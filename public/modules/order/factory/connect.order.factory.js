@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('orderModule').factory('connectOrderFactory', ['$resource', function ($resource) {
-	return $resource('/product/:productId/order/:id/:name',
+	return $resource('/api/v1/product/:productId/order/:id/:name',
 			{
 				productId: "@productId",
 				id: "@id",

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('productModule').factory('connectProductFactory', ['$resource', function ($resource) {
-	return $resource('/product/:userName/:action/:id/:getByName/:categoryName',
+	return $resource('/api/v1/product/:userName/:action/:id/:getByName/:categoryName',
 			{
 				id: "@_id",
 				action: "@action",

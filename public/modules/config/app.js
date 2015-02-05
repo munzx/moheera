@@ -26,6 +26,24 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			controller: 'indexHomeController',
 			cache: false
 		})
+		.state('search', {
+			url: '/search',
+			templateUrl: 'public/modules/home/view/search.home.view.html',
+			controller: 'searchHomeController',
+			cache: false
+		})
+		.state('search.user', {
+			url: '/user/:name',
+			templateUrl: 'public/modules/home/view/search.user.home.view.html',
+			controller: 'searchUserHomeController',
+			cache: false
+		})
+		.state('search.product', {
+			url: '/product/:name',
+			templateUrl: 'public/modules/home/view/search.product.home.view.html',
+			controller: 'searchProductHomeController',
+			cache: false
+		})
 		.state('contact', {
 			url: '/contact',
 			templateUrl: 'public/modules/home/view/contact.home.view.html',

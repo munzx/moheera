@@ -26,8 +26,8 @@ angular.module('userModule').controller('profileUserControlller', ['registerUser
 		}
 	}
 
-	connectProductFactory.get({action: 'all', getByName: $scope.userInfo.name}, function (respone) {
-		$scope.userProducts = respone.product;
+	connectProductFactory.get({action: 'all', getByName: $scope.userInfo.name}, function (response) {
+		$scope.userProducts = response.product;
 	});
 
 }]);

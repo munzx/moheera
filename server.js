@@ -15,7 +15,7 @@ process.env.PWD = process.cwd();
 require('./app/config/init')(app, express);
 
 //initilize routes
-require('./app/config/routes')(app);
+require('./app/config/routes')(app, express);
 
 //Create server in listen on default port if exists or 3000
 app.listen(port, function () {
