@@ -26,12 +26,14 @@ angular.module('moheera').controller('navMenu', ['$rootScope', '$scope', 'regist
 	$scope.searchUser = function () {
 		if($scope.searchPhrase){
 			$state.go('search.user', {name: $scope.searchPhrase});
+			$scope.searchPhrase = '';
 		}
 	}
 
 	$scope.searchProudct = function () {
 		if($scope.searchPhrase){
 			$state.go('search.product', {name: $scope.searchPhrase});
+			$scope.searchPhrase = '';
 		}
 	}
 
