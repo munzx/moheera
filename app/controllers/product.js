@@ -236,3 +236,16 @@ module.exports.allUserCategory = function (req, res) {
 		}
 	});
 }
+
+//get all products in a certain category
+module.exports.certainCategory = function (req, res) {
+	products.find({category: req.params.name}, function (err, product) {
+		if(err){
+			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+		} else if(product){
+			res.status(200).jsonp(product);
+		} else {
+			res.status(404).jsonp({message: 'No products has been found'});
+		}
+	});
+}

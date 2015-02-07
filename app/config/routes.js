@@ -115,6 +115,7 @@ module.exports = function (app, express) {
 		.get('/product/:name', product.getByName) //get a product by name
 		.get('/product/:userName/category', product.allUserCategory) //find all categories of products to a certian user
 		.get('/product/:userName/category/:category', product.categoryName) //find products by category name for a certain user
+		.get('/product/category/:name', product.certainCategory)
 		//Comments
 		.get('/product/:id/comment', comment.index) //get all comments of a product
 		.post('/product/:id/comment', ensureAuthenticated, isUser, comment.create) //add a new comment

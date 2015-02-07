@@ -44,6 +44,12 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			controller: 'searchProductHomeController',
 			cache: false
 		})
+		.state('category', {
+			url: '/category/:name',
+			templateUrl: 'public/modules/home/view/category.home.view.html',
+			controller: 'categoryHomeController',
+			cache: false
+		})
 		.state('contact', {
 			url: '/contact',
 			templateUrl: 'public/modules/home/view/contact.home.view.html',
