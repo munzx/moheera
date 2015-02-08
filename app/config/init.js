@@ -2,6 +2,7 @@
 
 //Module dependencies
 var logger = require('express-logger'),
+	compress = require('compression'),
 	fs = require('fs'),
 	errorHandler = require('errorhandler'),
 	mongoose = require('mongoose'),
@@ -40,6 +41,9 @@ module.exports = function (app, express) {
 	//check if mongodb is connected otherwise throw an error
 	var db = mongoose.connection;
 	db.on('error',console.error.bind(console, 'connection Error:'));
+
+	//gzip the server responses
+	app.use(compress());
 
 	//App favicon
 	app.use(favicon('./public/modules/home/img/favicon.ico'));
