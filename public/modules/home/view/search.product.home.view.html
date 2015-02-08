@@ -1,7 +1,7 @@
 <div class="row">
 	<h4 ng-hide="result.length" class="alert alert-danger">No product has been found.</h4>
 	<h4 ng-show="result.length" class="alert alert-success">Products Search Result</h4>
-	<div ng-show="result.length" ng-repeat="item in result" class="col-md-3" style="background-color:#fff;margin:1%;">
+	<div ng-show="result.length" ng-repeat="item in result" class="col-md-3  col-sm-4 col-xs-12" style="background-color:#fff;margin:1%;">
 		<img src="{{'public/uploads/' + item.image1}}" class="img-responsive image-center">
 		<h4 class="text-center"><a ng-href="/{{item.userName}}/{{item.name}}">{{item.name}}</a></h4>
 		<p>{{item.desc}}</p>
