@@ -89,7 +89,7 @@ gulp.task('minifyImages', function () {
 });
 
 // Build the minified files
-gulp.task('build', ['inspect', 'htmlReload', 'minifyJS', 'minifyCSS', 'minifyImages']);
+gulp.task('build', ['inspect', 'htmlReload', 'minifyJS', 'minifyCSS']);
 
 // Start nodeJS server and watch for gulp "watch" on start and end
 gulp.task('serve', function() {
@@ -110,7 +110,6 @@ gulp.task('watch', function () {
 	gulp.watch(paths.htmlFiles, ['build']);
 	gulp.watch(paths.jsFiles, ['build']);
 	gulp.watch(paths.cssFiles, ['build']);
-	gulp.watch(paths.images, ['build']);
 });
 
 // Start the default task
