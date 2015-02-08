@@ -1,5 +1,6 @@
 // Dependencies
 var gulp = require('gulp'),
+	gzip = require('gulp-gzip');
 	jshint = require('gulp-jshint'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
@@ -18,12 +19,20 @@ var paths = {
 	htmlFiles: ['public/modules/*/*/*.html', 'public/modules/*/*/*.ejs'],
 	jsFiles: ['public/modules/*/*.js', 'public/modules/*/*/*.js'],
 	cssFiles: ['public/modules/*/*.css', 'public/modules/*/*/*.css'],
+	images: ['public/modules/*/img/', 'public/modules/*/img/*./'],
 	css: [],
 	server: {
 		index: 'server.js',
 		specs: './app/tests/*'
 	}
 }
+
+//compress images
+gulp.task('compress', function () {
+	gulp.src(paths.images)
+	.pipe(gzip({ append: true }))
+	.pipe(gulp.dest(paths.desFolder));
+});
 
 // Run JShint against files to make sense of errors if existed
 gulp.task('inspect', function () {
@@ -54,6 +63,7 @@ gulp.task('minifyJS', function () {
 			.pipe(concat('app.js'))
 			.pipe(uglify())
 			.pipe(rename('app.min.js'))
+			.pipe(gzip())
 			.pipe(gulp.dest(paths.desFolder))
 			.pipe(connect.reload());
 });
@@ -65,13 +75,14 @@ gulp.task('minifyCSS', function () {
 			.pipe(concat('app.css'))
 			.pipe(cssMinify())
 			.pipe(rename('app.min.css'))
+			.pipe(gzip())
 			.pipe(gulp.dest(paths.desFolder))
 			.pipe(connect.reload());
 });
 
 
 // Build the minified files
-gulp.task('build', ['inspect', 'htmlReload', 'minifyJS', 'minifyCSS']);
+gulp.task('build', ['inspect', 'htmlReload', 'minifyJS', 'minifyCSS', 'compress']);
 
 // Start nodeJS server and watch for gulp "watch" on start and end
 gulp.task('serve', function() {
@@ -92,6 +103,7 @@ gulp.task('watch', function () {
 	gulp.watch(paths.htmlFiles, ['build']);
 	gulp.watch(paths.jsFiles, ['build']);
 	gulp.watch(paths.cssFiles, ['build']);
+	gulp.watch(paths.images, ['build']);
 });
 
 // Start the default task
