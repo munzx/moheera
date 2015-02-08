@@ -84,7 +84,6 @@ gulp.task('minifyImages', function () {
 		svgoPlugins: [{removeViewBox: false}],
 		use: [pngquant()]
 	}))
-	.pipe(gzip())
 	.pipe(gulp.dest(paths.desFolder + '/img'))
 	.pipe(connect.reload());
 });
