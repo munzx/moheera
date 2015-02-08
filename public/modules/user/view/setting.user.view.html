@@ -49,6 +49,7 @@
 				<div class="form-group">
 					<label for="email">Mobile Phone</label>
 					<input type="text" class="form-control" ng-minlength="10" ng-maxlength="40" name="mobilePhone" data-ng-model="userInfo.mobilePhone" placeholder="Mobile Phone Number">
+					<span class="text-muted">Add your mobile number to be notified of new orders through SMS</span>
 					<h5 ng-show="userForm.mobilePhone.$error.minlength && userForm.mobilePhone.$dirty" class="alert alert-danger text-center">
 						Mobile Phone should consist of 10 digits at least
 					</h5>

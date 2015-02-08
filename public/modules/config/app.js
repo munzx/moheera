@@ -14,12 +14,6 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			controller: 'errorConfigController',
 			cache: false
 		})
-		.state('droppedIn', {
-			url: '',
-			templateUrl: 'public/modules/home/view/index.home.view.html',
-			controller: 'indexHomeController',
-			cache: false
-		})
 		.state('home', {
 			url: '/',
 			templateUrl: 'public/modules/home/view/index.home.view.html',
