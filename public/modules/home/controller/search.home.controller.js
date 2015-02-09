@@ -3,12 +3,17 @@
 angular.module('homeModule').controller('searchHomeController', ['$scope', function ($scope) {
 
 	// Caman('#here', function () {
-	// 	this.crop(400, 400);
 	// 	this.resize({
 	// 		width: 400,
 	// 		height: 400
 	// 	});
 	// });
+
+	// $scope.save = function () {
+	// 	Caman('#here', function () {
+	// 		this.save();
+	// 	});
+	// }
 
 	// $scope.reset = function () {
 	// 	Caman('#here', function () {
