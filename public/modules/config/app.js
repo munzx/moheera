@@ -20,6 +20,12 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			controller: 'indexHomeController',
 			cache: false
 		})
+		.state('image', {
+			url: '/service/image',
+			templateUrl: 'public/modules/home/view/image.home.view.html',
+			controller: 'imageHomeController',
+			cache: false
+		})
 		.state('search', {
 			url: '/search',
 			templateUrl: 'public/modules/home/view/search.home.view.html',

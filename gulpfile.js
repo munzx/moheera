@@ -1,8 +1,5 @@
 // Dependencies
 var gulp = require('gulp'),
-	gzip = require('gulp-gzip'),
-	imagemin = require('gulp-imagemin'),
-	pngquant = require('imagemin-pngquant'),
 	jshint = require('gulp-jshint'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
@@ -21,8 +18,6 @@ var paths = {
 	htmlFiles: ['public/modules/*/*/*.html', 'public/modules/*/*/*.ejs'],
 	jsFiles: ['public/modules/*/*.js', 'public/modules/*/*/*.js'],
 	cssFiles: ['public/modules/*/*.css', 'public/modules/*/*/*.css'],
-	images: ['public/modules/*/img/*', 'public/modules/*/img/*/*', ],
-	css: [],
 	server: {
 		index: 'server.js',
 		specs: './app/tests/*'
@@ -58,7 +53,6 @@ gulp.task('minifyJS', function () {
 			.pipe(concat('app.js'))
 			.pipe(uglify())
 			.pipe(rename('app.min.js'))
-			.pipe(gzip())
 			.pipe(gulp.dest(paths.desFolder))
 			.pipe(connect.reload());
 });
@@ -70,22 +64,8 @@ gulp.task('minifyCSS', function () {
 			.pipe(concat('app.css'))
 			.pipe(cssMinify())
 			.pipe(rename('app.min.css'))
-			.pipe(gzip())
 			.pipe(gulp.dest(paths.desFolder))
 			.pipe(connect.reload());
-});
-
-//compress images
-gulp.task('minifyImages', function () {
-	gulp.src(paths.images)
-	.pipe(plumber())
-	.pipe(imagemin({
-		progressive: true,
-		svgoPlugins: [{removeViewBox: false}],
-		use: [pngquant()]
-	}))
-	.pipe(gulp.dest(paths.desFolder + '/img'))
-	.pipe(connect.reload());
 });
 
 // Build the minified files

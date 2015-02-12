@@ -39,8 +39,14 @@
 				</li>
 				<li>
 					<a ui-sref="profile.cart" ng-show="loggedLink">
-						<span class="glyphicon glyphicon-shopping-cart"></span>
+						<span tyle="font-size:16px;" class="glyphicon glyphicon-shopping-cart"></span>
 						<b>Cart</b><span class="badge">{{user.cart.length}}</span>
+					</a>
+				</li>
+				<li>
+					<a ui-sref="image" ng-show="loggedLink">
+						<span style="font-size:16px;" class="glyphicon glyphicon-shopping-pencil"></span>
+						<b>Edit Image</b>
 					</a>
 				</li>
 			</ul>
