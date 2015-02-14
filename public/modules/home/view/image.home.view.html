@@ -2,24 +2,22 @@
 	<div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1">
 		<canvas  id="lab" name="canvas" width="500" height="500"></canvas>
 		<div id="imageContainer"></div>
+
+
+
+		<input style-image-config-directive ng-model="image" type="file" accept="image/*" id="image" name="image" class="form-control">
 		<div class="row">
-			<div class="col-md-12">
-				<div>
-					<carousel interval="myInterval">
-						<slide ng-repeat="slide in slides" active="slide.active">
-							<img ng-src="public/modules/config/img/imageDrawSlide.jpg" style="margin:auto;opacity: 60%;">
-							<div class="carousel-caption">
-								<h4 style="color:#000;">{{slide.name}}</h4>
-							</div>
-						</slide>
-					</carousel>
-				</div>
+			<div class="col-md-8 add-space">
+				<button class="btn btn-md btn-default" onclick="this.blur()" ng-click="imageFilter('vintage')">Vintage</button>
+				<button class="btn btn-md btn-default" onclick="this.blur()" ng-click="imageFilter('sunRise')">Sun Rise</button>
+				<button class="btn btn-md btn-default" onclick="this.blur()" ng-click="imageFilter('love')">Love</button>
+				<button class="btn btn-md btn-default" onclick="this.blur()" ng-click="imageFilter('oldBoot')">Old Boot</button>	
+			</div>
+			<div class="col-md-4 add-space">
+				<button class="btn btn-md btn-primary" onclick="this.blur()" ng-click="save()">Save</button>
+				<button class="btn btn-md btn-info" onclick="this.blur()" ng-click="reset()">Reset</button>	
 			</div>
 		</div>
-		<input style-image-config-directive ng-model="image" type="file" accept="image/*" id="image" name="image" class="form-control">
-		<br />
-		<button class="btn btn-lg btn-block btn-primary" onclick="this.blur()" ng-click="save()">Save</button>
-		<button class="btn btn-lg btn-block btn-default" onclick="this.blur()" ng-click="reset()">Reset</button>
 
 		<div data-ui-view></div>
 	</div>

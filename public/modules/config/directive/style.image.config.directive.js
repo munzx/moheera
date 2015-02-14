@@ -13,7 +13,7 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			//the image id of the image to be created
 			imageId = 'makeImage';
 			//set/fill the background color
-			canvas.fillStyle = "#fff";
+			canvas.fillStyle = "#000";
 			canvas.fillRect(0, 0, x.width, x.height);
 
 			//on file upload
@@ -101,53 +101,10 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 				});
 			}
 
-			scope.one = function () {
-				Caman('#' + imageId, function () {
-					this.revert();
-					this.crossProcess().render();
-					resizeAndDraw(imageId);
-				});	
-			}
-
-			scope.two = function () {
-				Caman('#' + imageId, function () {
-					this.revert();
-					this.vintage().render();
-					resizeAndDraw(imageId);
-				});	
-			}
-
-			scope.three = function () {
-				Caman('#' + imageId, function () {
-					this.revert();
-					this.lomo().render();
-					resizeAndDraw(imageId);
-				});	
-			}
-
-			scope.four = function () {
-				Caman('#' + imageId, function () {
-					this.revert();
-					this.clarity().render();
-					resizeAndDraw(imageId);
-				});
-			}
-
-			//set the carsoul timer to 0
-			//so the user chamge as he wants
-			scope.myInterval = 0;
-
-			scope.$watch(function () {
-			  for (var i = 0; i < scope.slides.length; i++) {
-			    if (scope.slides[i].active) {
-			      return scope.slides[i];
-			    }
-			  }
-			}, function (currentSlide, previousSlide) {
-			  if (currentSlide !== previousSlide) {
+			scope.imageFilter = function (name) {
 			    Caman('#' + imageId, function () {
 			    	this.revert();
-			    	switch(currentSlide.name){
+			    	switch(name){
 			    		case "crossProcess":
 			    			this.crossProcess();
 			    			break;
@@ -193,27 +150,8 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			    	}
 			    	this.render();
 			    	resizeAndDraw(imageId);
-			    });
-			  }
-			});
-
-			scope.slides = [
-				{name : 'crossProcess'},
-				{name : 'vintage'},
-				{name : 'lomo'},
-				{name : 'clarity'},
-				{name : 'love'},
-				{name : 'oldBoot'},
-				{name : 'glowingSun'},
-				{name : 'hazyDays'},
-				{name : 'nostalgia'},
-				{name : 'hemingway'},
-				{name : 'concentrate'},
-				{name : 'jarques'},
-				{name : 'pinhole'},
-				{name : 'grungy'}
-			]
-
+				});
+			}
 		}
 	}
 }]);
