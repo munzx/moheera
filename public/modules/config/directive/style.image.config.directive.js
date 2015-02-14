@@ -152,6 +152,7 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			    	resizeAndDraw(imageId);
 				});
 			}
+
 		}
 	}
 }]);
