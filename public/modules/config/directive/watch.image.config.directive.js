@@ -78,8 +78,9 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 							//make the preview image equals the uploaded image
 							var path = image.target.result;
 							document.getElementById(scope.id + 'Preview').setAttribute('src', path);
-							}
+							ngModel.$setViewValue(path);
 						}
+					}
 					reader.readAsDataURL(elem[0].files[0]);	
 				});
 

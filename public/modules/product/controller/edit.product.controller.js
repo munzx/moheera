@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('productModule').controller('editProductController', ['$scope', '$stateParams', '$location', 'connectProductFactory', 'categoryProductFactory', function ($scope, $stateParams, $location, connectProductFactory, categoryProductFactory) {
+angular.module('productModule').controller('editProductController', ['$scope', '$stateParams', '$location', 'connectProductFactory', 'categoryProductFactory', '$state', function ($scope, $stateParams, $location, connectProductFactory, categoryProductFactory, $state) {
 	$scope.categoryOptions = categoryProductFactory;
 
 	connectProductFactory.get({getByName: $stateParams.name}, function (response) {
@@ -10,21 +10,24 @@ angular.module('productModule').controller('editProductController', ['$scope', '
 	});
 
 	$scope.updateProductInfo = function () {
-		var fd = new FormData();
-		fd.append('image1', document.getElementById('image1').files[0]);
-		fd.append('image2', document.getElementById('image2').files[0]);
-		fd.append('image3', document.getElementById('image3').files[0]);
-		fd.append('image4', document.getElementById('image4').files[0]);
-
-		fd.append('name', $scope.productInfo.name);
-		fd.append('price', $scope.productInfo.price);
-		fd.append('quantity', $scope.productInfo.quantity);
-		fd.append('category', $scope.productInfo.category);
-		fd.append('desc', $scope.productInfo.desc);
+		//form data
+		//if we pass the data directly it creates an error so we pass it through an object
+		var fd = {};
+		fd.name = $scope.productInfo.name;
+		fd.price = $scope.productInfo.price;
+		fd.quantity = $scope.productInfo.quantity;
+		fd.category = $scope.productInfo.category;
+		fd.desc = $scope.productInfo.desc;
+		fd.image1 = $scope.productInfo.image1;
+		fd.image2 = $scope.productInfo.image2;
+		fd.image3 = $scope.productInfo.image3;
+		fd.image4 = $scope.productInfo.image4;
 
 		connectProductFactory.update({id: $scope.productInfo._id}, fd, function (response) {
+			$state.go('profile.editProduct', {name: response.name}, {reload: false});
 			$scope.error = false;
 			$scope.success = true;
+			console.log(response);
 		}, function (err) {
 			$scope.success = false;
 			$scope.error = err.data.message;

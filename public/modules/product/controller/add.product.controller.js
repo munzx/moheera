@@ -10,20 +10,8 @@ angular.module('productModule').controller('addProductController', ['$scope', '$
 	$scope.addProduct = function () {
 		//Show the loading gif
 		$scope.loading = true;
-
-		var fd = new FormData();
-		fd.append('image1', document.getElementById('image1').files[0]);
-		fd.append('image2', document.getElementById('image2').files[0]);
-		fd.append('image3', document.getElementById('image3').files[0]);
-		fd.append('image4', document.getElementById('image4').files[0]);
-
-		fd.append('name', $scope.newProduct.name);
-		fd.append('price', $scope.newProduct.price);
-		fd.append('quantity', $scope.newProduct.quantity);
-		fd.append('category', $scope.newProduct.category);
-		fd.append('desc', $scope.newProduct.desc);
-
-		connectProductFactory.save(fd, function (response) {
+	
+		connectProductFactory.save($scope.newProduct, function (response) {
 			//go to profile page , use the state and pass empty parameter to reload the controller
 			$state.go('profile', {}, {reload: true});
 			$scope.loading = false;
