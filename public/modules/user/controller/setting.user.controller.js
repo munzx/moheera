@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('userModule').controller('settingUserController', ['$scope', '$location', 'connectUserFactory', 'registerUserConfigFactory', '$state', function ($scope, $location, connectUserFactory, registerUserConfigFactory, $state) {
-	$scope.userInfo = registerUserConfigFactory.getUser();
+	var user = registerUserConfigFactory.getUser();
+	$scope.userInfo = angular.copy(user);
 	//hide loading image
 	$scope.loading = false;
 
@@ -12,23 +13,11 @@ angular.module('userModule').controller('settingUserController', ['$scope', '$lo
 	$scope.updateAccount = function () {
 		//show loading image
 		$scope.loading = true;
-		// userInfo is inherted from the profile controller , this is due to the fact
-		// that this conntroller is child controller of the profile controller , this is
-		// done through the ui-router
-		var fd = new FormData();
-		fd.append('logo', document.getElementById('logo').files[0]);
-		fd.append('banner', document.getElementById('banner').files[0]);
-		fd.append('firstName', $scope.userInfo.firstName);
-		fd.append('lastName', $scope.userInfo.lastName);
-		fd.append('email', $scope.userInfo.email);
-		fd.append('mobilePhone', $scope.userInfo.mobilePhone);
-		fd.append('pageDesc', $scope.userInfo.pageDesc);
-
-		connectUserFactory.update(fd, function (response) {
+		connectUserFactory.update($scope.userInfo, function (response) {
 			$scope.loading = false;
 			$scope.success = true;
-			$scope.userInfo.banner = response.banner;
-			$scope.userInfo.logo = response.logo;
+			user.banner = response.banner;
+			user.logo = response.logo;
 		}, function (error) {
 			$scope.loading = false;
 			$scope.error = error.data.message;

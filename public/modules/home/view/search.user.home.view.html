@@ -1,7 +1,7 @@
 <div class="row">
 	<h4 ng-hide="result.length" class="alert alert-danger">No user has been found.</h4>
 	<h4 ng-show="result.length" class="alert alert-success">Users Search Result</h4>
-	<div ng-show="result.length" ng-repeat="item in result" class="col-md-4 col-sm-3 col-xs-12" style="background-color:#fff;border:1px solid #ccc;">
+	<div ng-show="result.length" ng-repeat="item in result" class="col-md-3 col-sm-3 col-xs-12" style="background-color:#fff;border:1px solid #ccc;">
 		<img src="{{logo(item.logo)}}" class="img-responsive image-center">
 		<h4 class="text-center"><a ng-href="/{{item.name}}">{{item.name}}</a></h4>
 	</div>
