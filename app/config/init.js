@@ -7,9 +7,7 @@ var logger = require('express-logger'),
 	errorHandler = require('errorhandler'),
 	mongoose = require('mongoose'),
 	bodyParser = require('body-parser'),
-	//multer  = require('multer'),
 	methodOverride = require('method-override'),
-	cookieParser = require('cookie-parser'),
 	cookieSession = require('cookie-session'),
 	passport = require('passport'),
 	passportLocal = require('passport-local'),
@@ -60,25 +58,6 @@ module.exports = function (app, express) {
 	app.use(bodyParser.json({limit: '50mb'}));
 	app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
 	
-	// app.use(multer({
-	// 	dest: './public/uploads/',
-	// 	limits: {
-	// 	  fieldNameSize: 100,
-	// 	  files: 4,
-	// 	  fileSize: 1024 * 1024
-	// 	},
-	// 	onFileSizeLimit: function (file) {
-	// 	  console.log('File has exceeded size limit: ', file.originalname);
-	// 	  fs.unlink('./' + file.path) // delete the partially written file
-	// 	  return false;
-	// 	},
-	//     onFileUploadStart: function(file) {
-	//         if(file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
-	//             return false;
-	//         }
-	//     }
-	// }));
-	//app.use(cookieParser()); //read cookies
 	app.use(cookieSession({ secret: process.env.SESSION_SECRET || 'secret', name: 'moheera'})); //use sessions for Auth
 	app.use(methodOverride()); //read about this
 	app.use(passport.initialize()); //initialize passport
