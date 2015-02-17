@@ -91,10 +91,10 @@ module.exports.create = function(req, res){
 
 	//remove image files
 	function removeImages () {
-		if (fs.existsSync(dest + image1Name)) {fs.unlink(dest + image1Name)};
-		if (fs.existsSync(dest + image2Name)) {fs.unlink(dest + image2Name)};
-		if (fs.existsSync(dest + image3Name)) {fs.unlink(dest + image3Name)};
-		if (fs.existsSync(dest + image4Name)) {fs.unlink(dest + image4Name)};
+		fs.unlink(dest + image1Name);
+		fs.unlink(dest + image2Name);
+		fs.unlink(dest + image3Name);
+		fs.unlink(dest + image4Name);	
 	}
 
 	//if the images had been created successfully then proceed to enter the new product

@@ -4,8 +4,8 @@
 var mongoose = require('mongoose'),
 errorHandler = require('./error'),
 fs = require('fs'),
-async = require("async"),
 _ = require('lodash'),
+multer  = require('multer'),
 users = require('../models/user');
 
 // get all users
@@ -48,93 +48,71 @@ module.exports.getByName = function (req, res){
 
 //update user by id
 module.exports.update = function(req, res){
-	//form data the user has sent
+	//Strange behaviour happnes if req.files used directly without
+	//getting assigned to a variable first
+
+	//check if any file has been sent
+	var logoData = req.files.logo,
+		bannerData = req.files.banner,
+		imageUploadError = false;
+
+
 	var formData = {};
 
-	formData.firstName = req.body.firstName;
-	formData.lastName = req.body.lastName;
-	formData.email = req.body.email;
-	formData.pageDesc = req.body.pageDesc || '';
-	if(req.body.mobilePhone){ formData.mobilePhone = req.body.mobilePhone};
-
-	var base64Data = "",
-	dest = 'public/uploads/';
-
-	//remove image files
-	function removeImages () {
-		if (fs.existsSync(dest + bannerName)) {fs.unlink(dest + bannerName)};
-		if (fs.existsSync(dest + logoName)) {fs.unlink(dest + logoName)};
-	}
-
-	//A function to give unique name to each image file
-	function getNewName (initial) {
-		if(!initial){
-			initial = 'name';
-		}
-		return initial + '.' + req.user.name + '.' + Math.floor(new Date() / 1000) + '.jpg'
-	}
-
-	//make unique names for image files
-	var bannerName = getNewName('banner'),
-	logoName = getNewName('logo'),
-	//get the images data
-	banner = req.body.banner,
-	logo = req.body.logo,
-	//clean images of unnecessary data in order to make images out of the base64 data recieved
-	bannerData = (banner.length > 1000) ?  banner.replace(/^data:image\/\w+;base64,/, ""):false,
-	logoData = (logo.length > 1000) ?  logo.replace(/^data:image\/\w+;base64,/, ""):false;
-
-	//write the images data to files
-	function saveBanner (callback) {
-		if(bannerData){
-			fs.writeFile(dest + bannerName, bannerData, 'base64', function(err) {
-				if(err){ bannerName = false; return callback(err); } else { formData.banner = bannerName; callback(null); };
-			});
-		} else {
-			callback(null);
-		}
-	}
-
-	//write the images data to files
-	function saveLogo (callback) {
+	if(!_.isEmpty(req.files)){
 		if(logoData){
-			fs.writeFile(dest + logoName, logoData, 'base64', function(err) {
-				if(err){ logoName = false; return callback(err); } else { formData.logo = logoName; callback(null); };
-			});
-		} else {
-			callback(null);
+			if(!logoData.truncated){
+				//get the new file name
+				formData.logo = logoData.name;
+				//if the user had another logo then remove it before adding the new one
+				if(_.isEmpty(req.user.logo) === false){
+					fs.unlink('./public/uploads/' + req.user.logo); // delete the partially written file
+				}
+			} else {
+				imageUploadError = true;
+			}
+		}
+		if(bannerData){
+			if(!bannerData.truncated){
+				//get the new file name
+				formData.banner = bannerData.name;
+				//if the user had another logo then remove it before adding the new one
+				if(_.isEmpty(req.user.banner) === false){
+					fs.unlink('./public/uploads/' + req.user.banner); // delete the partially written file
+				}
+			} else {
+				imageUploadError = true;
+			}
 		}
 	}
 
-	async.parallel([saveBanner, saveLogo], function (err) {
-		if(err){
-			res.status(400).jsonp({message: 'Unkown error has occured, please try again or contact Moheera\'s Support Team'});
-		} else {
-			users.findOne({_id: req.user._id}, function(err, user){
-				if(err){
-					removeImages();
-					res.status(500).jsonp({message: err});
-				} else if(user) {
-					user.firstName = formData.firstName;
-					user.save();
+	if(imageUploadError){
+		res.status(400).jsonp({message: 'Please upload images of max size of 1MB'});
+	} else {
+		//form data without the files input fields (as the fields are empty , if we pass them they will override thier pairs in DB)
+		formData.firstName = req.body.firstName;
+		formData.lastName = req.body.lastName;
+		formData.email = req.body.email;
+		formData.pageDesc = req.body.pageDesc || '';
+		if(req.body.mobilePhone){ formData.mobilePhone = req.body.mobilePhone};
 
-					if(formData.banner){
-						if (fs.existsSync(dest + user.banner)) {fs.unlink(dest + user.banner)};
-						user.banner = formData.banner;
-					}
-
-					if(formData.logo){
-						if (fs.existsSync(dest + user.logo)) {fs.unlink(dest + user.logo)};
-						user.logo = formData.logo;
-					}
-
-					res.status(200).jsonp(user);
-				} else {
-					res.status(404).json({message: 'User has not been found'});
+		users.findOneAndUpdate({_id: req.user._id}, formData, function(err, user, numOfAffectedRows){
+			if(err){
+				if(logoData){
+					fs.unlink('./public/uploads/' + logoData.name); // delete the partially written file
 				}
-			});
-		}
-	});
+				if(bannerData){
+					fs.unlink('./public/uploads/' + bannerData.name); // delete the partially written file
+				}
+				res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+			} else if(user) {
+				req.files = false;
+				res.status(200).jsonp(user);
+			} else {
+				res.status(404).json({message: 'User has not been found'});
+			}
+		});
+	}
 }
 
 //update the user password

@@ -8,7 +8,10 @@ angular.module('userModule').factory('connectUserFactory', ['$resource', functio
 		},
 		{
 			"update": {
-				method:"PUT"
+				method:"PUT",
+				withCredentials: true,
+				headers: {'Content-Type': undefined },
+				transformRequest: angular.identity
 			}
 		});
 }]);
