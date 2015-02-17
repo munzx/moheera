@@ -151,6 +151,7 @@ module.exports.getByName = function(req, res){
 module.exports.update = function(req, res){
 	var base64Data = "",
 	dest = 'public/uploads/',
+
 	//create object to hold all of the recieved product data
 	formData = {};
 
