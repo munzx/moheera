@@ -48,7 +48,7 @@
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/munzx/moheeraApp.git"
+    "url": "https://github.com/munzx/moheera.git"
   },
   "keywords": [
     "moheera",
@@ -56,7 +56,7 @@
   ],
   "license": "moheera",
   "bugs": {
-    "url": "https://github.com/munzx/moheeraApp/issues"
+    "url": "https://github.com/munzx/moheera/issues"
   },
-  "homepage": "https://github.com/munzx/moheeraApp"
+  "homepage": "https://github.com/munzx/moheera"
 }
