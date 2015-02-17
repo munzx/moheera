@@ -50,7 +50,6 @@ module.exports.getByName = function (req, res){
 module.exports.update = function(req, res){
 	//form data the user has sent
 	var formData = {};
-
 	formData.firstName = req.body.firstName;
 	formData.lastName = req.body.lastName;
 	formData.email = req.body.email;
