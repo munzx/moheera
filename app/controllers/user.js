@@ -115,6 +115,10 @@ module.exports.update = function(req, res){
 					res.status(500).jsonp({message: err});
 				} else if(user) {
 					user.firstName = formData.firstName;
+					user.lastName = formData.lastName;
+					user.email = formData.email;
+					user.mobilePhone = formData.mobilePhone;
+					user.pageDesc = formData.pageDesc;
 					user.save();
 
 					if(formData.banner){

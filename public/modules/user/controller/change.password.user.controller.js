@@ -8,14 +8,10 @@ angular.module('userModule').controller('changePasswordUserController', ['$scope
 		$scope.error = false;
 
 
-			// userInfo is inherted from the profile controller , this is due to the fact
-			// that this conntroller is child controller of the profile controller , this is
-			// done through the ui-router
-			var fd = new FormData();
-			fd.append('newPassword', $scope.userInfo.newPassword);
-			fd.append('currentPassword', $scope.userInfo.currentPassword);
-
-		connectUserFactory.update({action: "password"}, fd, function (response) {
+		// userInfo is inherted from the profile controller , this is due to the fact
+		// that this conntroller is child controller of the profile controller , this is
+		// done through the ui-router
+		connectUserFactory.update({action: "password"}, $scope.userInfo, function (response) {
 			$scope.success = true;
 			//empty form fields
 			$scope.userInfo.newPassword = '';

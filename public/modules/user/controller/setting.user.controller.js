@@ -18,6 +18,12 @@ angular.module('userModule').controller('settingUserController', ['$scope', '$lo
 			$scope.success = true;
 			user.banner = response.banner;
 			user.logo = response.logo;
+			user.firstName = response.firstName;
+			user.lastName = response.lastName;
+			user.email = response.email;
+			user.pageDesc = response.pageDesc;
+			user.mobilePhone = response.mobilePhone;
+
 		}, function (error) {
 			$scope.loading = false;
 			$scope.error = error.data.message;
