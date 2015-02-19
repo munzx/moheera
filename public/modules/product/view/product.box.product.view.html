@@ -14,16 +14,16 @@
 	<div class="row" style="margin:4% 0;">
 		<!-- product other images -->
 		<div class="col-md-3 col-xs-3">
-			<img ng-src="{{'public/uploads/'+product.image1 || public/modules/home/img/loading.gif}}" ng-click="viewImage('1')" ng-class="{'img-responsive img-thumbnail': highlightImage == 1,'img-responsive img-rounded': highlightImage != 1}">
+			<img class="cursor" ng-src="{{'public/uploads/'+product.image1 || public/modules/home/img/loading.gif}}" ng-click="viewImage('1')" ng-class="{'img-responsive img-thumbnail': highlightImage == 1,'img-responsive img-rounded': highlightImage != 1}">
 		</div>
 		<div class="col-md-3 col-xs-3">
-			<img ng-src="public/uploads/{{product.image2}}" ng-click="viewImage('2')"  ng-class="{'img-responsive img-thumbnail': highlightImage == 2,'img-responsive img-rounded': highlightImage != 2}">
+			<img class="cursor" ng-src="public/uploads/{{product.image2}}" ng-click="viewImage('2')"  ng-class="{'img-responsive img-thumbnail': highlightImage == 2,'img-responsive img-rounded': highlightImage != 2}">
 		</div>
 		<div class="col-md-3 col-xs-3">
-			<img ng-src="public/uploads/{{product.image3}}" ng-click="viewImage('3')" ng-class="{'img-responsive img-thumbnail': highlightImage == 3,'img-responsive img-rounded': highlightImage != 3}">
+			<img class="cursor" ng-src="public/uploads/{{product.image3}}" ng-click="viewImage('3')" ng-class="{'img-responsive img-thumbnail': highlightImage == 3,'img-responsive img-rounded': highlightImage != 3}">
 		</div>
 		<div class="col-md-3 col-xs-3">
-			<img ng-src="public/uploads/{{product.image4}}" ng-click="viewImage('4')" ng-class="{'img-responsive img-thumbnail': highlightImage == 4,'img-responsive img-rounded': highlightImage != 4}">
+			<img class="cursor" ng-src="public/uploads/{{product.image4}}" ng-click="viewImage('4')" ng-class="{'img-responsive img-thumbnail': highlightImage == 4,'img-responsive img-rounded': highlightImage != 4}">
 		</div>
 		<!-- end product other images -->
 	</div>

@@ -13,7 +13,6 @@ angular.module('userModule').directive('sidebarUserDirective', ['registerUserCon
 		link: function (scope, elem, attrs) {
 			//initiate needed variables
 			var cats = [];
-			var logo;
 			var user = registerUserConfigFactory.getUser();
 			//if the user is not visiting others page that means he/she is in his/her profile page
 			//so assign profile to the profile variable
