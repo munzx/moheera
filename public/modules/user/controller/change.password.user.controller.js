@@ -27,10 +27,8 @@ angular.module('userModule').controller('changePasswordUserController', ['$scope
 
 	$scope.$watch('userInfo.verifyPassword', function (value) {
 		if($scope.userInfo.newPassword == $scope.userInfo.verifyPassword) {
-			console.log('bism allah, good it works');
 			$scope.changePasswordForm.verifyPassword.$setValidity("match", true);
 		} else {
-			console.log('bism allah, naa i doesnt work');
 			$scope.changePasswordForm.verifyPassword.$setValidity("match", false);
 		}
 	});
