@@ -6,11 +6,8 @@ body {
 	background-color: #EEEEEE;
 }
 
-@media (min-width: 1200px) {
-.nav-collapse.collapse {
-height: auto !important;
-overflow: visible !important;
-}    
+.navbar-collapse {
+	max-height: 400px !important;
 }
 
 .form-bg {
