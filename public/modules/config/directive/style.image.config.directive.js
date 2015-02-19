@@ -7,30 +7,26 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 		replace: false,
 		transclude: true,
 		link: function (scope, elem, attrs, ngModel) {
-			//create the canvas
-			var x = document.getElementById('lab'),
-			canvas = x.getContext("2d"),
-			//the image id of the image to be created
-			imageId = 'makeImage';
-			//set/fill the background color
-			canvas.fillStyle = "#fff";
-			canvas.fillRect(0, 0, x.width, x.height);
-
+			var imageId = 'makeImage',
+				img = '';
 			//on file upload
 			elem.bind('change', function (e) {
 				//create a new file read object
 				var reader = new FileReader();
 				reader.onload = function (image) {
 					//create image object and set its source to equal the uploaded image source
-					var img = document.createElement('img');
-						img.src = image.target.result;
-						img.id = imageId;
-						img.style.display = 'none';
+					img = document.createElement('img');
+					img.src = image.target.result;
+					img.id = imageId;
+						//img.style.display = 'none';
 
 					//add image to container
 					var container = document.getElementById('imageContainer');
 					container.appendChild(img);
-					resizeAndDraw(img.id);
+
+					img.onload = function () {
+						resizeAndDraw(imageId);	
+					}
 
 				}
 				//upload,initiate and read the selected file through the file input element
@@ -40,31 +36,9 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			//resize the image elemnt and draw it into the canvas
 			function resizeAndDraw (id) {
 				Caman('#' + id, function () {
-					//get current height and width
-					var width = this.width,
-					height = this.height;
-					//set the height to 500 max if exceeded 500
-					if(width > x.width){
-						width = x.width;
-						this.resize({width: width});
-					} else {
-						width = this.width;
-					}
-
+					this.resize({width: 400});
 					//render the image
-					this.render(function () {
-						//get the image source
-						var base64 = this.toBase64(),
-						//create a new image object and set its source to the rendered image source
-						pic = new Image();
-						pic.src = base64;
-						//on the new image load
-						pic.addEventListener("load", function (e) {
-							//draw a canvas out of the new rendered image
-							//and center the rendred image in the canvas
-							canvas.drawImage(pic, (x.width - this.width) / 2, (x.height - this.height) / 2);
-						});
-					});
+					this.render();
 				});
 			}
 
@@ -79,7 +53,6 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			scope.reset = function () {
 				Caman('#' + imageId, function () {
 					this.revert();
-					resizeAndDraw(imageId);
 				});
 			}
 
@@ -131,7 +104,6 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			    			break;
 			    	}
 			    	this.render();
-			    	resizeAndDraw(imageId);
 				});
 			}
 
