@@ -13,7 +13,7 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			//the image id of the image to be created
 			imageId = 'makeImage';
 			//set/fill the background color
-			canvas.fillStyle = "#000";
+			canvas.fillStyle = "#fff";
 			canvas.fillRect(0, 0, x.width, x.height);
 
 			//on file upload
