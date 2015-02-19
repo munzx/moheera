@@ -22,29 +22,16 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 				var reader = new FileReader();
 				reader.onload = function (image) {
 					//create image object and set its source to equal the uploaded image source
-					var newImage = new Image();
-					newImage.src = image.target.result;
-					//on image upload
-					newImage.addEventListener('load', function (e) {
-						//remove the image shown if it has been already created i.e
-						//the user has uploaded an image and then uploaded another
-						var oldImage = document.getElementById(imageId);
-							if(oldImage){ oldImage.parentNode.removeChild(oldImage);}
-
-						//create a new image element and set its attributes
-						var img = document.createElement('img');
+					var img = document.createElement('img');
 						img.src = image.target.result;
 						img.id = imageId;
 						img.style.display = 'none';
-						// Clear the canvas
-						canvas.clearRect(0, 0, x.width, x.height);
-						canvas.fillRect(0, 0, x.width, x.height);
-						//append the new image to the container note: the image container must
-						//be created in the html file where the directive is implemented
-						document.getElementById('imageContainer').appendChild(img);
-						//call the resize and make function to resize and draw the image in the canvas
-						resizeAndDraw(imageId);
-					}, false);
+
+					//add image to container
+					var container = document.getElementById('imageContainer');
+					container.appendChild(img);
+					resizeAndDraw(img.id);
+
 				}
 				//upload,initiate and read the selected file through the file input element
 				reader.readAsDataURL(elem[0].files[0]);
@@ -57,19 +44,13 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 					var width = this.width,
 					height = this.height;
 					//set the height to 500 max if exceeded 500
-					if(width > 500){
-						width = 500;
+					if(width > x.width){
+						width = x.width;
 						this.resize({width: width});
 					} else {
 						width = this.width;
 					}
-					//set the width to 500 max if exceeded 500
-					if(height > 500){
-						height = 500;
-						this.resize({height: height});
-					} else {
-						height = this.height;
-					}
+
 					//render the image
 					this.render(function () {
 						//get the image source
@@ -88,10 +69,11 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			}
 
 			scope.save = function () {
-				var image = x.toDataURL("image/png").replace("image/png", "image/octet-stream");
-				if(image.length){
-					window.location.href=image; // it will save locally
-				}
+				Caman('#' + imageId, function () {
+					this.render(function () {
+						 this.save();
+					});
+				});
 			}
 
 			scope.reset = function () {
