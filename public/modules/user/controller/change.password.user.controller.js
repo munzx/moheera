@@ -13,6 +13,9 @@ angular.module('userModule').controller('changePasswordUserController', ['$scope
 		// done through the ui-router
 		connectUserFactory.update({action: "password"}, $scope.userInfo, function (response) {
 			$scope.success = true;
+			//remove the $dirty state from the form so when we empty
+			//thr form we dont get error messages
+			$scope.changePasswordForm.$setPristine();
 			//empty form fields
 			$scope.userInfo.newPassword = '';
 			$scope.userInfo.currentPassword = '';
@@ -22,13 +25,14 @@ angular.module('userModule').controller('changePasswordUserController', ['$scope
 		});
 	}
 
-	//not working perfectly but does the job for now
-	$scope.noMatch = function () {
+	$scope.$watch('userInfo.verifyPassword', function (value) {
 		if($scope.userInfo.newPassword == $scope.userInfo.verifyPassword) {
-			return false;
+			console.log('bism allah, good it works');
+			$scope.changePasswordForm.verifyPassword.$setValidity("match", true);
 		} else {
-			return true;	
+			console.log('bism allah, naa i doesnt work');
+			$scope.changePasswordForm.verifyPassword.$setValidity("match", false);
 		}
-	}
+	});
 
 }]);
