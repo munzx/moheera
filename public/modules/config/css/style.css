@@ -1,10 +1,12 @@
 body {
 	font-weight: 300;
 	line-height: 1.42857143;
-	padding-top: 90px;
+	padding-top: 6em;
 	padding-bottom: 120px;
 	background-color: #EEEEEE;
 }
+
+.navbar .container { height: 4em; }
 
 .form-bg {
 	background-color: #fff;
