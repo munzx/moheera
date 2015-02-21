@@ -31,52 +31,38 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 
 			//draw an image "placeholder" once the created image is loaded
 			img.onload = function () {
-				canvas.drawImage(img, 0, 0);
+				draw();
 			}
 
-			//resize the image elemnt and draw it into the canvas
-			function resizeAndDraw (id) {
-				Caman('#' + id, function () {
-					//get current height and width
-					var width = this.width,
-						height = this.height;
-					//set the height
-					if(width > x.width){
-						width = x.width;
-						this.resize({width: width});
-					} else {
-						width = this.width;
-					}
-					//set the width
-					if(height > x.height){
-						height = x.height;
-						this.resize({height: height});
-					} else {
-						height = this.height;
-					}
-					//render the image
-					this.render(function () {
-						//get the image source
-						var base64 = this.toBase64(),
-						//create a new image object and set its source to the rendered image source
-						pic = new Image();
-						pic.src = base64;
+			function draw () {
+				//give the newImage variable the uploaded image source
+				//img.src = image.target.result;
+				var maxWidth = x.width,
+					maxHeight = x.height;
 
-						// Clear the canvas
-						canvas.clearRect(0, 0, x.width, x.height);
-						canvas.fillRect(0, 0, x.width, x.height);
+				//resize the image height
+				if(img.height > maxHeight){
+					img.width *= maxHeight / img.height
+					img.height = maxHeight;
+				}
 
-						//on the new image load
-						pic.addEventListener("load", function (e) {
-							//draw a canvas out of the new rendered image
-							//and center the rendred image in the canvas
-							canvas.drawImage(pic, (x.width - this.width) / 2, (x.height - this.height) / 2);
-							//set the model value to the new drwn canvas image
-							var canvasBase64 = x.toDataURL("image/jpeg");
-							ngModel.$setViewValue(canvasBase64);
-						});
-					});
-				});
+				//resize the image width
+				if(img.width > maxWidth){
+					img.height *= maxWidth / img.width;
+					img.width = maxWidth;
+				}
+
+				//clear the canvas
+				canvas.clearRect(0, 0, canvas.width, canvas.height);
+				canvas.fillRect(0, 0, canvas.width, canvas.height);
+
+				//set canvas width and height
+				canvas.width = img.width;
+				canvas.height = img.height;
+				//draw image into canvas and center it
+				canvas.drawImage(img, (x.width - img.width) / 2, (x.height - img.height) / 2, img.width, img.height);
+				var canvasBase64 = x.toDataURL("image/jpeg");
+				ngModel.$setViewValue(canvasBase64);
 			}
 
 			//Full File API support.
@@ -127,24 +113,9 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 									ngModel.$render();
 								}
 							});
-							//get the images container id
-							var container = document.getElementById('imagesContainer');
 
-							//empty the images container
-							container.innerHTML = '';
-
-							//make the preview image equals the uploaded image
-							var path = image.target.result;
-
-							//create a new image element and set its attributes
-							var img = document.createElement('img');
 							img.src = image.target.result;
-							img.id = scope.id + 'PreviewHolder';
-							img.style.display = 'none';
-							//add the loaded image to the container
-							container.appendChild(img);
-							//resize and draw the image added to the container
-							resizeAndDraw(img.id);
+							draw();
 						}
 					}
 					reader.readAsDataURL(elem[0].files[0]);	

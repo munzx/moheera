@@ -27,7 +27,6 @@ angular.module('productModule').controller('editProductController', ['$scope', '
 			$state.go('profile.editProduct', {name: response.name}, {reload: false});
 			$scope.error = false;
 			$scope.success = true;
-			console.log(response);
 		}, function (err) {
 			$scope.success = false;
 			$scope.error = err.data.message;
