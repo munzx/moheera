@@ -7,32 +7,52 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 		replace: false,
 		transclude: true,
 		link: function (scope, elem, attrs, ngModel) {
+			//create canvas object
+			var //the imageID
+			imageId = 'lab',
+			x = document.getElementById(imageId),
 			//create the canvas
-			var x = document.getElementById('lab'),
 			canvas = x.getContext("2d"),
-			//the image id of the image to be created
-			imageId = 'makeImage';
+			//create a new file read object
+			reader = new FileReader(),
+			//create new image object
+			newImage =  new Image();
+
 			//set/fill the background color
-			canvas.fillStyle = "#fff";
+			canvas.fillStyle = "#000";
 			canvas.fillRect(0, 0, x.width, x.height);
 
 			//on file upload
 			elem.bind('change', function (e) {
-				//create a new file read object
-				var reader = new FileReader();
-				reader.onload = function (image) {
-					//create image object and set its source to equal the uploaded image source
-					var img = document.createElement('img');
-						img.src = image.target.result;
-						img.id = imageId;
-						img.style.display = 'none';
+				//On image load
+				reader.onload = function(image){
+					//give the newImage variable the uploaded image source
+					newImage.src = image.target.result;
+					var maxWidth = x.width,
+						maxHeight = x.height;
 
-					//add image to container
-					var container = document.getElementById('imageContainer');
-					container.appendChild(img);
-					resizeAndDraw(img.id);
+					//resize the image height
+					if(newImage.height > maxHeight){
+						newImage.width *= maxHeight / newImage.height
+						newImage.height = maxHeight;
+					}
 
-				}
+					//resize the image width
+					if(newImage.width > maxWidth){
+						newImage.height *= maxWidth / newImage.width;
+						newImage.width = maxWidth;
+					}
+
+					//clear the canvas
+					canvas.clearRect(0, 0, canvas.width, canvas.height);
+
+					//set canvas width and height
+					canvas.width = newImage.width;
+					canvas.height = newImage.height;
+					//draw image into canvas and center it
+					canvas.drawImage(newImage, (x.width - newImage.width) / 2, (x.height - newImage.height) / 2, newImage.width, newImage.height);
+				};
+
 				//upload,initiate and read the selected file through the file input element
 				reader.readAsDataURL(elem[0].files[0]);
 			});
@@ -52,19 +72,7 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 					}
 
 					//render the image
-					this.render(function () {
-						//get the image source
-						var base64 = this.toBase64(),
-						//create a new image object and set its source to the rendered image source
-						pic = new Image();
-						pic.src = base64;
-						//on the new image load
-						pic.addEventListener("load", function (e) {
-							//draw a canvas out of the new rendered image
-							//and center the rendred image in the canvas
-							canvas.drawImage(pic, (x.width - this.width) / 2, (x.height - this.height) / 2);
-						});
-					});
+					this.render();
 				});
 			}
 
@@ -79,7 +87,6 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			scope.reset = function () {
 				Caman('#' + imageId, function () {
 					this.revert();
-					resizeAndDraw(imageId);
 				});
 			}
 
@@ -131,7 +138,6 @@ angular.module('moheera').directive('styleImageConfigDirective', ['$modal', '$ro
 			    			break;
 			    	}
 			    	this.render();
-			    	resizeAndDraw(imageId);
 				});
 			}
 
