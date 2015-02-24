@@ -20,7 +20,7 @@ var paths = {
 	cssFiles: ['public/modules/*/*.css', 'public/modules/*/*/*.css'],
 	server: {
 		index: 'server.js',
-		specs: './app/tests/*'
+		specs: './app/tests/api/*'
 	}
 }
 

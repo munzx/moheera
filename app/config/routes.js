@@ -8,6 +8,7 @@ var users = require('../controllers/user'),
 	heart = require('../controllers/heart'),
 	cart = require('../controllers/cart'),
 	search = require('../controllers/search'),
+	test = require('../controllers/test'),
 	passport = require('passport'),
 	authLocal = require('./auth/local.strategy');
 
@@ -89,6 +90,8 @@ module.exports = function (app, express) {
 
 	//register version and use it
 	v1.use('/v1', express.Router()
+		//test zone
+		.get('/test', test.index)
 		//Users
 		.get('/user', users.index) //get all users
 		.post('/user', isGuest, users.create) //create a new user
@@ -97,7 +100,7 @@ module.exports = function (app, express) {
 		.delete('/user', ensureAuthenticated, isUser, users.delete) //delete user
 		.get('/user/:name', users.getByName) //get a user by name
 		//Carts
-		.put('/user/cart', ensureAuthenticated, isUser, cart.updateProduct) //update user cart (only quantity)
+		.put('/user/cart/:productId', ensureAuthenticated, isUser, cart.updateProduct) //update user cart (only quantity)
 		.get('/user/cart/products', ensureAuthenticated, isUser, cart.index) //get all products in the user cart
 		.post('/user/cart/:productId', ensureAuthenticated, isUser, cart.addProduct) //add a product to the user cart
 		.delete('/user/cart/:productId', ensureAuthenticated, isUser, cart.removeProduct) //remove a product from the user cart

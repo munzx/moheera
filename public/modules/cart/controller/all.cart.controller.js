@@ -9,7 +9,7 @@ angular.module('cartModule').controller('allCartController', ['$scope', '$locati
 	$scope.onePlusQuantity = function (index) {
 		if($scope.cart[index].quantity < 20){
 			$scope.cart[index].quantity++;
-			connectCartFactory.update({product: $scope.cart[index]}, function (response) {
+			connectCartFactory.update({productId: $scope.cart[index].product[0]._id}, {"quantity": $scope.cart[index].quantity},function (response) {
 				$scope.error = false;
 				$scope.user.cart = $scope.cart;
 				registerUserConfigFactory.setUser($scope.user);
@@ -23,7 +23,7 @@ angular.module('cartModule').controller('allCartController', ['$scope', '$locati
 	$scope.oneMinusQuantity = function (index) {
 		if($scope.cart[index].quantity >= 2){
 			$scope.cart[index].quantity--;
-			connectCartFactory.update({product: $scope.cart[index]}, function (response) {
+			connectCartFactory.update({productId: $scope.cart[index].product[0]._id}, {"quantity": $scope.cart[index].quantity}, function (response) {
 				$scope.error = false;
 				$scope.user.cart = $scope.cart;
 				registerUserConfigFactory.setUser($scope.user);
@@ -35,9 +35,9 @@ angular.module('cartModule').controller('allCartController', ['$scope', '$locati
 	}
 
 	$scope.removeCartProduct = function (index) {
-		connectCartFactory.remove({productId: $scope.cart[index].productId}, function (response) {
+		connectCartFactory.remove({productId: $scope.cart[index].product[0]._id}, function (response) {
 			$scope.cart.splice(index, 1);
-			$scope.user.cart = $scope.cart; 
+			$scope.user.cart = $scope.cart;
 		});
 	}
 

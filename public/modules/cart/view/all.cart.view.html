@@ -29,8 +29,8 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>{{item.name}}</td>
-					<td>Aed {{item.price}}</td>
+					<td>{{item.product[0].name}}</td>
+					<td>Aed {{item.product[0].price}}</td>
 					<td>
 						<button ng-click="onePlusQuantity($index)" class="btn btn-primary btn-sm glyphicon glyphicon-plus"></button>
 						<b>{{item.quantity}}</b>
@@ -42,7 +42,7 @@
 		</table>
 
 		<!-- Product Inof -->
-		<div product-box-product-directive="item"></div><!-- End Product Inof -->
+		<div product-box-product-directive="item.product[0]"></div><!-- End Product Inof -->
 
 	</div>
 </div>

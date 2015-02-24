@@ -3,52 +3,6 @@
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 
-var userSchema = new Schema({
-	firstName: {
-		type: String,
-		default: '',
-		required: 'Pease provide the first name',
-		trim: true,
-		lowercase: true
-	},
-	lastName: {
-		type: String,
-		default: '',
-		required: 'Please provide the last name',
-		trim: true,
-		lowercase: true
-	},
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill the user name field',
-		trim: true,
-		lowercase: true,
-		unique: true,
-		sparse: true
-	},
-	email: {
-		type: String,
-		default: '',
-		required: 'Please fill the email field',
-		trim: true,
-		unique: true,
-		lowercase: true,
-		sparse: true,
-		match: [/.+\@.+\..+/, 'Please fill a valid email address']
-	},
-	role: {
-		type: String,
-		lowercase: true,
-		enum: ['user', 'admin'],
-		default: ['user']
-	},
-	created: {
-		type: Date,
-		default: Date.now
-	}
-}, {strict: true});
-
 var commentSchema = new Schema({
 	content: {
 		type: String,
@@ -60,11 +14,11 @@ var commentSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	author: [userSchema]
+	author: [{ type: Schema.Types.ObjectId, ref: 'user' }]
 }, {strict: true});
 
 var heartSchema = new Schema({
-	user: [userSchema],
+	user: [{ type: Schema.Types.ObjectId, ref: 'user' }],
 	created: {
 		type: Date,
 		default: Date.now
@@ -135,7 +89,7 @@ var orderSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	user: [userSchema]
+	user: [{ type: Schema.Types.ObjectId, ref: 'user' }]
 }, {strict: true});
 
 var productSchema = new Schema({
@@ -205,37 +159,7 @@ var productSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	userName: { //save the username as we search products by name usually than that will be easier to have the name here
-		type: String,
-		default: '',
-		required: 'Please provide the user name',
-		trim: true
-	},
-	userMobilePhone: {
-		type: String,
-		default: '',
-		trim: true
-	},
-	firstName: {
-		type: String,
-		default: '',
-		trim: true
-	},
-	lastName: {
-		type: String,
-		default: '',
-		trim: true
-	},
-	email: {
-		type: String,
-		default: '',
-		trim: true
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	}
+	user: [{ type: Schema.Types.ObjectId, ref: 'user' }]
 }, {strict: true});
-
 
 module.exports = mongoose.model('product', productSchema);
