@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 
 
 module.exports.index = function (req, res) {
-	products.findById(req.params.id, function (err, product) {
+	products.findById(req.params.id).populate('comment.author').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){
@@ -25,7 +25,7 @@ module.exports.index = function (req, res) {
 }
 
 module.exports.create = function (req, res) {
-	products.findById(req.params.id, function (err, product) {
+	products.findById(req.params.id).populate('comment.author').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){
@@ -49,11 +49,24 @@ module.exports.create = function (req, res) {
 
 //Assure only the comment owner can delete the comment
 module.exports.delete = function (req, res) {
-	products.findOneAndUpdate({_id: req.params.id}, {$pull: {'comment': {'_id': req.params.commentId, 'author._id': req.user._id} } }, function (err) {
+	products.findById(req.params.id).populate('comment.author').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else {
-			res.status(200).jsonp('Comment has been deleted successfully');
-		}	
+			var userComments = product.comment;
+			userComments.forEach(function (commentValue) {
+				if(commentValue.author[0]._id == req.user.id){
+					commentValue.remove();
+				}
+			});
+
+			product.save(function (err) {
+				if(err){
+					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+				} else {
+					res.status(200).jsonp('Comment has been deleted successfully');
+				}
+			});
+		}
 	});
 }

@@ -98,11 +98,11 @@ describe("test access", function() {
 	// 		done();
 	// 	});
 	// });
-	// it("should delete the product in cart", function(done) {
-	// 	agent.del(url + '/user/cart')
-	// 	.end(function (err, res) {
-	// 		expect(res.status).to.be(200);
-	// 		done();
-	// 	});
-	// });
+	it("should delete the product in cart", function(done) {
+		agent.del(url + '/user/cart/' + productID)
+		.end(function (err, res) {
+			expect(res.status).to.be(200);
+			done();
+		});
+	});
 });

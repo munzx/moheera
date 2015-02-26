@@ -16,14 +16,12 @@ angular.module('productModule').directive('heartIconProductDirective', ['registe
 					if(value){
 						if(value.heart.length > 0){
 							var hearts = value.heart;
-							//to access the heart 'owner' info embedded in the product retrieved from moheera api
-							// product.heart[array].user[array].'info'
+							//to access the heart 'owner' id embedded in the product retrieved from moheera api
+							//product.heart[array].user[0]._id
 							for(var i=0;i <= hearts.length;i++){
 								if(hearts[i]){
-									for(var iUser=0;iUser < hearts[i].user.length;iUser++){
-										if(hearts[i].user[iUser]._id === user._id){
-											return true;
-										}
+									if(hearts[i].user[0] == user._id){
+										return true;
 									}
 								}
 							}

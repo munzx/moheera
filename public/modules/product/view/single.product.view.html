@@ -55,7 +55,7 @@
 <div class="row" style="background-color:#fff;padding-top:2%;margin-top:2%;" ng-repeat="comment in product.comment">
 	<!-- remove button , show to the comment author only -->
 	<div class="col-md-12 text-right">
-		<i ng-show="user._id == comment.author[0]._id" ng-click="removeComment($index, comment._id, product._id)" class="glyphicon glyphicon-remove text-muted"></i>
+		<i ng-show="user._id == comment.author[0]._id" ng-click="removeComment($index, comment._id, product._id)" class="glyphicon glyphicon-remove text-muted cursor"></i>
 	</div><!-- End remove button -->
 	<div class="col-md-12">
 		<span class="glyphicon glyphicon-user">{{comment.author[0].name}}</span>

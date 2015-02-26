@@ -10,12 +10,12 @@ users = require('../models/user'),
 products = require('../models/product');
 
 module.exports.index = function(req, res){
-	users.find({name: req.params.userName}, function (err, userInfo) {
+	users.find({name: req.params.userName}).populate('user').exec(function (err, userInfo) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(userInfo){
 			if(userInfo.length > 0){
-				products.find({user: userInfo[0]._id}).sort({created: "desc"}).exec(function(err, product){
+				products.find({user: userInfo[0]._id}).sort({created: "desc"}).populate('user').exec(function(err, product){
 					if(err){
 						res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 					} else if(product) {
@@ -136,7 +136,7 @@ module.exports.create = function(req, res){
 }
 
 module.exports.getByName = function(req, res){
-	products.findOne({name: req.params.name}, function(err, product){
+	products.findOne({name: req.params.name}).populate('comment.author').populate('user').exec(function(err, product){
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product) {

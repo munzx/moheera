@@ -18,10 +18,11 @@ angular.module('productModule').directive('productBoxProductDirective', ['regist
 					scope.viewImageLink = 'public/uploads/' + value.image1;
 					//highlight the image viewed
 					scope.highlightImage = 1;
-					if(user._id == value.user){
+					console.log(scope.product.user[0].name);
+					if(user._id == value.user[0]._id){
 						scope.productLink = '/profile/product/' + value.name;
 					} else {
-						scope.productLink = '/' + value.userName + '/' + value.name;
+						scope.productLink = '/' + value.user[0].name + '/' + value.name;
 					}
 
 					//show the image that been clicked and highlight it
