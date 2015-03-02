@@ -55,7 +55,7 @@ module.exports.delete = function (req, res) {
 		} else {
 			var userComments = product.comment;
 			userComments.forEach(function (commentValue) {
-				if(commentValue.author[0]._id == req.user.id){
+				if(commentValue.author[0]._id.toString('utf-8').trim() == req.user.id.toString('utf-8').trim()){
 					commentValue.remove();
 				}
 			});

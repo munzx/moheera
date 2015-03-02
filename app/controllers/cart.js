@@ -107,7 +107,7 @@ module.exports.removeProduct = function (req, res) {
 		} else if(user){
 			var cartInfo = user.cart;
 			cartInfo.forEach(function (item) {
-				if(req.params.productId == item.product[0]._id){
+				if(req.params.productId.toString('utf-8').trim() == item.product[0]._id.toString('utf-8').trim()){
 					item.remove();
 				}
 			});

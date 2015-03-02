@@ -38,7 +38,7 @@ module.exports.create = function (req, res) {
 				var hearts = product.heart;
 				if(hearts.length > 0){
 					hearts.forEach(function (item) {
-						if(parseInt(item.user[0]) != parseInt(req.user._id) ){
+						if(item.user[0].toString('utf-8').trim() != req.user._id.toString('utf-8').trim()){
 							var heartInfo = req.body;
 							heartInfo.user = req.user;
 							product.heart.push(heartInfo);
@@ -73,7 +73,7 @@ module.exports.delete = function (req, res) {
 		} else if(product) {
 			var heartUser = product.heart;
 			heartUser.forEach(function (heart) {
-				if(parseInt(heart.user[0]._id) == parseInt(req.user._id) ){
+				if(heart.user[0]._id.toString('utf-8').trim() == req.user._id.toString('utf-8').trim()){
 					heart.remove();
 				}
 			});
