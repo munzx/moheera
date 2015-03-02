@@ -10,7 +10,7 @@ angular.module('orderModule').controller('createOrderController', ['$scope', '$l
 			totalPrice = 0;
 
 		cartItems.forEach(function (item) {
-			totalPrice += (item.price * item.quantity);
+			totalPrice += (item.product[0].price * item.product[0].quantity);
 			totalQuantity += item.quantity;
 		});
 

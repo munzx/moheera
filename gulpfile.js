@@ -51,7 +51,7 @@ gulp.task('minifyJS', function () {
 	return gulp.src(paths.jsFiles)
 			.pipe(plumber())
 			.pipe(concat('app.js'))
-			.pipe(uglify())
+			//.pipe(uglify())
 			.pipe(rename('app.min.js'))
 			.pipe(gulp.dest(paths.desFolder))
 			.pipe(connect.reload());

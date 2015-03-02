@@ -50,7 +50,6 @@ angular.module('productModule').directive('productBoxProductDirective', ['regist
 						}
 					}
 				}
-
 			});
 		}
 	}

@@ -18,7 +18,7 @@ angular.module('productModule').directive('cartIconProductDirective', ['connectC
 							var carts = scope.user.cart;
 							for(var i=0;i <= carts.length;i++){
 								if(carts[i]){
-									if(carts[i].product == value._id){
+									if(carts[i].product[0]._id == value._id){
 										return true;
 									}
 								}

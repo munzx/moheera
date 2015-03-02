@@ -79,7 +79,7 @@ module.exports.create = function(req, res){
 	cartProductIds = searchCartProductIds();
 
 	//find products added to the user cart
-	products.find({_id: {"$in": cartProductIds }}, function (err, product) {
+	products.find({_id: {"$in": cartProductIds }}).populate('user').exec(function (err, product) {
 		var selectedProducts = product,
 		productIds = [],
 		cartProducts = req.user.cart,
