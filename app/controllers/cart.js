@@ -32,16 +32,18 @@ module.exports.addProduct = function (req, res) {
 					//only add the product to the cart if the product was not already added
 					var userCart = user.cart;
 					if(userCart.length >= 1){
-						for(var i=0;i < userCart.length;i++){
-							if(parseInt(userCart[i].product[0]._id) != parseInt(product._id) ){
+						userCart.forEach(function (item) {
+							if(item.product[0]._id.toString('utf-8').trim() !== product._id.toString('utf-8').trim()){
+								console.log(item.product[0]._id);
+								console.log(product._id);
 								var userItem = {
 										product: product,
 										quantity: req.body.product.quantity
 									};
 								//save the user cart
-								user.cart.push(userItem);
-							}		
-						}
+								user.cart.push(userItem);							
+							}
+						});
 					} else {
 						var userItem = {
 								product: product,

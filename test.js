@@ -91,6 +91,18 @@ describe("test access", function() {
 			done();
 		});
 	});
+	it("should add a product to cart", function(done) {
+		agent.post(url + 'user/cart/' + productID)
+		.send({product: {
+			price: 23234,
+			quantity: 12
+		}})
+		.end(function (err, res) {
+			expect(res.status).to.be(200);
+			cartItemID = res.body.cart._id;
+			done();
+		});
+	});
 	// it("should update the product in the cart", function(done) {
 	// 	agent.put(url + '/user/cart')
 	// 	.end(function (err, res) {
@@ -98,11 +110,11 @@ describe("test access", function() {
 	// 		done();
 	// 	});
 	// });
-	it("should delete the product in cart", function(done) {
-		agent.del(url + '/user/cart/' + productID)
-		.end(function (err, res) {
-			expect(res.status).to.be(200);
-			done();
-		});
-	});
+	// it("should delete the product in cart", function(done) {
+	// 	agent.del(url + '/user/cart/' + productID)
+	// 	.end(function (err, res) {
+	// 		expect(res.status).to.be(200);
+	// 		done();
+	// 	});
+	// });
 });
