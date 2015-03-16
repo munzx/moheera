@@ -85,7 +85,7 @@ module.exports.create = function(req, res){
 
 	function saveImage4 (callback) {
 		fs.writeFile(dest + image4Name, imageData4, 'base64', function(err) {
-			if(err){ imageName = false; return callback(err); } else { formData.image4 = image4Name; callback(null); };
+			if(err){ image4Name = false; return callback(err); } else { formData.image4 = image4Name; callback(null); };
 		});	
 	}
 
