@@ -25,29 +25,34 @@ module.exports.addProduct = function (req, res) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){
-			users.findById(req.user._id).populate('cart.product').exec(function (err, user) {
+			users.findById(req.user._id, function (err, user) {
 				if(err){
 					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 				} else {
 					//only add the product to the cart if the product was not already added
 					var userCart = user.cart;
 					if(userCart.length >= 1){
+						//initiate with false assuming the product is not in the cart (dosnt really matter)
+						var isInCart = false;
+						//check if the product is in the cart
 						userCart.forEach(function (item) {
-							if(item.product[0]._id.toString('utf-8').trim() !== product._id.toString('utf-8').trim()){
-								console.log(item.product[0]._id);
-								console.log(product._id);
-								var userItem = {
-										product: product,
-										quantity: req.body.product.quantity
-									};
-								//save the user cart
-								user.cart.push(userItem);							
+							if(item.product.toString('utf-8').trim() === product._id.toString('utf-8').trim()){
+								isInCart = true;
 							}
 						});
+						//if the product is not in the cart then add the product to the user cart
+						if(isInCart == false){
+							var userItem = {
+									product: product,
+									quantity: 1
+								};
+							//save the user cart
+							user.cart.push(userItem);
+						}
 					} else {
 						var userItem = {
 								product: product,
-								quantity: req.body.product.quantity
+								quantity: 1
 							};
 						//save the user cart
 						user.cart.push(userItem);
@@ -69,19 +74,27 @@ module.exports.addProduct = function (req, res) {
 }
 
 module.exports.updateProduct = function (req, res) {
+	//get the user in order to get his cart
 	users.findById(req.user._id).populate('cart.product').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
+			//loop through the user cart
 			var userCart = user.cart,
 				isMax = false;
 			userCart.forEach(function (item) {
-				if( req.body.quantity > 0 && (req.body.quantity <= item.product[0].quantity) ){
-					item.quantity = req.body.quantity;
-				} else {
-					isMax = true;
+				//if the product in the cart is the same as the one we wants to update its quantity
+				if(item.product[0]._id == req.params.productId){
+					//make sure that the new "qantity" is not 0 and the "quantity" is not more than what
+					//is availiable (not more than the product quantity)
+					if(req.body.quantity > 0 && (req.body.quantity <= item.product[0].quantity) ){
+						item.quantity = req.body.quantity;
+					} else {
+						//if the new "quantity" is more than the availiable "quantity" then pass true
+						//to break the loop and to show a message informing the user about the case
+						isMax = true;
+					}
 				}		
-				console.log(item.product[0].quantity);
 			});
 			user.save(function (err, userInfo) {
 				if(err){

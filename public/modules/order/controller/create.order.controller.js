@@ -10,7 +10,7 @@ angular.module('orderModule').controller('createOrderController', ['$scope', '$l
 			totalPrice = 0;
 
 		cartItems.forEach(function (item) {
-			totalPrice += (item.product[0].price * item.product[0].quantity);
+			totalPrice += (item.product[0].price * item.quantity);
 			totalQuantity += item.quantity;
 		});
 
@@ -22,11 +22,11 @@ angular.module('orderModule').controller('createOrderController', ['$scope', '$l
 
 	$scope.confirmOrder = function () {
 		var orderInfo = {
-			"mobilePhone": $scope.newOrder.mobilePhone,
-			"address": $scope.newOrder.address,
-			"remarks": $scope.newOrder.remarks,
-			"status": "pending"
-		}
+				"mobilePhone": $scope.newOrder.mobilePhone,
+				"address": $scope.newOrder.address,
+				"remarks": $scope.newOrder.remarks,
+				"status": "pending"
+			}
 
 		connectOrderFactory.save({"info": orderInfo}, function (response) {
 			$location.path('profile/order/done');

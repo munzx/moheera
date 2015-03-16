@@ -38,22 +38,22 @@
 			</tr>
 			<tr>
 				<th>Status</th>
-				<td ng-show="productInfo.user == user._id">
+				<td ng-show="owner._id == user._id">
 					<select class="form-control" ng-model="orderInfo.status" ng-class="{'alert alert-warning': orderInfo.status=='pending', 'alert alert-danger': orderInfo.status=='canceled', 'alert alert-success': orderInfo.status=='delivered', 'alert alert-info': orderInfo.status=='processing'}">
 						<option ng-repeat="option in statusOptions" value="{{option}}">{{option}}</option>
 					</select>
 				</td>
-				<td ng-show="productInfo.user != user._id" class="form-control" ng-model="orderInfo.status" ng-class="{'alert alert-warning': orderInfo.status=='pending', 'alert alert-danger': orderInfo.status=='canceled', 'alert alert-success': orderInfo.status=='delivered', 'alert alert-info': orderInfo.status=='processing'}">
+				<td ng-show="owner._id != user._id" class="form-control" ng-model="orderInfo.status" ng-class="{'alert alert-warning': orderInfo.status=='pending', 'alert alert-danger': orderInfo.status=='canceled', 'alert alert-success': orderInfo.status=='delivered', 'alert alert-info': orderInfo.status=='processing'}">
 				{{orderInfo.status}}
 				</td>
 			</tr>
 			<tr>
-				<th>Update Remarks</th>
-				<td><textarea ng-model="updateRemarks" type="text" class="form-control"></textarea></td>
+				<th ng-show="owner._id == user._id">Update Remarks</th>
+				<td ng-show="owner._id == user._id"><textarea ng-model="updateRemarks" type="text" class="form-control"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button ng-click="updateOrder()" class="btn btn-primary btn-lg btn-block">Update</button>
+					<button ng-show="owner._id == user._id" ng-click="updateOrder()" class="btn btn-primary btn-lg btn-block">Update</button>
 				</td>
 			</tr>
 		</table>
@@ -81,27 +81,27 @@
 
 	<div class="col-md-12">
 		<h4  class="text-center">Product Information</h4>
-		<div class="col-md-12" style="margin-bottom:4%;">
+		<div class="col-md-12" style="margin-bottom:4%;" ng-repeat="product in orderInfo.product">
 			<table class="table table-hover table-responsive">
+
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Price</th>
+						<th>Total Price</th>
 						<th>Quantity</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{productInfo.name}}</td>
-						<td>Aed {{productInfo.price}}</td>
-						<td>{{productInfo.quantity}}</td>
+						<td>{{product.info.name}}</td>
+						<td>Aed {{product.price}}</td>
+						<td>{{product.quantity}}</td>
 					</tr>
 				</tbody>
 			</table>
-		</div>
-
 		<!-- Product Inof -->
-		<div product-box-product-directive="productInfo"></div><!-- End Product Inof -->
+		<div product-box-product-directive="product.info"></div><!-- End Product Inof -->
+		</div>
 	</div>
 
 </div>

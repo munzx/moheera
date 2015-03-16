@@ -106,10 +106,10 @@ module.exports = function (app, express) {
 		.delete('/user/cart/:productId', ensureAuthenticated, isUser, cart.removeProduct) //remove a product from the user cart
 		//Orders
 		.get('/product/order', ensureAuthenticated, isUser, order.index) //get all orders of a certain user
-		.get('/product/:id/order/:orderId', ensureAuthenticated, isUser, order.getById) // get a product order by id
+		.get('/product/order/:orderId', ensureAuthenticated, isUser, order.getById) // get a product order by id
 		.post('/product/order', ensureAuthenticated, isUser, order.create) //create a new product order
-		.put('/product/:id/order/:orderId', ensureAuthenticated, isUser, order.update) //update a product order
-		.delete('/product/:id/order/:orderId', ensureAuthenticated, isUser, order.delete) //delete a product order
+		.put('/product/order/:orderId', ensureAuthenticated, isUser, order.update) //update a product order
+		.delete('/product/order/:orderId', ensureAuthenticated, isUser, order.delete) //delete a product order
 		//Products
 		.get('/product/all/:userName', product.index) //get all products of a certain user by user name
 		.post('/product', ensureAuthenticated, isUser, product.create) //create a new product

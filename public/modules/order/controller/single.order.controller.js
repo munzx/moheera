@@ -4,9 +4,9 @@ angular.module('orderModule').controller('singleOrderController', ['$scope', '$l
 	$scope.user = registerUserConfigFactory.getUser();
 	$scope.statusOptions = statusOrderFactory.status;
 
-	connectOrderFactory.get({productId: $stateParams.productId, id: $stateParams.id}, function (response) {
+	connectOrderFactory.get({id: $stateParams.id}, function (response) {
 		$scope.orderInfo = response.order;
-		$scope.productInfo = response.product;
+		$scope.owner = response.owner;
 		//get the current status and save as old so we can get it if the status
 		//got updateed
 		$scope.oldStatus = angular.copy(response.order.status);
@@ -23,7 +23,7 @@ angular.module('orderModule').controller('singleOrderController', ['$scope', '$l
 				updateRemarks: $scope.updateRemarks
 			}
 		}
-		connectOrderFactory.update({productId: $stateParams.productId, id: $stateParams.id}, updateInfo, function (response) {
+		connectOrderFactory.update({id: $stateParams.id}, updateInfo, function (response) {
 			$scope.updateRemarks = '';
 			$scope.success = response;
 			$scope.error = false;

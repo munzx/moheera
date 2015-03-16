@@ -20,13 +20,13 @@
 						<th></th>
 					</tr>
 				</thead>
-				<tbody ng-repeat="product in orderInfo">
-						<tr ng-repeat="order in product.order | statusOrderFilter:getStatus | orderBy: order.created" ng-class="{'alert alert-warning': order.status=='pending', 'alert alert-danger': order.status=='canceled', 'alert alert-success': order.status=='delivered', 'alert alert-info': order.status=='processing'}">
-							<td>{{order.status}}</td>
-							<td>{{order.created | date:'MM/dd/yyyy  HH:mm Z'}}</td>
-							<td>{{order.quantity}}</td>
-							<td>{{order.price}}</td>
-							<td><a ng-href="" ng-click="orderDetails(product._id, order._id)"><i class="glyphicon glyphicon-plus"></i></a></td>
+				<tbody>
+						<tr ng-repeat="info in orderInfo | statusOrderFilter:getStatus | orderBy: info.created" ng-class="{'alert alert-warning': info.status=='pending', 'alert alert-danger': info.status=='canceled', 'alert alert-success': info.status=='delivered', 'alert alert-info': info.status=='processing'}">
+							<td>{{info.status}}</td>
+							<td>{{info.created | date:'MM/dd/yyyy  HH:mm Z'}}</td>
+							<td>{{info.quantity}}</td>
+							<td>{{info.price}}</td>
+							<td><a ng-href="" ng-click="orderDetails(info._id)"><i class="glyphicon glyphicon-plus"></i></a></td>
 						</tr>
 				</tbody>
 			</table>

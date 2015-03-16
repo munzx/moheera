@@ -5,11 +5,11 @@
 	</div><!-- End error message -->
 
 	<!-- remove product -->
-	<span ng-show="user._id == product.user" ng-click="showRemoveProductBox()" class="glyphicon glyphicon-remove" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
+	<span ng-show="user._id == product.user[0]._id" ng-click="showRemoveProductBox()" class="glyphicon glyphicon-remove" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
 	<!-- end remove product-->
 
 	<!-- edit product -->
-	<a ng-show="user._id == product.user" href="/profile/product/{{product.name}}/edit">
+	<a ng-show="user._id == product.user[0]._id" href="/profile/product/{{product.name}}/edit">
 		<span class="glyphicon glyphicon-edit" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
 	</a><!-- end edit product-->
 

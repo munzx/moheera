@@ -15,9 +15,9 @@ angular.module('orderModule').controller('allOrderController', ['$scope', '$loca
 		$scope.error = err.data.message;
 	});
 
-	$scope.orderDetails = function (productId, orderId) {
+	$scope.orderDetails = function (orderId) {
 		//redirect to single order page
-		$state.go('profile.singleOrder', {productId: productId, id: orderId}, {reload: true});
+		$state.go('profile.singleOrder', {id: orderId}, {reload: true});
 	}
 
 }]);

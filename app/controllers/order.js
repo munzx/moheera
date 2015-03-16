@@ -2,39 +2,34 @@
 
 //Dependencies
 var mongoose = require('mongoose'),
+	async = require("async"),
 	_ = require('lodash'),
 	errorHandler = require('./error'),
 	products = require('../models/product'),
 	users = require('../models/user'),
 	sms = require('../config/sms/config.sms.js'),
-	email = require('../config/email/config.email.js');
+	email = require('../config/email/config.email.js'),
+	randomstring = require("randomstring");
 
 //Return with all orders of a certain user
 module.exports.index = function(req, res){
-	products.find().or([{'user': req.user._id}, {'order.user._id': req.user._id}]).where('order').exists().exec(function (err, product) {
+	users.find().or([{'_id': req.user._id}, {'order.user': req.user._id}]).where('order._id').exists().populate('order.product.info').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-		} else if(product){
-			var getProducts = product;
-			var getUserOrder = [];
+		} else if(user){
+			var userInfo = user,
+				orders = [],
+				userId = req.user._id;
 
-			//get all of the order of the selcted products
-			getProducts.forEach(function (product) {
-				getUserOrder = [];
-				product.order.forEach(function (order) {
-					//if the user is the product owner or the order creator
-					if(parseInt(order.user[0]._id) == parseInt(req.user._id) || parseInt(product.user) == parseInt(req.user._id)){
-						getUserOrder.push(order);
+			userInfo.forEach(function (info) {
+				var order = info.order;
+				order.forEach(function (orderInfo) {
+					if(info._id.toString('utf-8').trim() == req.user._id.toString('utf-8').trim() || orderInfo.user.toString('utf-8').trim() == req.user._id.toString('utf-8').trim()){
+						orders.push(orderInfo);
 					}
 				});
-				//add only the orders done by the user or for the user (if product owner than he/she should see all orders)
-				//if the user has no orders than that means pass the product only
-				//note: if the user has no order and the product was pulled from the DB than that means the user is owner
-				//check the "find query" above
-				product.order = getUserOrder;
 			});
-
-			res.status(200).jsonp(getProducts);
+			res.status(200).jsonp(orders);
 		} else {
 			res.status(404).jsonp({message: 'No order has been found'});
 		}
@@ -42,149 +37,133 @@ module.exports.index = function(req, res){
 }
 
 module.exports.getById = function (req, res) {
-	products.findById(req.params.id, function (err, product) {
+	users.findOne().where({"order._id": req.params.orderId}).populate('order.product.info').populate('order.user').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-		} else if(product){
-			var order = product.order.id(req.params.orderId);
-			if(order){
-				res.status(200).jsonp({product: product, order: order});
-			} else {
-				res.status(404).json({message: 'Order has not been found'});
-			}
+		} else if(user){
+			//owner id the products owner
+			res.status(200).jsonp({'owner': user ,'order': user.order.id(req.params.orderId)});
 		} else {
-			res.status(404).json({message: 'Product not found'});
+			res.status(404).json({message: 'order not found'});
 		}
 	});
 }
 
 //Create a new order for a certain product
 module.exports.create = function(req, res){
-	var orderInfo = req.body.info;
-	var cartProductIds = '';
-	var mobilePhoneNumbers = [];
-	var recipientsData = [];
+	var orderInfo = req.body.info,
+		mobilePhoneNumbers = [],
+		emailAddresses = [],
+		totalPrice = 0,
+		totalQuantity = 0;
+	
+	//get the order info
 	orderInfo.user = req.user;
 
-	//get the ids of all products in the user cart
-	var searchCartProductIds = function () {
-		var ids = [];
-		var userCart = req.user.cart;
-		userCart.forEach(function (item) {
-			ids.push(item.productId);
-		});
-		return ids;
-	}
+	//find the user and get his/her cart product info
+	users.findById(req.user._id).populate('cart.product').exec(function (err, userInfo) {
+		if(err){
+			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+		} else if(userInfo){
+			async.series([function (callback) {
+					//generate a unique number
+					orderInfo.serialNumber = randomstring.generate(7) + Math.floor(new Date() / 1000);
+					//populate the product user info
+					users.populate(userInfo, {path: 'cart.product.user', model: 'user'}, function (err, productUser) {
+						var productOrder = productUser.cart;
+						//loop through all products in the cart
+						productOrder.forEach(function (item) {
+							//get product owner mobile phone if exists
+							if(item.product[0].user[0].mobilePhone){
+								mobilePhoneNumbers.push(item.product[0].user[0].mobilePhone);	
+							}
+							//get product owner email if exists
+							if(item.product[0].user[0].email){
+								emailAddresses.push(item.product[0].user[0].email);	
+							}
+							//add the order info to the product owner
+							//if the customer wants more than one product from a user
+							//then add all of the ordered product to a one order
+							//other wise make an order for each product for each user
+							var checkAndGetIfExists = _.find(item.product[0].user[0].order, function (cartItem) {
+													return cartItem.serialNumber == orderInfo.serialNumber;
+												});
+							//if the order number dose not exist i.e just one product in the order then make a new order
+							//other wise just add the product order to the user orders
+							if(checkAndGetIfExists == undefined){
+								if(item.product[0].quantity >= item.quantity){
+									orderInfo.quantity = item.quantity;
+									orderInfo.price = item.product[0].price * item.quantity;
+									var newOrderProductInfo = [{"info": item.product[0]._id, "quantity": item.quantity, "price": item.product[0].price * item.quantity}];
+									orderInfo.product = newOrderProductInfo;
+									item.product[0].user[0].order.push(orderInfo);
+									item.product[0].quantity -=  item.quantity;
+								} else {
+									callback('product quantity is less than the ordered quantity');
+								}
+							} else {
+								if(checkAndGetIfExists.quantity >= item.quantity){
+									//add the product quantity to the order quantity
+									//add the product total price (product price * quantity ordered in cart) to the order price
+									checkAndGetIfExists.price += (item.quantity * item.product[0].price);
+									checkAndGetIfExists.quantity += item.quantity;
+									var newOrderProductInfo = {"info": item.product[0], "quantity": item.quantity, "price": item.product[0].price * item.quantity};
+									checkAndGetIfExists.product.push(newOrderProductInfo);
+									item.product[0].quantity -=  item.quantity;
+								} else {
+									callback('product quantity is less than the ordered quantity');
+								}
+							}
 
-	cartProductIds = searchCartProductIds();
-
-	//find products added to the user cart
-	products.find({_id: {"$in": cartProductIds }}).populate('user').exec(function (err, product) {
-		var selectedProducts = product,
-		productIds = [],
-		cartProducts = req.user.cart,
-		cartProductsCantBeOrdered = [],
-		quantityCheck = '';
-
-		//get the products ids
-		selectedProducts.forEach(function (item) {
-			productIds.push(item._id);
-		});
-
-		//Check the quantity & product owners mobile phone numbers
-		selectedProducts.forEach(function (productItem) {
-			var getUserNumber = [];
-			//Get all "products" references in the cart that have quantity equals or less
-			//than the products
-			var quantityCheck = _.find(cartProducts, function (item) {
-				return item.quantity <= productItem.quantity;
-			});
-
-			if(quantityCheck == undefined){
-				cartProductsCantBeOrdered.push({"name": productItem.name, "id": productItem._id});
-			}
-
-			//get the mobile number of the product owner
-			//if we get more than one product, then we will have
-			//a duplicate values , but its ok as the sms module
-			//takes care of the duplicated values
-			users.findById(productItem.user, function (err, user) {
-				if(user){
-					if(user.mobilePhone){
-						mobilePhoneNumbers.push(user.mobilePhone);
+							//save user order
+							item.product[0].save();
+							item.product[0].user[0].save();
+							callback(null);
+						});
+					});
+			}, function (callback) {
+				//empty user cart
+				users.findOneAndUpdate({_id: req.user._id}, {"cart": []}, function (err, user) {
+					if(err){
+						callback(err);
+					} else {
+						callback(null);
 					}
-				}
-			});
-
-			//get the data of the product owner
-			//if we get more than one product, then we will have
-			//a duplicate values , but its ok as the sms module
-			//takes care of the duplicated values
-			recipientsData.push({
-				"email": productItem.email,
-				"firstName": productItem.firstName,
-				"lastName": productItem.lastName
-			});
-
-		});
-
-		//get the products in user cart that dosee not exist in the products
-		//(i.e if a product creator has deleted a product that a user has added it to his/her cart)
-		var difference = _.difference(parseInt(cartProductIds), parseInt(productIds));
-
-		if(cartProductsCantBeOrdered.length > 0 || difference.length > 0){
-			res.status(404).jsonp({message: cartProductsCantBeOrdered});
-		} else {
-			users.findById(req.user._id, function (err, user) {
+				});
+			}], function (err, result) {
+				//respond to user
 				if(err){
 					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-				} else if(user){
-					//Create orders , fill up the order info in each product document in the database
-					selectedProducts.forEach(function (productItem) {
-						//get the product info from the product in the cart
-						//the purpose is to get the quantity that has been checked above
-						var productInfo = _.find(cartProducts, {'productId': productItem._id});
-						productItem.quantity -= productInfo.quantity;
-						orderInfo.quantity = productInfo.quantity;
-						orderInfo.price = productInfo.price * productInfo.quantity;
-
-						productItem.order.push(orderInfo);
-						productItem.save();
-					});
-
-					//empty the user cart in the user session
-					req.user.cart = [];
-					//empty the user cart in the users database
-					user.cart = [];
-					user.save();
-
+				} else {
 					//send sms to the product owner
 					sms.sendMsg(mobilePhoneNumbers);
-					email.sendEmail(recipientsData);
-					res.status(200).json({"uCart": user.cart});
-				} else {
-					res.status(500).jsonp({message: 'User has not been found'});
+					//send email to the product owner
+					email.sendEmail(emailAddresses);
+					res.status(200).json({"uCart": req.user.cart});
 				}
 			});
+		} else {
+			res.status(500).jsonp({message: 'user has not been found'});
 		}
 	});
+
 }
 
 //Update a specific product order
 //only the product owner can update the order !!!!
 module.exports.update = function(req, res){
-	products.findOne({_id: req.params.id, user: req.user._id}, function (err, product) {
+	users.findOne({_id: req.user._id}).populate('order.product.info').populate('order.user').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
-		} else if(product){
-			var order = product.order.id(req.params.orderId);
+		} else if(user){
+			var order = user.order.id(req.params.orderId);
 			order.statusHistory.push(req.body.statusHistory);
 			order.status = req.body.status;
-			product.save(function (err, updatedOrder) {
+			user.save(function (err, updatedOrder) {
 				if(err){
 					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 				} else if(order){
-					res.status(200).jsonp({product: product, order: order});
+					res.status(200).jsonp({"order": user.order.id(req.params.orderId)});
 				} else {
 					res.status(401).jsonp({message: 'Failed to update order info'});
 				}

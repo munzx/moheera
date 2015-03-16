@@ -25,73 +25,6 @@ var heartSchema = new Schema({
 	}
 });
 
-var orderSchema = new Schema({
-	address: {
-		type: String,
-		default: '',
-		required: 'Please provide location',
-		trim: true
-	},
-	mobilePhone: {
-		type: Number,
-		default: '',
-		required: 'Please provide the mobile phone number',
-		trim: true
-	},
-	quantity: {
-		type: Number,
-		default: 0,
-		required: 'Please provide the total quantity',
-		trim: true
-	},
-	price: {
-		type: Number,
-		default: 1,
-		required: 'Please provide the total price',
-		trim: true
-	},
-	status: {
-		type: String,
-		lowercase: true,
-		default: 'pending',
-		enum: ['pending', 'delivered', 'canceled', 'processing'],
-		trim: true
-	},
-	statusHistory: [{
-		oldStatus: {
-			type: String,
-			lowercase: true,
-			default: '',
-			trim: true
-		},
-		updateRemarks: {
-			type: String,
-			lowercase: true,
-			default: '',
-			trim: true
-		},
-		created: {
-			type: Date,
-			default: Date.now
-		}
-	}],
-	statusRemarks: [{
-		type: String,
-		default: '',
-		trim: true
-	}],
-	remarks: {
-		type: String,
-		default: '',
-		trim: true
-	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	user: [{ type: Schema.Types.ObjectId, ref: 'user' }]
-}, {strict: true});
-
 var productSchema = new Schema({
 	name: {
 		type: String,
@@ -152,7 +85,6 @@ var productSchema = new Schema({
 		required: 'Please provide the product quantity',
 		trim: true
 	},
-	order: [orderSchema],
 	comment : [commentSchema],
 	heart: [heartSchema],
 	created: {
