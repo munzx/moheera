@@ -27,7 +27,7 @@ module.exports = function (app, express) {
 		//stop Etag
 		app.disable('etag');
 		//Log file location
-		app.use(logger({path: "logs/log.txt"}));
+		app.use(logger({path: "log.txt"}));
 		//configure error
 	    app.use(errorHandler({
 	        dumpExceptions: true,
