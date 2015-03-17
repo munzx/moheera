@@ -18,7 +18,6 @@ angular.module('productModule').directive('productBoxProductDirective', ['regist
 					scope.viewImageLink = 'public/uploads/' + value.image1;
 					//highlight the image viewed
 					scope.highlightImage = 1;
-					console.log(scope.product.user[0].name);
 					if(user._id == value.user[0]._id){
 						scope.productLink = '/profile/product/' + value.name;
 					} else {

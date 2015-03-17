@@ -4,7 +4,6 @@ angular.module('cartModule').controller('allCartController', ['$scope', '$locati
 	$scope.user = registerUserConfigFactory.getUser();
 	connectCartFactory.query({action: 'products'}, function (response) {
 		$scope.cart = response;
-		console.log(response);
 	});
 
 	$scope.onePlusQuantity = function (index) {
