@@ -11,25 +11,18 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 			"imagePlaceHolder": "@imagePlaceHolder"
 		},
 		link: function (scope, elem, attrs, ngModel) {
-			//here we initiate with a 'false' value to make sure
-			//angular will update the form validation and give this value false
-			//as when starting the app there would be no file uploaded in the 'input file' field
-			if(ngModel){
+			//if the image is 'required' for validation (we know throw the attribute 'required=true' that we add)
+			//then set the validaity to false as if we did not it will always pass if we set a 'imagePlaceHolder'
+			//to a defult value
+			if(ngModel && attrs.required){
 				ngModel.$setValidity("file loaded", false);
 				ngModel.$render();
-			}	
+			}
 
 			//create the canvas
 			var x = document.getElementById(scope.id + 'Preview'),
 				img = new Image();
-
-			//observe the value in imagePlaceHolder, if this is
-			//not done and the value was binding to some expression or
-			//scope somewhere then it wont be read
-			attrs.$observe('imagePlaceHolder', function () {
-				//set placeholder image src
-				img.src = scope.imagePlaceHolder;
-			});
+				img.src = attrs.imagePlaceHolder;
 
 			//create the canvas
 			var canvas = x.getContext("2d");
