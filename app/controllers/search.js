@@ -22,7 +22,7 @@ module.exports.users = function (req, res) {
 }
 
 module.exports.products = function (req, res) {
-	products.find({name: new RegExp(req.params.name, "i")}, function (err, product) {
+	products.find({name: new RegExp(req.params.name, "i")}).populate("user").exec(function (err, product) {
 		if(err){
 			res.status(401).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){

@@ -25,10 +25,11 @@ module.exports = function () {
 
 	//exclude password
 	passport.deserializeUser(function(id, done){
-		user.findOne({_id: id}, {password: 0}).populate('cart.product').exec(function(err, user){
+		user.findOne({_id: id}, {password: 0}).exec(function(err, user){
 			if(err){
 				done(err);
 			} else {
+				console.log(user);
 				done(null, user)
 			}
 		});

@@ -1,8 +1,19 @@
 'use strict';
 
-angular.module('homeModule').controller('searchProductHomeController', ['$scope', 'connectSearchHomeFactory', '$stateParams', function ($scope, connectSearchHomeFactory, $stateParams) {
+angular.module('homeModule').controller('searchProductHomeController', ['$scope', 'connectSearchHomeFactory', '$stateParams', 'registerUserConfigFactory',function ($scope, connectSearchHomeFactory, $stateParams, registerUserConfigFactory) {
+	$scope.user = registerUserConfigFactory.getUser();
+
 	connectSearchHomeFactory.get({target: 'product' ,name: $stateParams.name}, function (response) {
 		$scope.result = response.result;
-		console.log($scope.result);
 	});
+
+	$scope.getUserPage = function (value) {
+		if($scope.user){
+			if(value == $scope.user.name){
+				return 'profile/product';
+			} else {
+				return value;
+			}
+		}
+	}
 }]);
