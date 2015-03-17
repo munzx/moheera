@@ -17,7 +17,6 @@ angular.module('homeModule').controller('categoryHomeController', ['$scope', 'co
 
 	connectProductFactory.query({action: 'category', getByName: $stateParams.name}, function (response) {
 		$scope.result = response;
-		console.log(response);
 		$scope.categoryBanner = 'public/modules/home/img/category/banner/' + $stateParams.name + '.jpg';
 	});
 }]);

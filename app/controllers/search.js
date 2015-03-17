@@ -11,7 +11,6 @@ var mongoose = require('mongoose'),
 module.exports.users = function (req, res) {
 	users.find({name: new RegExp(req.params.name, "i")}, {password: 0}, function (err, user) {
 		if(err){
-			console.log(err);
 			res.status(401).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
 			res.status(200).jsonp({"result": user});

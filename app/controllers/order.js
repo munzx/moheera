@@ -118,8 +118,8 @@ module.exports.create = function(req, res){
 							//save user order
 							item.product[0].save();
 							item.product[0].user[0].save();
-							callback(null);
 						});
+						callback(null);
 					});
 			}, function (callback) {
 				//empty user cart

@@ -198,7 +198,7 @@ module.exports.update = function(req, res){
 		//and set the formData.image1 value to the new unique name
 		if(imageData1 && image1Name){
 			fs.writeFile(dest + image1Name, imageData1, 'base64', function(err) {
-				if(err){ callback('image1 is false'); } else { formData.image1 = image1Name; console.log('Bism Allah');callback(null);};
+				if(err){ callback('image1 is false'); } else { formData.image1 = image1Name;callback(null);};
 			});
 		} else {
 			callback(null);
