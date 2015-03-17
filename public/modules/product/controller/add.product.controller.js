@@ -17,7 +17,6 @@ angular.module('productModule').controller('addProductController', ['$scope', '$
 			$scope.loading = false;
 		}, function (err) {
 			$scope.loading = false;
-			console.log(err);
 			$scope.error = err.data.message;
 		});
 	}

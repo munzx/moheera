@@ -9,11 +9,13 @@ var mongoose = require('mongoose'),
 
 
 module.exports.index = function (req, res) {
-	users.findById(req.user._id).populate('cart.product').exec(function (err, user) {
+	users.findById(req.user._id).populate('cart.product').exec(function (err, userFound) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-		} else if(user){
-			res.status(200).jsonp(user.cart);
+		} else if(userFound){
+			users.populate(userFound, {path: 'cart.product.user', model: 'user'}, function (err, userInfo) {
+				res.status(200).jsonp(userInfo.cart);
+			});
 		} else {
 			res.status(404).jsonp({message: 'User has not been found'});
 		}
