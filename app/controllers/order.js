@@ -29,7 +29,8 @@ module.exports.index = function(req, res){
 					}
 				});
 			});
-			res.status(200).jsonp(orders);
+
+			res.status(200).jsonp(_.sortBy(orders, 'created').reverse());
 		} else {
 			res.status(404).jsonp({message: 'No order has been found'});
 		}
