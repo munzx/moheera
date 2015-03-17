@@ -22,7 +22,11 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 			//create the canvas
 			var x = document.getElementById(scope.id + 'Preview'),
 				img = new Image();
-				img.src = attrs.imagePlaceHolder;
+
+			attrs.$observe('imagePlaceHolder', function () {
+				//set placeholder image src
+				img.src = scope.imagePlaceHolder;
+			});
 
 			//create the canvas
 			var canvas = x.getContext("2d");

@@ -39,22 +39,22 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                       <canvas><h4 class="alert alert-danger">Please upgrade your browser or use a modern browser</h4></canvas>
+                       <canvas style="display: none;"><h4 class="alert alert-danger">Please upgrade your browser or use a modern browser</h4></canvas>
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <canvas class="cursor" id="image1Preview" width="400" height="400"></canvas>
-                            <input style="display: none;" type="file" data-ng-model="productInfo.image1" watch-image-config-directive accept="image/*" id="image1" class="form-control" image-place-holder='{{"/public/uploads/" + productInfo.image1}}' required>
+                            <input style="display: none;" type="file" data-ng-model="productInfo.image1" watch-image-config-directive accept="image/*" id="image1" class="form-control" image-place-holder='{{"/public/uploads/" + productInfo.image1}}' required="true">
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <canvas class="cursor" id="image2Preview" width="400" height="400"></canvas>
-                            <input style="display: none;" type="file" data-ng-model="productInfo.image2" watch-image-config-directive accept="image/*" id="image2" class="form-control" image-place-holder='{{"/public/uploads/" + productInfo.image2}}' required>
+                            <input style="display: none;" type="file" data-ng-model="productInfo.image2" watch-image-config-directive accept="image/*" id="image2" class="form-control" image-place-holder='{{"/public/uploads/" + productInfo.image2}}' required="true">
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <canvas class="cursor" id="image3Preview" width="400" height="400"></canvas>
-                            <input style="display: none;" type="file" data-ng-model="productInfo.image3" watch-image-config-directive accept="image/*" id="image3" class="form-control" image-place-holder='{{"/public/uploads/" + productInfo.image3}}' required>
+                            <input style="display: none;" type="file" data-ng-model="productInfo.image3" watch-image-config-directive accept="image/*" id="image3" class="form-control" image-place-holder='{{"/public/uploads/" + productInfo.image3}}' required="true">
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-3">
                             <canvas class="cursor" id="image4Preview" width="400" height="400"></canvas>
-                            <input style="display: none;" type="file" data-ng-model="productInfo.image4" watch-image-config-directive accept="image/*" id="image4" class="form-control" image-place-holder='{{"/public/uploads/" + productInfo.image4}}' required>
+                            <input style="display: none;" type="file" data-ng-model="productInfo.image4" watch-image-config-directive accept="image/*" id="image4" class="form-control" image-place-holder='{{"/public/uploads/" + productInfo.image4}}' required="true">
                         </div>                        
                     </div>
                 </div>
