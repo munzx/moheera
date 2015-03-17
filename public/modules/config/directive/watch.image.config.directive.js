@@ -11,6 +11,14 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 			"imagePlaceHolder": "@imagePlaceHolder"
 		},
 		link: function (scope, elem, attrs, ngModel) {
+			//here we initiate with a 'false' value to make sure
+			//angular will update the form validation and give this value false
+			//as when starting the app there would be no file uploaded in the 'input file' field
+			if(ngModel){
+				ngModel.$setValidity("file loaded", false);
+				ngModel.$render();
+			}	
+
 			//create the canvas
 			var x = document.getElementById(scope.id + 'Preview'),
 				img = new Image();
@@ -74,16 +82,6 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 				}
 
 				elem.bind('change', function (e) {
-					//here we initiate with a 'false' value to make sure
-					//angular will update the form validation and give this value false
-					//as when starting the app there would be no file uploaded in the 'input file' field
-					scope.$apply(function () {
-						if(ngModel){
-							ngModel.$setViewValue(elem.val());
-							ngModel.$render();
-						}
-					});
-
 					//get the file data
 					var reader = new FileReader();
 
@@ -92,10 +90,12 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 						//make sure the file size is less than 1MB
 						if(image.loaded > 1024 * 1024 * 10){
 							//upadte the 'input file' field to be false as the file size is more than 1MB
-							if(ngModel){
-								ngModel.$setValidity("file loaded", false);
-								ngModel.$render();
-							}
+							scope.$apply(function () {
+								if(ngModel){
+									ngModel.$setValidity("file loaded", false);
+									ngModel.$render();
+								}
+							});
 							//show the madal 'error message'
 							var modalInstance = $modal.open({
 								controller: function () {

@@ -25,7 +25,7 @@ module.exports.addProduct = function (req, res) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){
-			users.findById(req.user._id, function (err, user) {
+			users.findById(req.user._id).populate('cart.product').exec(function (err, user) {
 				if(err){
 					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 				} else {
