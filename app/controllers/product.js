@@ -350,7 +350,7 @@ module.exports.allUserCategory = function (req, res) {
 
 //get all products in a certain category
 module.exports.certainCategory = function (req, res) {
-	products.find({category: req.params.name}, function (err, product) {
+	products.find({category: req.params.name}).populate('user').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){

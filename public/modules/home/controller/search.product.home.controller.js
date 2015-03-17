@@ -12,8 +12,11 @@ angular.module('homeModule').controller('searchProductHomeController', ['$scope'
 			if(value == $scope.user.name){
 				return 'profile/product';
 			} else {
+				console.log(value);
 				return value;
 			}
+		} else {
+			return value;
 		}
 	}
 }]);

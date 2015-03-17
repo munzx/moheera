@@ -3,6 +3,7 @@
 	<h4 ng-show="result.length" class="alert alert-success">Products Search Result</h4>
 	<div ng-show="result.length" ng-repeat="item in result" class="col-md-3  col-sm-3 col-xs-12" style="padding-top:2%;background-color:#fff;border:1px solid #ccc;">
 		<img src="{{'public/uploads/' + item.image1}}" class="img-responsive image-center">
+		{{item.user[0]}}
 		<h4 class="text-center"><a ng-href="/{{getUserPage(item.user[0].name)}}/{{item.name}}">{{item.name}}</a></h4>
 		<p>{{item.desc}}</p>
 	</div>
