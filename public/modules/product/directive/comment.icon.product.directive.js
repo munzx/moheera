@@ -40,14 +40,14 @@ angular.module('productModule').directive('commentIconProductDirective', ['regis
 
 			if(user){
 				if(scope.product){
-					if(user._id == scope.product.user){
+					if(user._id == scope.product.user[0]._id){
 						scope.productLink = '/profile/product/' + scope.product.name;
 					} else {
-						scope.productLink = '/' + scope.product.userName + '/' + scope.product.name;
+						scope.productLink = '/' + scope.product.user[0].name + '/' + scope.product.name;
 					}
 				}
 			} else if(scope.product){
-				scope.productLink = '/' + scope.product.userName + '/' + scope.product.name;
+				scope.productLink = '/' + scope.product.user[0].name + '/' + scope.product.name;
 			}
 
 			scope.addComment = function () {
