@@ -29,7 +29,6 @@ module.exports = function () {
 			if(err){
 				done(err);
 			} else {
-				console.log(user);
 				done(null, user)
 			}
 		});

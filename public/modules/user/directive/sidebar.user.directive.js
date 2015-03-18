@@ -24,11 +24,11 @@ angular.module('userModule').directive('sidebarUserDirective', ['registerUserCon
 			scope.$watch('product', function (value) {
 				if(value){
 					//get the user categories
-					connectProductFactory.get({action: 'category', userName: scope.userName}, function (respone) {
-						scope.user = respone.user || user;
+					connectProductFactory.get({action: 'category', userName: scope.userName}, function (response) {
+						scope.user = response.user || user;
 						//create the categroy list along with necessary info for the nav required
 						//by the "isActive" function in order for it to work properly
-						var categoryList = respone.category;
+						var categoryList = response.category;
 						if(categoryList){
 							categoryList.forEach(function (elem) {
 								cats.push({name: elem, value: elem, profile: scope.profile});		

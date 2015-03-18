@@ -313,37 +313,53 @@ module.exports.delete = function(req, res){
 }
 
 module.exports.categoryName = function(req, res){
-	products.find({category: req.params.category, userName: req.params.userName}, function(err, product){
+	users.findOne({name: req.params.userName}, function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-		} else if(product){
-			res.status(200).jsonp(product);
+		} else if(user){
+			products.find({category: req.params.category, user: user._id}).populate('user').exec(function(err, product){
+				if(err){
+					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+				} else if(product){
+					res.status(200).jsonp(product);
+				} else {
+					res.status(404).json({message: 'No product has been found'});
+				}
+			});
 		} else {
-			res.status(404).json({message: 'No product has been found'});
+			res.status(404).json({message: 'User has not been found'});
 		}
 	});
 }
 
 //Get all products categories of a certain user
 module.exports.allUserCategory = function (req, res) {
-	products.find({userName: req.params.userName}, function (err, product) {
+	users.findOne({name: req.params.userName}, function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-		} else if(product){
-			var allProduct = product;
-			var cats = [];
+		} else if(user){
+			products.find({user: user._id}).populate('user').exec(function (err, product) {
+				if(err){
+					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+				} else if(product){
+					var allProduct = product;
+					var cats = [];
 
-			allProduct.forEach(function (item) {
-				cats.push(item.category);
-			});
+					allProduct.forEach(function (item) {
+						cats.push(item.category);
+					});
 
-			users.find({name: req.params.userName}, function (err, user) {
-				if(user){
-					res.status(200).jsonp({category: _.uniq(cats), user: user[0]});
+					users.find({name: req.params.userName}, function (err, user) {
+						if(user){
+							res.status(200).jsonp({category: _.uniq(cats), user: user[0]});
+						}
+					});			
+				} else {
+					res.status(404).json({message: 'Unknown error has occured'});
 				}
-			});			
+			});
 		} else {
-			res.status(404).json({message: 'Unknown error has occured'});
+			res.status(404).json({message: 'User has not been found'});
 		}
 	});
 }

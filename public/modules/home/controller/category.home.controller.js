@@ -5,10 +5,10 @@ angular.module('homeModule').controller('categoryHomeController', ['$scope', 'co
 
 	$scope.userLink = function (value) {
 		if($scope.userInfo){
-			if($scope.userInfo._id == value){
-				return value
-			} else {
+			if($scope.userInfo.name == value){
 				return 'profile/product';
+			} else {
+				return value;
 			}
 		} else {
 			return value;
