@@ -143,6 +143,12 @@ var usersSchema = Schema({
 		unique: true,
 		sparse: true
 	},
+	country: {
+		type: String,
+		default: 'United Arab Emirates',
+		required: true,
+		trim: true
+	},
 	pageDesc: {
 		type: String,
 		default: '',

@@ -45,6 +45,17 @@
 				<div class="form-group">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon">
+							<i class="text-muted glyphicon glyphicon-globe"></i>
+						</span>
+						<select data-ng-model="credentials.country" class="form-control" required>
+							<option value="" class="">--- Country ---</option>
+							<option ng-repeat="country in countryList" value="{{country.name}}">{{country.name}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon">
 							<i class="text-muted glyphicon glyphicon-asterisk"></i>
 						</span>
 						<input type="password" class="form-control" data-ng-model="credentials.password" placeholder="Password" required>
