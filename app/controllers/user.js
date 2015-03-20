@@ -3,6 +3,7 @@
 // Depnedencies
 var mongoose = require('mongoose'),
 errorHandler = require('./error'),
+lookup = require('country-data').lookup,
 fs = require('fs'),
 async = require("async"),
 _ = require('lodash'),
@@ -23,7 +24,18 @@ module.exports.index = function (req, res){
 
 // create a new user
 module.exports.create = function(req, res){
+	var countryInfo = lookup.countries({name: req.body.country})[0];
+	//newUser.country = [];
+	 req.body.country = [{
+		name: countryInfo.name,
+		code: countryInfo.alpha2,
+		callingCode: countryInfo.countryCallingCodes[0],
+		currency: countryInfo.currencies[0],
+		language: countryInfo.languages[0]
+	}];
+
 	var newUser = new users(req.body);
+
 	newUser.save(function(err, user){
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});

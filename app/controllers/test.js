@@ -1,14 +1,9 @@
 'use strict';
 
 //Dependencies
-var products = require('../models/product');
+var lookup = require('country-data').lookup;
 
 module.exports.index = function (req, res) {
-	products.find({name: 'koko'}).populate('user').exec(function (err, product) {
-		if(err){
-			res.status(500).jsonp(err);
-		} else {
-			res.status(200).jsonp(product);
-		}
-	});
+	var france = lookup.countries({name: 'United Kingdom'})[0];
+	res.status(200).json(france);
 }

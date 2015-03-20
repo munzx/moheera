@@ -143,12 +143,38 @@ var usersSchema = Schema({
 		unique: true,
 		sparse: true
 	},
-	country: {
-		type: String,
-		default: 'United Arab Emirates',
-		required: true,
-		trim: true
-	},
+	country: [{
+		name: {
+			type: String,
+			default: 'United Arab Emirates',
+			required: true,
+			trim: true
+		},
+		language: {
+			type: String,
+			default: 'eng',
+			required: true,
+			trim: true
+		},
+		code: {
+			type: String,
+			default: 'AE',
+			required: true,
+			trim: true
+		},
+		currency: {
+			type: String,
+			default: 'AED',
+			required: true,
+			trim: true
+		},
+		callingCode: {
+			type: Number,
+			default: '971',
+			required: true,
+			trim: true	
+		}
+	}],
 	pageDesc: {
 		type: String,
 		default: '',

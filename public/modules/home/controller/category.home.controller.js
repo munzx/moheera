@@ -3,6 +3,14 @@
 angular.module('homeModule').controller('categoryHomeController', ['$scope', 'connectProductFactory', '$stateParams', 'registerUserConfigFactory',function ($scope, connectProductFactory, $stateParams, registerUserConfigFactory) {
 	$scope.userInfo = registerUserConfigFactory.getUser();
 
+	$scope.logo = function (logo) {
+		if(logo){
+			return 'public/uploads/' + logo;
+		} else {
+			return 'public/modules/config/img/user.png';
+		}
+	}
+
 	$scope.userLink = function (value) {
 		if($scope.userInfo){
 			if($scope.userInfo.name == value){

@@ -4,9 +4,30 @@
 		<h4 ng-hide="result.length" class="alert alert-danger">Category is empty.</h4>
 		
 		<div ng-show="result.length" ng-repeat="item in result" class="col-md-3 col-sm-4 col-xs-12" style="padding-top:2%;background-color:#fff;border:1px solid #ccc;">
-			<img ng-src="{{'public/uploads/' + item.image1}}" class="img-responsive image-center">
-			<h4 class="text-center"><a ng-href="/{{userLink(item.user[0].name)}}/{{item.name}}">{{item.name}}</a></h4>
-			<p>{{item.desc | excerpt:100}}</p>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6">
+					<img src="{{logo(item.user[0].logo)}}" class="img-responsive">
+				</div>
+			</div>
+			<div class="row">
+				<img ng-src="{{'public/uploads/' + item.image1}}" class="img-responsive image-center">
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<h4><a ng-href="/{{userLink(item.user[0].name)}}/{{item.name}}">{{item.name}}</a></h4>
+				</div>
+				<div class="col-md-4">
+					<img src="public/modules/config/img/flags/{{item.user[0].country[0].code}}.png" class="img-responsive">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>{{item.desc | excerpt:100}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="label label-success"><i class="glyphicon glyphicon-tag"></i>AED {{item.price}}</div>
+			</div>
 		</div>
 	</div>
 </div>
