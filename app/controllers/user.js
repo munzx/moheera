@@ -154,11 +154,18 @@ module.exports.update = function(req, res){
 
 //update the user password
 module.exports.changePassword = function(req, res){
-	users.findOneAndUpdate({_id: req.user._id, password: req.body.currentPassword}, {"password": req.body.newPassword},function(err, user){
+	users.findOne({_id: req.user._id, password: req.body.currentPassword},function(err, user){
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
-			res.status(200).jsonp(user);
+			user.password = req.body.newPassword;
+			user.save(function (err, userInfo) {
+				if(err){
+					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+				} else {
+					res.status(200).jsonp(user);
+				}
+			});
 		} else {
 			res.status(401).json({message: 'Current password is not correct'});
 		}

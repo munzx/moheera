@@ -58,7 +58,7 @@ module.exports = function (app, express) {
 	app.use(bodyParser.json({limit: '50mb'}));
 	app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
 	
-	app.use(cookieSession({ secret: process.env.SESSION_SECRET || 'secret', name: 'moheera'})); //use sessions for Auth
+	app.use(cookieSession({ secret: process.env.SESSION_SECRET || '112jhsd8a783eh1jqjdhwe', name: 'moheera'})); //use sessions for Auth
 	app.use(methodOverride()); //read about this
 	app.use(passport.initialize()); //initialize passport
 	app.use(passport.session()); // persistent login sessions

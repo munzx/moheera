@@ -9,11 +9,22 @@ module.exports = function () {
 	//initilize passport local strategy
 	//exculde password
 	passport.use(new passportLocal.Strategy(function(username, password, done){
-		user.findOne({name: username.toLowerCase(), password: password}, {password: 0}, function(err, user){
+		user.findOne({name: username.toLowerCase()}, function(err, userInfo){
 			if(err){
 				done(err);
 			} else {
-				done(null, user);
+				if(userInfo){
+					userInfo.comparePasswords(password, function (err, isMatch) {
+						if(err) done(err);
+						if(isMatch){
+							done(null, userInfo);
+						} else {
+							done(isMatch);
+						}
+					});
+				} else {
+					done(null);
+				}
 			}
 		});
 	}));

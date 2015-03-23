@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	bcrypt = require('bcrypt'),
+	SALT_WORK_FACTOR = 10;
 
 var cartSchema = new Schema({
 	product: [{ type: Schema.Types.ObjectId, ref: 'product' }],
@@ -210,5 +212,25 @@ var usersSchema = Schema({
 	}
 }, {strict: true});
 
+
+usersSchema.pre('save', function (next) {
+	var user = this;
+	if(!user.isModified('password')) return next();
+	bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+		if(err) return next(err);
+		bcrypt.hash(user.password, salt, function (err, hash) {
+			if(err) next(err);
+			user.password = hash;
+			next();
+		});
+	});
+});
+
+usersSchema.methods.comparePasswords = function (toBeCompared, callBack) {
+	bcrypt.compare(toBeCompared, this.password, function (err, isMatch) {
+		if(err) return callBack(err);
+		callBack(null, isMatch);
+	});
+}
 
 module.exports = mongoose.model('user', usersSchema);
