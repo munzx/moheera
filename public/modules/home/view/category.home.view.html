@@ -3,7 +3,7 @@
 		<img src="{{categoryBanner}}" class="img-responsive image-center">
 		<h4 ng-hide="result.length" class="alert alert-danger">Category is empty.</h4>
 		
-		<div ng-show="result.length" ng-repeat="item in result" class="col-md-3 col-sm-4 col-xs-12" style="padding-top:2%;background-color:#fff;border:1px solid #ccc;">
+		<div ng-show="result.length" ng-repeat="item in result" class="col-md-3 col-sm-4 col-xs-12" style=";padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
 			<div class="row">
 				<div class="col-md-offset-3 col-md-6">
 					<img src="{{logo(item.user[0].logo)}}" class="img-responsive text-center">
@@ -23,13 +23,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12" style="min-height: 130px;">
 					<p>{{item.desc | excerpt:100}}</p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="label label-success"><i class="glyphicon glyphicon-tag"></i>AED {{item.price}}</div>
 			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 </div>
