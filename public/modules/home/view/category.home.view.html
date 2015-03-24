@@ -2,8 +2,17 @@
 	<div class="col-md-10 col-md-offset-1">
 		<img src="{{categoryBanner}}" class="img-responsive image-center">
 		<h4 ng-hide="result.length" class="alert alert-danger">Category is empty.</h4>
+
+		<div class="row" ng-show="result.length">
+			<div class="col-md-12">
+				<select ng-model="country" class="form-control">
+					<option value="">-- Show products from all countries --</option>
+					<option ng-repeat="name in result | unique" value="{{name}}">{{name}}</option>
+				</select>
+			</div>
+		</div>
 		
-		<div ng-show="result.length" ng-repeat="item in result" class="col-md-3 col-sm-2 col-xs-12" style=";padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
+		<div ng-show="result.length" ng-repeat="item in result | filter: country" class="col-md-3 col-sm-2 col-xs-12" style=";padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
 			<div class="row">
 				<div class="col-md-offset-3 col-md-6 col-xs-6 col-xs-offset-3">
 					<a ng-href="/{{userLink(item.user[0].name)}}">
