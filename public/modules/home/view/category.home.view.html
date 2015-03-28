@@ -21,13 +21,13 @@
 				</div>
 			</div>
 			<div class="row">
-				<a ng-href="/{{userLink(item.user[0].name)}}/{{item.name}}">
+				<a ng-href="/{{userProductLink(item.user[0].name)}}/{{item.name}}">
 					<img ng-src="{{'public/uploads/' + item.image1}}" class="img-responsive image-center">
 				</a>
 			</div>
 			<div class="row">
 				<div class="col-md-8  col-sm-8 col-xs-8">
-					<h4><a ng-href="/{{userLink(item.user[0].name)}}/{{item.name}}">{{item.name}}</a></h4>
+					<h4><a ng-href="/{{userProductLink(item.user[0].name)}}/{{item.name}}">{{item.name}}</a></h4>
 				</div>
 				<div class="col-md-3 col-md-offset-1  col-sm-offset-1 col-xs-offset-1 col-sm-3 col-xs-3">
 					<img src="public/modules/config/img/flags/{{item.user[0].country[0].code.toLowerCase()}}.png" class="img-responsive">

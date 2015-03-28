@@ -14,6 +14,18 @@ angular.module('homeModule').controller('categoryHomeController', ['$scope', 'co
 	$scope.userLink = function (value) {
 		if($scope.userInfo){
 			if($scope.userInfo.name == value){
+				return 'profile';
+			} else {
+				return value;
+			}
+		} else {
+			return value;
+		}
+	}
+
+	$scope.userProductLink = function (value) {
+		if($scope.userInfo){
+			if($scope.userInfo.name == value){
 				return 'profile/product';
 			} else {
 				return value;
