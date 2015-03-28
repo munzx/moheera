@@ -110,6 +110,7 @@ module.exports.create = function(req, res){
 				formData.name = req.body.name;
 				formData.price = req.body.price;
 				formData.quantity = req.body.quantity;
+				formData.category = req.body.category;
 				formData.desc = req.body.desc;
 				formData.user = req.user;
 				formData.userName = req.user.name;
