@@ -1,7 +1,8 @@
 'use strict';
 
 //Dependencies
-var users = require('../controllers/user'),
+var cms = require('../controllers/cms'),
+	users = require('../controllers/user'),
 	product = require('../controllers/product'),
 	order = require('../controllers/order'),
 	comment = require('../controllers/comment'),
@@ -92,6 +93,9 @@ module.exports = function (app, express) {
 	v1.use('/v1', express.Router()
 		//test zone
 		.get('/test', test.index)
+		//Cms
+		.get('/cms/contact', isAdmin, cms.contactIndex)
+		.post('/cms/contact', isGuest, cms.contact)
 		//Users
 		.get('/user', users.index) //get all users
 		.post('/user', isGuest, users.create) //create a new user

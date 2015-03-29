@@ -1,5 +1,82 @@
 <section class="row">
-	<div class="col-md-10">
-		<h1>Contact Page</h1>
+	<div ng-show="messageSent" class="col-md-10 col-md-offset-1 text-center">
+		<h4 class="alert alert-success">Message has been sent successfully</h4>
+		<i class="glyphicon glyphicon-heart" style="color: red; font-size: 400px;"></i>
 	</div>
+	<div ng-hide="messageSent" class="col-md-10 col-md-offset-1">
+		<img src="/public/modules/home/img/contact.jpg" class="img-responsive">
+		<h4>Contact Us</h4>
+		<div ng-show="error" class="text-center">
+			<h4 class="alert alert-danger">An error has occured, we apologize for the inconvenience!</h4>
+			<i class="glyphicon glyphicon-flash" style="color: #fff64c; font-size: 100px;"></i>
+		</div>
+		<form name="contactForm" class="form" method="post" id="contact" novalidate>
+			<fieldset>
+				<div class="form-group">
+					<div class="controls">
+						<label for="fullName">Full Name</label>
+						<input type="text" name="fullName" id="fullName" ng-model="contact.fullName" ng-minlength="10" ng-maxlength="40" class="form-control" placeholder="Full Name" required>
+						<h5 class="alert alert-danger" ng-show="contactForm.fullName.$error.required && contactForm.fullName.$dirty">
+							The full name field is required
+						</h5>
+						<h5 class="alert alert-danger" ng-show="contactForm.fullName.$error.maxlength && contactForm.fullName.$dirty">
+							The maximum length for the full name field is 40 charecters
+						</h5>
+						<h5 class="alert alert-danger" ng-show="contactForm.fullName.$error.minlength && contactForm.fullName.$dirty">
+							The minimum length for the full name field is 10 charecters
+						</h5>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="controls">
+						<label for="email">email</label>
+						<input type="email" name="email" id="email" ng-model="contact.email" class="form-control" placeholder="Email" required>
+						<h5 class="alert alert-danger" ng-show="contactForm.email.$error.required && contactForm.email.$dirty">
+							The email field is required
+						</h5>
+						<h5 class="alert alert-danger" ng-show="contactForm.email.$invalid && contactForm.email.$dirty">
+							Please provide a valid email address
+						</h5>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="controls">
+						<label for="department">Department</label>
+						<select class="form-control" name="department" id="department" ng-model="contact.department" required>
+							<option value="">--- Select Department ---</option>
+							<option ng-repeat="item in contactFormDepartments()" value="{{item}}">{{item}}</option>
+						</select>
+						<h5 class="alert alert-danger" ng-show="contactForm.department.$error.required && contactForm.department.$dirty">
+							The department field is required
+						</h5>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="controls">
+						<label for="reason">Reason</label>
+						<select class="form-control" name="reason" id="reason" ng-model="contact.reason" required>
+							<option value="">--- Select Reason ---</option>
+							<option ng-repeat="item in contactFormReasons()" value="{{item}}">{{item}}</option>
+						</select>
+						<h5 class="alert alert-danger" ng-show="contactForm.reason.$error.required && contactForm.reason.$dirty">
+							The reason field is required
+						</h5>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="controls">
+						<label for="reason">Message</label>
+						<textarea class="form-control" name="message" rows="10" id="message" ng-model="contact.message" placeholder="Message" required></textarea>
+						<h5 class="alert alert-danger" ng-show="contactForm.message.$error.required && contactForm.message.$dirty">
+							The Message field is required
+						</h5>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="controls">
+						<button class="btn btn-lg btn-block btn-success" ng-disabled="contactForm.$invalid" ng-click="contactSendMessage()">Send</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
 </section>
