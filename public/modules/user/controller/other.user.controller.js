@@ -13,6 +13,18 @@ angular.module('userModule').controller('otherUserControlller', ['registerUserCo
 			$location.path('/profile');
 		}
 
+		$scope.userLink = function (value) {
+			if($scope.userInfo){
+				if(user.name == value){
+					return 'profile';
+				} else {
+					return value;
+				}
+			} else {
+				return value;
+			}
+		}
+
 		$scope.banner = function () {
 			if($scope.userInfo){
 				if($scope.userInfo.banner){

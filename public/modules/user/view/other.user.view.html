@@ -3,7 +3,7 @@
 		<div class="row" style="background: #fff;">
 			<img ng-src="{{banner()}}" class="img-responsive text-center">
 			<div class="col-md-4 col-sm-4 col-xs-6">
-				<a ui-sref="profile({name: userInfo.name})">
+				<a href="{{userLink(userInfo.name)}}">
 					<img class="img-responsive" style="margin-top: -30%;" src="{{logo()}}">
 				</a>
 			</div>
