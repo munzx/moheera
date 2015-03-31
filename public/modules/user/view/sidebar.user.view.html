@@ -1,5 +1,5 @@
 <div class="row">
-	<ul class="nav nav-pills nav-stacked panel">
+	<ul class="nav nav-pills panel">
 		<li ng-class="{'active': isActive('all')}" role="presentation"><a href="/{{profile}}">All</a></li>
 		<li ng-repeat="item in cats" ng-class="{'active': isActive(item.value)}" role="presentation"><a href="/{{item.profile}}/product/category/{{item.value}}">{{item.name}}</a></li>
 	</ul>

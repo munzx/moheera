@@ -4,26 +4,38 @@
 		<strong data-ng-bind="error"></strong>
 	</div><!-- End error message -->
 
-	<!-- remove product -->
-	<span ng-show="user._id == product.user[0]._id" ng-click="showRemoveProductBox()" class="glyphicon glyphicon-remove" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
-	<!-- end remove product-->
+	<div class="row">
+		<div class="col-md-12">
+			<!-- remove product -->
+			<span ng-show="user._id == product.user[0]._id" ng-click="showRemoveProductBox()" class="glyphicon glyphicon-remove" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
+			<!-- end remove product-->
 
-	<!-- edit product -->
-	<a ng-show="user._id == product.user[0]._id" href="/profile/product/{{product.name}}/edit">
-		<span class="glyphicon glyphicon-edit" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
-	</a><!-- end edit product-->
-
-	<!-- Remove Product Box -->
-	<div ng-show="removeProductBox" class="text-center text-danger">
-		<div class="alert alert-danger" role="alert">
-			<h5>Are you sure you wants to remove this product?</h5>
-			<button ng-click="removeProduct()" class="btn btn-lg btn-danger">Remove</button>
-			<button ng-click="cancelRemoveProduct()" class="btn btn-lg btn-success">Cancel</button>
+			<!-- edit product -->
+			<a ng-show="user._id == product.user[0]._id" href="/profile/product/{{product.name}}/edit">
+				<span class="glyphicon glyphicon-edit" style="font-size:20px;color:#ccc;" aria-hidden="true"></span>
+			</a><!-- end edit product-->
 		</div>
-	</div> <!-- End Remove Product Box -->
+	</div>
 
-	<!-- Product Inof -->
-	<div product-box-product-directive="product"></div><!-- End Product Inof -->
+	<div class="row">
+		<div class="col-md-12">
+		<!-- Remove Product Box -->
+		<div ng-show="removeProductBox" class="text-center text-danger">
+			<div class="alert alert-danger" role="alert">
+				<h5>Are you sure you wants to remove this product?</h5>
+				<button ng-click="removeProduct()" class="btn btn-lg btn-danger">Remove</button>
+				<button ng-click="cancelRemoveProduct()" class="btn btn-lg btn-success">Cancel</button>
+			</div>
+		</div> <!-- End Remove Product Box -->
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Product Inof -->
+			<div product-box-product-directive="product"></div><!-- End Product Inof -->
+		</div>
+	</div>
 
 	<!-- Quantity -->
 	<div class="col-xs-12 col-sm-12 col-md-4 col-md-push-8" ng-class="{'alert alert-success': product.quantity > 0, 'alert alert-danger': product.quantity == 0}">{{product.quantity}} Available</div><!-- End Quantity -->

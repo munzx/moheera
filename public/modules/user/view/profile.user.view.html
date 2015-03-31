@@ -1,62 +1,36 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1">
-		<div class="row">
+		<div class="row" style="background: #fff;">
 			<img ng-src="{{banner()}}" class="img-responsive text-center">
+			<div class="col-md-4 col-sm-4 col-xs-6">
+				<a ui-sref="profile({name: userInfo.name})">
+					<img class="img-responsive" style="margin-top: -30%;" src="{{logo()}}">
+				</a>
+			</div>
+			<div class="col-md-4 hidden-sm hidden-xs" style="margin-bottom:2%;">
+				<h2 class="text-center">{{userInfo.name}}</h2>
+			</div>
 		</div>
-		<div class="row" style="margin-top:2%;">
-			<div class="col-md-3">
-				<!-- Show in smal and extra small only -->
-				<div class="row visible-sm visible-xs">
-					<div class="col-sm-12 col-xs-12" style="padding-bottom:5%;">
-						<h4 class="text-center">{{userInfo.name}}</h4>
-						<span>{{userInfo.pageDesc}}</span>
-					</div>
-				</div><!-- End show in smal and extra small only -->
+		<div class="row">
 
-				<!-- Sidebar -->
-				<div class="row" style="background-color:#fff;padding-bottom:8%;padding-top:8%;">
-					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-						<a ui-sref="profile({name: userInfo.name})">
-							<img style="margin-bottom:-2%;" class="img-responsive image-center" src="{{logo()}}">
-						</a>
-					</div>
-				</div>
+			<div class="col-md-12" style="background-color:#fff;padding:5%;word-wrap: break-word;">
+				<span>{{userInfo.pageDesc}}</span>
+			</div>
+
+			<div class="col-md-12">
 				<div sidebar-user-directive="userProducts"></div><!-- End Sidebar -->
 			</div>
-			<div class="col-md-8 col-md-offset-1">
-				<div class="row">
-					<div class="col-md-12 hidden-sm hidden-xs" style="margin-bottom:2%;">
-						<h4 class="text-center">{{userInfo.name}}</h4>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-md-12 hidden-sm hidden-xs" style="margin-bottom:5%;background-color:#fff;padding:5%;word-wrap: break-word;">
-						<span>{{userInfo.pageDesc}}</span>
-					</div>
-				</div>
-
+			<div class="col-md-12">
 				<div data-ui-view>
 					<!-- Wrapp the 'default view' in a div to avoid error as elements if were not inclused in one parent element it causes errors -->
 					<div class="row">
 						<div class="col-md-12" ng-hide="userProducts.length">
 							<h4 class="alert alert-success text-center">You don't have any products added yet!</h4>
 						</div>
-						<div class="col-md-12" ng-show="userProducts.length" ng-repeat="product in userProducts" style="margin-bottom:5%;background-color:#fff;">
+						<div class="col-md-4 col-sm-4 col-xs-12" ng-show="userProducts.length" ng-repeat="product in userProducts" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
 							<!-- Product Inof -->
-							<div product-box-product-directive="product"></div><!-- End Product Inof -->
-							<div class="row">
-								<!-- Quantity -->
-								<div class="col-xs-12 col-sm-12 col-md-4 col-md-push-8" ng-class="{'alert alert-success': product.quantity > 0, 'alert alert-danger': product.quantity == 0}">{{product.quantity}} Available</div><!-- End Quantity -->
-								<div class="col-xs-12 col-sm-12  col-md-8 col-md-pull-4" style="margin-bottom:4%;">
-									<!-- heart -->
-									<div heart-icon-product-directive="product"></div><!-- End Heart -->
-									<!-- Comment -->
-									<div comment-icon-product-directive="product"></div> <!-- End comment -->
-									<!-- Cart -->
-									<div cart-icon-product-directive="product"></div> <!-- End Cart -->
-								</div>
-							</div>
+							<div product-brief-product-directive="product"></div>
 						</div>
 					</div>
 				</div>

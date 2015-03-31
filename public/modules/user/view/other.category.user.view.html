@@ -4,16 +4,9 @@
 	</div>
 </div>
 
-<div class="row" ng-show="productByCategory.length" ng-repeat="product in productByCategory" style="margin-bottom:5%">
-
-	<div class="col-md-12" style="padding-bottom:2%;background-color:#fff;">
-	<!-- Product Inof -->
-	<div product-box-product-directive="product"></div><!-- End Product Inof -->
-		<!-- heart -->
-		<div heart-icon-product-directive="product"></div><!-- End Heart -->
-		<!-- Comment -->
-		<div comment-icon-product-directive="product"></div> <!-- End comment -->
-		<!-- Cart -->
-		<div cart-icon-product-directive="product"></div> <!-- End Cart -->
+<div class="row">
+	<div class="col-md-4" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;" ng-show="productByCategory.length" ng-repeat="product in productByCategory">
+		<!-- Product Inof -->
+		<div product-brief-product-directive="product"></div>
 	</div>
 </div>
