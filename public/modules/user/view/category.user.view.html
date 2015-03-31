@@ -1,0 +1,12 @@
+<div class="row" ng-hide="productByCategory.length">
+	<div class="col-md-12">
+		<h4 class="alert alert-danger text-center">Category was not found</h4>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;" ng-show="productByCategory.length" ng-repeat="product in productByCategory">
+		<!-- Product Inof -->
+		<div product-brief-product-directive="product"></div>
+	</div>
+</div>
