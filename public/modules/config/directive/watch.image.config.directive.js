@@ -40,6 +40,9 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 			}
 
 			function draw () {
+				//clear the area
+				canvas.fillStyle = "#fff";
+
 				//give the newImage variable the uploaded image source
 				//img.src = image.target.result;
 				var maxWidth = x.width,
