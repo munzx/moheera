@@ -40,9 +40,6 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 			}
 
 			function draw () {
-				//clear the area
-				canvas.fillStyle = "#fff";
-
 				//give the newImage variable the uploaded image source
 				//img.src = image.target.result;
 				var maxWidth = x.width,
@@ -61,8 +58,8 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 				}
 
 				//clear the canvas
-				canvas.clearRect(0, 0, canvas.width, canvas.height);
-				canvas.fillRect(0, 0, canvas.width, canvas.height);
+				canvas.clearRect(0, 0, x.width, x.height);
+				canvas.fillRect(0, 0, x.width, x.height);
 
 				//set canvas width and height
 				canvas.width = img.width;
@@ -87,7 +84,15 @@ angular.module('moheera').directive('watchImageConfigDirective', ['$modal', '$ro
 
 					//after loading validate the uploaded file other wise show the modal 'error message'
 					reader.onload = function (image) {
-						//make sure the file size is less than 1MB
+							//clear the canvas
+							canvas.clearRect(0, 0, canvas.width, canvas.height);
+							canvas.fillRect(0, 0, canvas.width, canvas.height);
+
+							//clear the area
+							canvas.fillStyle = "#fff";
+
+
+						//make sure the file size is less than 10MB
 						if(image.loaded > 1024 * 1024 * 10){
 							//upadte the 'input file' field to be false as the file size is more than 1MB
 							scope.$apply(function () {
