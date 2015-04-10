@@ -36,14 +36,14 @@ module.exports.create = function (req, res) {
 		} else if(product){
 			//if the product is not hearted by the user then return true else resturn false
 				var hearts = product.heart;
-				if(hearts.length > 0){
-					hearts.forEach(function (item) {
-						if(item.user[0].toString('utf-8').trim() != req.user._id.toString('utf-8').trim()){
-							var heartInfo = req.body;
-							heartInfo.user = req.user;
-							product.heart.push(heartInfo);
-						}
-					});
+				if(hearts.length >= 1){
+					if(_.find(hearts, function (item) {
+						return item.user[0] == req.user._id;
+					}) == undefined){
+						var heartInfo = {};
+						heartInfo.user = req.user;
+						product.heart.push(heartInfo);	
+					}
 				} else {
 					var heartInfo = req.body;
 					heartInfo.user = req.user;
