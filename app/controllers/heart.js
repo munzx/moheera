@@ -72,6 +72,7 @@ module.exports.delete = function (req, res) {
 			res.status(500).jsonp(err);
 		} else if(product) {
 			var heartUser = product.heart;
+			heartUser = _.uniq(heartUser);
 			heartUser.forEach(function (heart) {
 				if(heart.user[0]._id.toString('utf-8').trim() == req.user._id.toString('utf-8').trim()){
 					heart.remove();
