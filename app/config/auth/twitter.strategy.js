@@ -17,7 +17,7 @@ module.exports = function () {
 	    	if(err){
 	    		 return done(err);
 	    	} else if(account){
-	    		 return done(err, account);
+	    		 return done(null, account);
 	    	} else {
 	    		var providerInfo = {
 	    			provider: 'twitter',
@@ -33,7 +33,7 @@ module.exports = function () {
 	    			if(err){
 	    				return done(err, null);
 	    			} else {
-	    				return done(err, account);
+	    				return done(null, account);
 	    			}
 	    		});
 	    	}
