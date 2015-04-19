@@ -17,7 +17,7 @@ module.exports = function () {
 	    	if(err){
 	    		 return done(err);
 	    	} else if(account){
-	    		 return done(err, account);
+	    		 return done(null, account);
 	    	} else {
 	    		var providerInfo = {
 	    			provider: 'twitter',
@@ -31,9 +31,9 @@ module.exports = function () {
 	    		var newAccount = new accounts(providerInfo);
 	    		newAccount.save(function (err, account) {
 	    			if(err){
-	    				return done(err, null);
+	    				return done(err);
 	    			} else {
-	    				return done(err, account);
+	    				return done(null, account);
 	    			}
 	    		});
 	    	}
