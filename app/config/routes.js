@@ -96,7 +96,7 @@ module.exports = function (app, express) {
 		passport.authenticate('twitter', function (err, account) {
 			if(err){
 				//res.redirect('/');
-				res.status(200).json('Bism Allah , here is 0');
+				res.status(200).json(err);
 			} else {
 				if(err){
 					res.status(200).json('Bism Allah , here is 1');
