@@ -138,7 +138,7 @@ var usersSchema = Schema({
 		unique: true,
 		lowercase: true,
 		sparse: true,
-		match: [/.+\@.+\..+/, 'Please fill a valid email address']
+		match: [/.+\@.+\..+/, 'Please provide a valid email address']
 	},
 	mobilePhone: {
 		type: String,

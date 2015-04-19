@@ -1,0 +1,89 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="nav" ng-controller="navConfig">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" ng-click="navbarCollapsed = !navbarCollapsed">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" ui-sref-active="active" ui-sref="home"><b>Home</b></a>
+		</div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" collapse="!navbarCollapsed">
+			<ul class="nav navbar-nav">
+				<li ui-sref-active="active" ng-show="notLoggedLink">
+					<a ui-sref="about"><b>About</b></a>
+				</li>
+				<li ui-sref-active="active">
+					<a ui-sref="contact" ng-show="notLoggedLink"><b>Contact Us</b></a>
+				</li>
+				<li ui-sref-active="active" ng-show="notLoggedLink">
+					<a ui-sref="whyMoheera"><b>Why Moheera</b></a>
+				</li>
+				<li>
+					<a ui-sref="profile" class="active" ui-sref-active="active" ng-show="loggedLink">
+						<span class="glyphicon glyphicon-user"></span>
+						<b>{{user.name}}</b>
+					</a>
+				</li>
+				<li>
+					<a ui-sref="profile.addProduct" ui-sref-active="active" ng-show="loggedLink">
+						<span style="font-size:16px;" class="glyphicon glyphicon-cloud-upload"></span>
+						<b>Add Product</b>
+					</a>
+				</li>
+				<li>
+					<a ui-sref="profile.order" ng-show="loggedLink">
+						<span class="glyphicon glyphicon-inbox"></span>
+						<b>Order</b>
+					</a>
+				</li>
+				<li>
+					<a ui-sref="profile.cart" ng-show="loggedLink">
+						<span tyle="font-size:16px;" class="glyphicon glyphicon-shopping-cart"></span>
+						<b>Cart</b><span class="badge">{{user.cart.length}}</span>
+					</a>
+				</li>
+				<li class="visible-md visible-lg">
+					<a ui-sref="image" ng-show="loggedLink">
+						<span style="font-size:16px;" class="glyphicon glyphicon-pencil"></span>
+						<b>Edit Image</b>
+					</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<form class="navbar-form navbar-left" role="search">
+					  <div class="form-group">
+					    <input type="text" ng-model="searchPhrase" class="form-control" placeholder="Search">
+					  </div>
+					  <button type="submit" ng-click="searchUser()" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></button>
+					  <button type="submit" ng-click="searchProudct()" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
+					</form>
+				</li>
+				<li ui-sref-active="active" ng-show="notLoggedLink">
+					<a ui-sref="signin"><b>SignIn</b></a>
+				</li>
+				<li  ui-sref-active="active" ng-show="notLoggedLink">
+					<a ui-sref="signup"><b>SignUp</b></a>
+				</li>
+				<li class="dropdown" dropdown ng-show="loggedLink" >
+					<a href class="dropdown-toggle" dropdown-toggle data-toggle="dropdown" is-open="status.isopen" dropdown-toggle ng-disabled="disabled">
+						<span  class="glyphicon glyphicon-cog" style="font-size:20px;"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a ui-sref="profile.setting"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+						<li class="divider"></li>
+						<li><a ui-sref="profile.social"><span class="glyphicon glyphicon-bullhorn"></span> Social Media</a></li>
+						<li class="divider"></li>
+						<li><a ui-sref="profile.userPassword"><span class="glyphicon glyphicon-asterisk"></span> Change Password</a></li>
+						<li class="divider"></li>
+						<li><a ui-sref="signout"><span class="glyphicon glyphicon-stop"></span> SignOut</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>

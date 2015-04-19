@@ -10,6 +10,27 @@ angular.module('userModule').controller('settingUserController', ['$scope', '$lo
 		$location.path('/profile/remove');
 	}
 
+	//set the value for the banner
+	if(userInfo.banner.length > 0){
+		$scope.banner = "public/uploads/" + userInfo.banner;
+	} else {
+		$scope.banner = userInfo.banner;
+	}
+
+	if(userInfo.logo.length > 0){
+		$scope.logo = "public/uploads/" + userInfo.logo;
+	} else {
+		$scope.logo = userInfo.logo;
+	}
+
+	$scope.previewImagePlaceHolder = function (image, placeholder) {
+		if(image.length > 0){
+			return image;
+		} else {
+			return "public/uploads/" + placeholder;
+		}
+	}
+
 	$scope.updateAccount = function () {
 		//show loading image
 		$scope.loading = true;

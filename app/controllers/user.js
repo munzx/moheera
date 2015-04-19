@@ -7,14 +7,16 @@ lookup = require('country-data').lookup,
 fs = require('fs'),
 async = require("async"),
 _ = require('lodash'),
-users = require('../models/user');
+users = require('../models/user'),
+products = require('../models/product'),
+accounts = require('../models/account');
 
 // get all users
 module.exports.index = function (req, res){
-	users.find({password: 0}, function (err, user){
+	users.find({role: 'user'}, {password: 0}, function (err, user){
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-		} else if(user){
+		} else if(user.length > 0){
 			res.status(200).jsonp(user);
 		} else {
 			res.status(404).json({message: 'No user has been found'});
@@ -25,7 +27,6 @@ module.exports.index = function (req, res){
 // create a new user
 module.exports.create = function(req, res){
 	var countryInfo = lookup.countries({name: req.body.country})[0];
-	//newUser.country = [];
 	 req.body.country = [{
 		name: countryInfo.name,
 		code: countryInfo.alpha2,
@@ -174,13 +175,40 @@ module.exports.changePassword = function(req, res){
 
 //delete user by id
 module.exports.delete = function(req, res){
-	users.findOneAndRemove({_id: req.user._id}, function(err, numOfAffectedRows){
+	var dest = 'public/uploads/';
+	users.findById(req.user._id, function(err, user){
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-		} else if(numOfAffectedRows === 0) {
-			res.status(404).json({message: 'User has not been found'});
-		} else {
+		} else if(user) {
+			user.remove(function (err) {
+				if(err){
+					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+				} else {
+					products.find({user: req.user._id}, function (err, product) {
+						if(product){
+							var allUserProducts = product;
+							allUserProducts.forEach(function (item) {
+								if (fs.existsSync(dest + item.image1)){ fs.unlink(dest + item.image1); }
+								if (fs.existsSync(dest + item.image2)){ fs.unlink(dest + item.image2); }
+								if (fs.existsSync(dest + item.image3)){ fs.unlink(dest + item.image3); }
+								if (fs.existsSync(dest + item.image4)){ fs.unlink(dest + item.image4); }
+								item.remove(function () {});
+							});
+						}
+					});
+					accounts.find(function (err,account) {
+						if(account){
+							var allUserAccounts = account;
+							allUserAccounts.forEach(function (info) {
+								info.remove(function () {});
+							});
+						}
+					});
+				}
+			});
 			res.status(200).json({message: 'User has been deleted successfully'});
+		} else {
+			res.status(404).json({message: 'User has not been found'});
 		}
 	});
 }

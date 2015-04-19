@@ -20,7 +20,7 @@ angular.module('productModule').directive('heartIconProductDirective', ['registe
 							//product.heart[array].user[0]._id
 							for(var i=0;i <= hearts.length;i++){
 								if(hearts[i]){
-									if(hearts[i].user[0] == user._id){
+									if(hearts[i].user == user._id){
 										return true;
 									}
 								}
@@ -42,6 +42,7 @@ angular.module('productModule').directive('heartIconProductDirective', ['registe
 				if(scope.isChecked == false){
 					connectHeartProductFactory.save({productId: productId}, function (response) {
 						scope.product.heart = response.heart;
+						console.log(response);
 						scope.isChecked = true;
 					}, function (err) {
 						if(err.status == 403){

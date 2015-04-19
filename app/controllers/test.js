@@ -7,7 +7,6 @@ var fs = require("fs"),
 	errorHandler = require('./error'),
 	products = require('../models/product');
 
-//Assure the heart owner only can unheart!!
 module.exports.index = function (req, res) {
 	//remove products with no user
 	products.find().populate('user').exec(function (err, product) {
@@ -31,27 +30,4 @@ module.exports.index = function (req, res) {
 			res.status(500).jsonp('No product has been found');	
 		}
 	});
-
-	// products.findById(req.params.id).populate('heart.user').exec(function (err, product) {
-	// 	if(err){
-	// 		res.status(500).jsonp(err);
-	// 	} else if(product) {
-	// 		var heartUser = product.heart;
-	// 		heartUser.forEach(function (heart) {
-	// 			if(heart.user[0]._id.toString('utf-8').trim() == req.user._id.toString('utf-8').trim()){
-	// 				heart.remove();
-	// 			}
-	// 		});
-
-	// 		product.save(function (err, heart) {
-	// 			if(err){
-	// 				res.status(500).jsonp({message: err});
-	// 			} else {
-	// 				res.status(200).jsonp({"heart": product.heart});
-	// 			}
-	// 		});
-	// 	} else {
-	// 		res.status(200).jsonp('Failed to unheart product!');
-	// 	}
-	// });
 }

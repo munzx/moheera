@@ -3,15 +3,21 @@
 //Dependencies
 var cms = require('../controllers/cms'),
 	users = require('../controllers/user'),
+	admin = require('../controllers/admin'),
 	product = require('../controllers/product'),
 	order = require('../controllers/order'),
 	comment = require('../controllers/comment'),
 	heart = require('../controllers/heart'),
 	cart = require('../controllers/cart'),
 	search = require('../controllers/search'),
+	account = require('../controllers/account'),
 	test = require('../controllers/test'),
 	passport = require('passport'),
-	authLocal = require('./auth/local.strategy');
+	authLocal = require('./auth/local.strategy'),
+	facebook = require('./auth/facebook.strategy'),
+	instagram = require('./auth/instagram.strategy'),
+	twitter = require('./auth/twitter.strategy'),
+	google = require('./auth/google.strategy');
 
 module.exports = function (app, express) {
 	//Assign variable to rename the PASSPORT local authentication strategy
@@ -25,10 +31,134 @@ module.exports = function (app, express) {
 		}
 	}
 
+	//Facebook Login
+	app.route('/auth/facebook').get(passport.authenticate('facebook', {
+		scope: ['email']
+	}));
+	app.get('/auth/facebook/callback', function (req, res, next) {
+		passport.authenticate('facebook', function (err, account) {
+			if(err){
+				res.redirect('/');
+				console.log(err);
+			} else {
+				if(err){
+					res.redirect('/');
+				} else {
+					if(req.user && account.user.length == 0){
+						res.redirect('/api/v1/account/link/' + account._id);
+					} else if(req.user && account.user.length > 0){
+						res.render('../public/modules/config/view/index', {
+							isAuthenticated: req.isAuthenticated(),
+							userInfo: req.user,
+							query: {page: '/profile/profile/social', key: 'error', value: 'account already linked'}
+						});;
+					} else if(!req.user && account.user.length > 0){
+						req.login(account.user[0], function (err) {
+							res.redirect('/');
+						});
+					} else {
+						res.redirect('/provider/' + account._id);
+					}
+				}
+			}
+		})(req, res, next);
+	});
+
+	//Instagram Login
+	app.route('/auth/instagram').get(passport.authenticate('instagram'));
+	app.get('/auth/instagram/callback', function (req, res, next) {
+		passport.authenticate('instagram', function (err, account) {
+			if(err){
+				res.redirect('/');
+			} else {
+				if(req.user && account.user.length == 0){
+					res.redirect('/api/v1/account/link/' + account._id);
+				} else if(req.user && account.user.length > 0){
+						re.render('../public/modules/config/view/index', {
+							isAuthenticated: req.isAuthenticated(),
+							userInfo: req.user,
+							query: {page: '/profile/profile/social', key: 'error', value: 'account already linked'}
+						});;
+				} else if(!req.user && account.user.length > 0){
+					req.login(account.user[0], function (err) {
+						res.redirect('/');
+					});
+				} else {
+					res.redirect('/provider/' + account._id);
+				}
+			}
+		})(req, res, next);
+	});
+
+	//Twitter Login
+	app.route('/auth/twitter').get(passport.authenticate('twitter'));
+	app.get('/auth/twitter/callback', function (req, res, next) {
+		passport.authenticate('twitter', function (err, account) {
+			if(err){
+				res.redirect('/');
+			} else {
+				if(err){
+					res.redirect('/');
+				} else {
+					if(req.user && account.user.length == 0){
+						res.redirect('/api/v1/account/link/' + account._id);
+					} else if(req.user && account.user.length > 0){
+						res.render('../public/modules/config/view/index', {
+							isAuthenticated: req.isAuthenticated(),
+							userInfo: req.user,
+							query: {page: '/profile/profile/social', key: 'error', value: 'account already linked'}
+						});;
+					} else if(!req.user && account.user.length > 0){
+						req.login(account.user[0], function (err) {
+							res.redirect('/');
+						});
+					} else {
+						res.redirect('/provider/' + account._id);
+					}
+				}
+			}
+		})(req, res, next);
+	});
+
+	//Google Login
+	app.route('/auth/google').get(passport.authenticate('google-openidconnect'));
+	app.get('/auth/google/callback', function (req, res, next) {
+		passport.authenticate('google-openidconnect', function (err, account) {
+			if(err){
+				res.redirect('/');
+			} else {
+				if(err){
+					res.redirect('/');
+				} else {
+					if(req.user && account.user.length == 0){
+						res.redirect('/api/v1/account/link/' + account._id);
+					} else if(req.user && account.user.length > 0){
+						res.render('../public/modules/config/view/index', {
+							isAuthenticated: req.isAuthenticated(),
+							userInfo: req.user,
+							query: {page: '/profile/profile/social', key: 'error', value: 'account already linked'}
+						});;
+					} else if(!req.user && account.user.length > 0){
+						req.login(account.user[0], function (err) {
+							res.redirect('/');
+						});
+					} else {
+						res.redirect('/provider/' + account._id);
+					}
+				}
+			}
+		})(req, res, next);
+	});
+
+
 	//check if the user role is admin
 	function isAdmin(req, res, next){
-		if(req.user.role === 'admin'){
-			next();
+		if(req.user){
+			if(req.user.role === 'admin'){
+				next();
+			} else {
+				res.status(403).json('Access Denied');
+			}
 		} else {
 			res.status(403).json('Access Denied');
 		}
@@ -37,8 +167,12 @@ module.exports = function (app, express) {
 	//check if the user role is user
 	//grant the admin an access to any of the user route/controller
 	function isUser(req, res, next){
-		if(req.user.role === 'user' || req.user.role === 'admin'){
-			next();
+		if(req.user){
+			if(req.user.role === 'user' || req.user.role === 'admin'){
+				next();
+			} else {
+				res.status(403).json('Access Denied');
+			}
 		} else {
 			res.status(403).json('Access Denied');
 		}
@@ -57,15 +191,17 @@ module.exports = function (app, express) {
 	app.get('/', function(req, res){
 		res.render('../public/modules/config/view/index', {
 			isAuthenticated: req.isAuthenticated(),
-			userInfo: req.user
+			userInfo: req.user,
+			query: {}
 		});
 	});
 
-	//Serve login page
-	app.get('/login', function(req, res){
-		res.render('../public/modules/auth/view/login', {
+	//Check if the user info is complete
+	app.get('/provider/:id', function(req, res){
+		res.render('../public/modules/config/view/index', {
 			isAuthenticated: req.isAuthenticated(),
-			user: req.user
+			userInfo: req.user,
+			query: {page: '/signin/provider/' + req.params.id}
 		});
 	});
 
@@ -96,13 +232,20 @@ module.exports = function (app, express) {
 		//Cms
 		.get('/cms/contact', isAdmin, cms.contactIndex)
 		.post('/cms/contact', isGuest, cms.contact)
+		//Account (provider as twitter or facebook)
+		.get('/account/:id', account.getById)
+		.post('/account/:id', account.completeProviderProfile)
+		.get('/account/status/:userID', account.AccountsStatus)
+		.get('/account/link/:id', account.linkProviderAccount)
+		//admin
+		.get('/admin', admin.index)
 		//Users
 		.get('/user', users.index) //get all users
 		.post('/user', isGuest, users.create) //create a new user
 		.put('/user', ensureAuthenticated, isUser, users.update) //update user info
 		.put('/user/password', ensureAuthenticated, isUser, users.changePassword) //update the user password
 		.delete('/user', ensureAuthenticated, isUser, users.delete) //delete user
-		.get('/user/:name', users.getByName) //get a user by name
+		.get('/user/:name', isUser, users.getByName) //get a user by name
 		//Carts
 		.put('/user/cart/:productId', ensureAuthenticated, isUser, cart.updateProduct) //update user cart (only quantity)
 		.get('/user/cart/products', ensureAuthenticated, isUser, cart.index) //get all products in the user cart
@@ -140,7 +283,8 @@ module.exports = function (app, express) {
 	app.use(function (req, res) {
 		res.render('../public/modules/config/view/index', {
 			isAuthenticated: req.isAuthenticated(),
-			userInfo: req.user
+			userInfo: req.user,
+			query: {}
 		});
 	});
 }

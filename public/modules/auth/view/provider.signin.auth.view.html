@@ -1,6 +1,7 @@
 <section class="row">
 	<div class="col-xs-offset-1 col-xs-10 col-md-offset-4 col-md-4 form-bg">
 		<h3 class="text-center">Sign Up</h3>
+		<h5 class="alert alert-info text-center">Following information is required</h5>
 		<form name="userForm" class="form-horizontal" novalidate autocomplete="off">
 			<fieldset>
 				<div class="form-group">
@@ -88,35 +89,10 @@
 						The minimum length is 8 charecters
 					</h5>
 				</div>
+				<br />
 				<div class="text-center form-group">
-					<button ng-click="signUp()" ng-disabled="userForm.$invalid" class="btn btn-lg btn-success btn-block">Sign up</button>
-				</div>
-				<div class="row">
-					<div class="col-md-12 text-center alert alert-info">
-						<p>Or Sign Up through</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3 col-sm-3 col-xs-3">
-						<a target="_self" href="http://localhost:3000/auth/facebook">
-							<img class="img-responsive" src="/public/modules/auth/img/buttons/facebook.png">
-						</a>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-3">
-						<a target="_self" href="http://localhost:3000/auth/instagram">
-							<img class="img-responsive" src="/public/modules/auth/img/buttons/instagram.png">
-						</a>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-3">
-						<a target="_self" href="http://localhost:3000/auth/google">
-							<img class="img-responsive" src="/public/modules/auth/img/buttons/google.png">
-						</a>
-					</div>
-					<div class="col-md-3 col-sm-3 col-xs-3">
-						<a target="_self" href="http://localhost:3000/auth/twitter">
-							<img class="img-responsive" src="/public/modules/auth/img/buttons/twitter.png">
-						</a>
-					</div>
+					<button ng-click="signUp()" ng-disabled="userForm.$invalid" class="btn btn-lg btn-success btn-block">Sign up</button>&nbsp; OR&nbsp;
+					<a href="/signin">Sign in</a>
 				</div>
 			</fieldset>
 		</form>

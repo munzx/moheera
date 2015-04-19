@@ -27,6 +27,11 @@
 				window.userInfo = <%-JSON.stringify(userInfo)%>;
 			</script>
 		<% } %>
+		<% if(query){ %>
+			<script type="text/javascript">
+				window.query = <%-JSON.stringify(query)%>;
+			</script>
+		<% } %>
 	</section>
 
 	<div class="container">

@@ -15,11 +15,11 @@
 				<canvas style="display: none;"><h4 class="alert alert-danger">Please upgrade your browser or use a modern browser</h4></canvas>
 				<div class="form-group">
 					<canvas class="cursor" id="bannerPreview" width="850" height="306"></canvas>
-					<input type="file" style="display: none;" data-ng-model="userInfo.banner" watch-image-config-directive accept="image/*" id="banner" name="banner" image-place-holder='public/modules/config/img/banner.jpg'>
+					<input type="file" style="display: none;" data-ng-model="userInfo.banner" watch-image-config-directive accept="image/*" id="banner" name="banner" image-place-holder='{{banner || "public/modules/config/img/banner.jpg"}}'>
 				</div>
 				<div class="form-group">
 					<canvas class="image-center cursor" id="logoPreview" width="400" height="200"></canvas>
-					<input type="file" style="display: none;" data-ng-model="userInfo.logo"  watch-image-config-directive accept="image/*" id="logo" name="logo" image-place-holder='public/modules/config/img/user.png'>
+					<input type="file" style="display: none;" data-ng-model="userInfo.logo"  watch-image-config-directive accept="image/*" id="logo" name="logo" image-place-holder='{{logo || "public/modules/config/img/user.png"}}'>
 				</div>
 				<div class="form-group">
 					<label for="firstName">First Name</label>

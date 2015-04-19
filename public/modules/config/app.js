@@ -2,7 +2,7 @@
 
 // intitiate the app and Inject all of the app module dependencies
 //configure the routes
-var moheera = angular.module('moheera', ['angulartics', 'angulartics.google.analytics', 'ui.bootstrap', 'ui.router','ngResource', 'authModule', 'homeModule', 'userModule', 'productModule', 'orderModule', 'cartModule']);
+var moheera = angular.module('moheera', ['adminModule', 'angulartics', 'angulartics.google.analytics', 'ui.bootstrap', 'ui.router','ngResource', 'authModule', 'homeModule', 'userModule', 'productModule', 'orderModule', 'cartModule']);
 
 //RouteScopes & Routes Configurations 
 moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', function ($urlRouterProvider, $stateProvider, $locationProvider) {
@@ -32,6 +32,12 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			controller: 'searchHomeController',
 			cache: false
 		})
+		.state('admin', {
+			url: '/admin',
+			templateUrl: 'public/modules/admin/view/index.admin.view.html',
+			controller: 'indexAdminController',
+			cache: false
+		})		
 		.state('search.user', {
 			url: '/user/:name',
 			templateUrl: 'public/modules/home/view/search.user.home.view.html',
@@ -62,6 +68,12 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			controller: 'indexHomeController',
 			cache: false
 		})
+		.state('whyMoheera', {
+			url: '/why_moheera',
+			templateUrl: 'public/modules/home/view/why.moheera.home.view.html',
+			controller: 'indexHomeController',
+			cache: false
+		})
 		.state('signin', {
 			url: '/signin',
 			templateUrl: 'public/modules/auth/view/signin.auth.view.html',
@@ -72,6 +84,12 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			url: '/signup',
 			templateUrl: 'public/modules/auth/view/signup.auth.view.html',
 			controller: 'signupAuthController',
+			cache: false
+		})
+		.state('providerSignIn', {
+			url: '/signin/provider/:id',
+			templateUrl: 'public/modules/auth/view/provider.signin.auth.view.html',
+			controller: 'signInProviderAuthController',
 			cache: false
 		})
 		.state('signout', {
@@ -100,6 +118,12 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			url:'/setting',
 			templateUrl: 'public/modules/user/view/setting.user.view.html',
 			controller: 'settingUserController',
+			cache: false
+		})
+		.state('profile.social', {
+			url: '/profile/social',
+			templateUrl: 'public/modules/user/view/social.user.view.html',
+			controller: 'socialUserControlller',
 			cache: false
 		})
 		.state('profile.userPassword', {
@@ -176,7 +200,23 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 		});
 		$locationProvider.html5Mode(true).hashPrefix('!');
 }])
-.run(['$rootScope', function ($rootScope) {
+.run(['$rootScope', '$location', function ($rootScope, $location) {
+	//remove the extra sympoles that is inserted by facebook redirect "when facebook redirect to the success login pagein server side"
+	//when  a user try to sign up through facebook
+	if ($location.hash() === '_=_'){
+		$location.hash(null);
+	}
+
+	//add a query to the page
+	if(window.query){
+		//redirect the user to the needed page
+		if(window.query.page){
+			$location.path(window.query.page);
+		}
+		//add query to the site url so it can be read by the concerned page
+		$location.search(query.key, query.value);
+	}
+
 	$rootScope.logged = false;
 	$rootScope.lastPage = '';
 }]);

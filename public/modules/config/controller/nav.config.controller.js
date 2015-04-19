@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('moheera').controller('navMenu', ['$rootScope', '$scope', 'registerUserConfigFactory', '$state', function ($rootScope, $scope, registerUserConfigFactory, $state) {
+angular.module('moheera').controller('navConfig', ['$rootScope', '$scope', 'registerUserConfigFactory', '$state', function ($rootScope, $scope, registerUserConfigFactory, $state) {
+	//initiate the nav with the defult nav 'user'
+	$scope.nav = 'public/modules/config/view/user.nav.html';
 	//initiate the menu in mobile and tables in no collapse status
 	$scope.navbarCollapsed = false;
 
@@ -14,6 +16,19 @@ angular.module('moheera').controller('navMenu', ['$rootScope', '$scope', 'regist
 		if($rootScope.logged){
 			//get the current user data
 			$scope.user = registerUserConfigFactory.getUser();
+
+			//get the nav for the user role ('admin', 'user', etc..)
+			switch($scope.user.role){
+				case 'admin':
+					//navigation menu
+					$scope.nav = 'public/modules/config/view/admin.nav.html';
+					break;
+				default :
+					//navigation menu
+					$scope.nav = 'public/modules/config/view/user.nav.html';
+					break;
+			}
+
 			$scope.loggedLink = true;
 			$scope.notLoggedLink = false;
 		} else {
@@ -21,7 +36,6 @@ angular.module('moheera').controller('navMenu', ['$rootScope', '$scope', 'regist
 			$scope.notLoggedLink = true;
 		}
 	});
-
 
 	$scope.searchUser = function () {
 		if($scope.searchPhrase){
