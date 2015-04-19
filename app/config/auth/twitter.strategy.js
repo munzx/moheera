@@ -15,7 +15,7 @@ module.exports = function () {
 	  function(token, tokenSecret, profile, done) {
 	    accounts.findOne({ providerUserId: profile.id, provider: 'twitter' }).populate('user').exec(function (err, account) {
 	    	if(err){
-	    		 return done(err);
+	    		 return done(err, null);
 	    	} else if(account){
 	    		 return done(err, account);
 	    	} else {
