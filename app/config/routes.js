@@ -95,11 +95,14 @@ module.exports = function (app, express) {
 	app.get('/auth/twitter/callback', function (req, res, next) {
 		passport.authenticate('twitter', function (err, account) {
 			if(err){
+				console.log(err);
 				res.redirect('/');
 			} else {
 				if(err){
+					console.log(err);
 					res.redirect('/');
 				} else {
+					console.log(account);
 					if(req.user && account.user.length == 0){
 						res.redirect('/api/v1/account/link/' + account._id);
 					} else if(req.user && account.user.length > 0){

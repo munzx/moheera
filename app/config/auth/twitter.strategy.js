@@ -14,7 +14,6 @@ var passport = require('passport'),
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	    accounts.findOne({ providerUserId: profile.id, provider: 'twitter' }).populate('user').exec(function (err, account) {
-	    	console.log('Bism Allah');
 	    	if(err){
 	    		 return done(err);
 	    	} else if(account){
