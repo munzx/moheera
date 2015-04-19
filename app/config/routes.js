@@ -93,13 +93,12 @@ module.exports = function (app, express) {
 	//Twitter Login
 	app.route('/auth/twitter').get(passport.authenticate('twitter'));
 	app.get('/auth/twitter/callback', function (req, res, next) {
-		console.log('Bism Allah');
 		passport.authenticate('twitter', function (err, account) {
 			if(err){
-				res.redirect('/');
+				//res.redirect('/');
 			} else {
 				if(err){
-					res.redirect('/');
+					//res.redirect('/');
 				} else {
 					if(req.user && account.user.length == 0){
 						res.redirect('/api/v1/account/link/' + account._id);
