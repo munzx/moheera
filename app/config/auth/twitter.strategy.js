@@ -15,10 +15,13 @@ var passport = require('passport'),
 	  function(accessToken, refreshToken, profile, done) {
 	    accounts.findOne({ providerUserId: profile.id, provider: 'twitter' }).populate('user').exec(function (err, account) {
 	    	if(err){
-	    		 return done(err);
+	    		console.log(err);
+	    		return done(err);
 	    	} else if(account){
-	    		 return done(err, account);
+	    		console.log(account);
+	    		return done(err, account);
 	    	} else {
+	    		console.log('info');
 	    		var providerInfo = {
 	    			provider: 'twitter',
 	    			providerUserId: profile.id,
