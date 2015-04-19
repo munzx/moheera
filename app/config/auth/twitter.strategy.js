@@ -14,14 +14,12 @@ var passport = require('passport'),
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	    accounts.findOne({ providerUserId: profile.id, provider: 'twitter' }).populate('user').exec(function (err, account) {
+	    	console.log('Bism Allah');
 	    	if(err){
-	    		console.log(err);
-	    		return done(err);
+	    		 return done(err);
 	    	} else if(account){
-	    		console.log(account);
-	    		return done(err, account);
+	    		 return done(err, account);
 	    	} else {
-	    		console.log('info');
 	    		var providerInfo = {
 	    			provider: 'twitter',
 	    			providerUserId: profile.id,
