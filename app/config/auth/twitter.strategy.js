@@ -29,11 +29,11 @@ module.exports = function () {
 	    		}
 
 	    		var newAccount = new accounts(providerInfo);
-	    		newAccount.save(function (err, account) {
+	    		newAccount.save(function (err, newAccountInfo) {
 	    			if(err){
 	    				return done(err);
 	    			} else {
-	    				return done(err, account);
+	    				return done(err, newAccountInfo);
 	    			}
 	    		});
 	    	}
