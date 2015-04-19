@@ -94,11 +94,11 @@ module.exports = function (app, express) {
 	app.route('/auth/twitter').get(passport.authenticate('twitter'));
 	app.get('/auth/twitter/callback', function (req, res, next) {
 		passport.authenticate('twitter', function (err, account) {
-			if(err){
+			if(err.length){
 				//res.redirect('/');
 				res.status(200).json(err);
 			} else {
-				if(err){
+				if(err.length){
 					res.status(200).json('Bism Allah , here is 1');
 					//res.redirect('/');
 				} else {
