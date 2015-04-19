@@ -10,7 +10,7 @@ var passport = require('passport'),
 	passport.use(new TwitterStrategy({
 	    consumerKey: 'C7csykiUTYzyNmMlHlaDUZzOt',
 	    consumerSecret: 'Cmq0ch3QhZDWjj8azZQm2FY0Zm1VpcqiXXwy2u9THxQmDleQRp',
-	    callbackURL: "http://localhost:3000/auth/twitter/callback"
+	    callbackURL: "http://www.moheera.com/auth/twitter/callback"
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	    accounts.findOne({ providerUserId: profile.id, provider: 'twitter' }).populate('user').exec(function (err, account) {

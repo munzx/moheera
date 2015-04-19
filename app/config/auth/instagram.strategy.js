@@ -8,7 +8,7 @@ module.exports = function () {
 	passport.use(new InstagramStrategy({
 	    clientID: 'cda7ad13fe2b4d76933b8ed346aafdec',
 	    clientSecret: '634c0c264c9a44a2acb78931e8d408b1',
-	    callbackURL: "http://localhost:3000/auth/instagram/callback",
+	    callbackURL: "http://www.moheera.com/auth/instagram/callback",
 	    enableProof: false
 	  },
 	  function(accessToken, refreshToken, profile, done) {

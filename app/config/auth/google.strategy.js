@@ -10,7 +10,7 @@ module.exports = function () {
 	passport.use(new GoogleStrategy({
 	    clientID: '271407544946-m42a6lda0je0053qp71vje7fj8j462f6.apps.googleusercontent.com',
 	    clientSecret: 'gkPQ5gCHc911asCKidRn85Di',
-	    callbackURL: "http://localhost:3000/auth/google/callback"
+	    callbackURL: "http://www.moheera.com/auth/google/callback"
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	    accounts.findOne({ providerUserId: profile.id, provider: 'google' }).populate('user').exec(function (err, account) {

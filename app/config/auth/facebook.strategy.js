@@ -8,7 +8,7 @@ module.exports = function () {
 	passport.use(new FacebookStrategy({
 	    clientID: 1021027227927161,
 	    clientSecret: '9a102053a97f1e018229dd0e5297ced5',
-	    callbackURL: "http://localhost:3000/auth/facebook/callback",
+	    callbackURL: "http://www.moheera.com/auth/facebook/callback",
 	    enableProof: false
 	  },
 	  function(accessToken, refreshToken, profile, done) {
