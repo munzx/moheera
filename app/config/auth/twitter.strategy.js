@@ -6,7 +6,8 @@ var passport = require('passport'),
 	accounts = require('../../models/account'),
 	TwitterStrategy = require('passport-twitter').Strategy;
 
-	module.exports = function () {
+module.exports = function () {
+	console.log('Bism Allah');
 	passport.use(new TwitterStrategy({
 	    consumerKey: 'C7csykiUTYzyNmMlHlaDUZzOt',
 	    consumerSecret: 'Cmq0ch3QhZDWjj8azZQm2FY0Zm1VpcqiXXwy2u9THxQmDleQRp',
