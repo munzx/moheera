@@ -100,21 +100,22 @@ module.exports = function (app, express) {
 				if(err.length){
 					res.redirect('/');
 				} else {
-					if(req.user && account.user.length == 0){
-						res.redirect('/api/v1/account/link/' + account._id);
-					} else if(req.user && account.user.length > 0){
-						res.render('../public/modules/config/view/index', {
-							isAuthenticated: req.isAuthenticated(),
-							userInfo: req.user,
-							query: {page: '/profile/profile/social', key: 'error', value: 'account already linked'}
-						});;
-					} else if(!req.user && account.user.length > 0){
-						req.login(account.user[0], function (err) {
-							res.redirect('/');
-						});
-					} else {
-						res.redirect('/provider/' + account._id);
-					}
+					console.log(account);
+					// if(req.user && account.user.length == 0){
+					// 	res.redirect('/api/v1/account/link/' + account._id);
+					// } else if(req.user && account.user.length > 0){
+					// 	res.render('../public/modules/config/view/index', {
+					// 		isAuthenticated: req.isAuthenticated(),
+					// 		userInfo: req.user,
+					// 		query: {page: '/profile/profile/social', key: 'error', value: 'account already linked'}
+					// 	});;
+					// } else if(!req.user && account.user.length > 0){
+					// 	req.login(account.user[0], function (err) {
+					// 		res.redirect('/');
+					// 	});
+					// } else {
+					// 	res.redirect('/provider/' + account._id);
+					// }
 				}
 			}
 		})(req, res, next);
