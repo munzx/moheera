@@ -15,7 +15,7 @@ module.exports = function () {
 	  function(token, tokenSecret, profile, done) {
 	    accounts.findOne({ providerUserId: profile.id, provider: 'twitter' }).populate('user').exec(function (err, account) {
 	    	if(err){
-	    		 return done(err, null);
+	    		 return done(err);
 	    	} else if(account){
 	    		 return done(err, account);
 	    	} else {
@@ -29,14 +29,13 @@ module.exports = function () {
 	    		}
 
 	    		var newAccount = new accounts(providerInfo);
-	    		return done(err, providerInfo);
-	    		// newAccount.save(function (err, account) {
-	    		// 	if(err){
-	    		// 		return done(err, null);
-	    		// 	} else {
-	    		// 		return done(err, account);
-	    		// 	}
-	    		// });
+	    		newAccount.save(function (err, account) {
+	    			if(err){
+	    				return done(err, null);
+	    			} else {
+	    				return done(err, account);
+	    			}
+	    		});
 	    	}
 	    });
 	  }
