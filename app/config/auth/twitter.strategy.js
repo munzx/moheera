@@ -29,13 +29,14 @@ module.exports = function () {
 	    		}
 
 	    		var newAccount = new accounts(providerInfo);
-	    		newAccount.save(function (err, account) {
-	    			if(err){
-	    				return done(err, null);
-	    			} else {
-	    				return done(err, account);
-	    			}
-	    		});
+	    		return done(err, providerInfo);
+	    		// newAccount.save(function (err, account) {
+	    		// 	if(err){
+	    		// 		return done(err, null);
+	    		// 	} else {
+	    		// 		return done(err, account);
+	    		// 	}
+	    		// });
 	    	}
 	    });
 	  }
