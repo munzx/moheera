@@ -31,7 +31,7 @@ module.exports = function () {
 	    		var newAccount = new accounts(providerInfo);
 	    		newAccount.save(function (err, account) {
 	    			if(err){
-	    				return done(err, null);
+	    				return done(err);
 	    			} else {
 	    				return done(null, account);
 	    			}
