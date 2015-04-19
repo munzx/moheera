@@ -100,7 +100,7 @@ module.exports = function (app, express) {
 				if(err.length){
 					res.redirect('/');
 				} else {
-					console.log(account);
+					res.json(account);
 					// if(req.user && account.user.length == 0){
 					// 	res.redirect('/api/v1/account/link/' + account._id);
 					// } else if(req.user && account.user.length > 0){
