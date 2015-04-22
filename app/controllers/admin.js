@@ -11,13 +11,12 @@ users = require('../models/user'),
 products = require('../models/product'),
 accounts = require('../models/account');
 
-
-module.exports.index = function (req, res) {
+module.exports.createFirst = function (req, res) {
 	users.find({role: 'admin'}, {password: 0}, function (err, user){
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user.length > 0){
-			res.status(200).jsonp(user);
+			res.status(200).jsonp('Admin Exists');
 		} else {
 			var countryInfo = lookup.countries({name: 'United Arab Emirates'})[0];
 			var country = [{
@@ -45,6 +44,17 @@ module.exports.index = function (req, res) {
 					res.status(200).jsonp(user);
 				}
 			});
+		}
+	});
+}
+
+
+module.exports.index = function (req, res) {
+	users.find({role: 'admin'}, {password: 0}, function (err, user){
+		if(err){
+			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+		} else {
+			res.status(200).jsonp(user);
 		}
 	});
 }
