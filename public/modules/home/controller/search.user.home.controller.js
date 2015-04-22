@@ -5,11 +5,4 @@ angular.module('homeModule').controller('searchUserHomeController', ['$scope', '
 		$scope.result = response.result;
 	});
 
-	$scope.logo = function (logo) {
-		if(logo.length){
-			return 'public/uploads/' + logo;
-		} else {
-			return 'public/modules/config/img/user.png';
-		}
-	}
 }]);

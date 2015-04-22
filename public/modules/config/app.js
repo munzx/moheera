@@ -37,6 +37,36 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 			templateUrl: 'public/modules/admin/view/index.admin.view.html',
 			controller: 'indexAdminController',
 			cache: false
+		})
+		.state('admin.users', {
+			url: '/users',
+			templateUrl: 'public/modules/admin/view/users.admin.view.html',
+			controller: 'usersAdminController',
+			cache: false
+		})
+		.state('admin.reports', {
+			url: '/reports',
+			templateUrl: 'public/modules/admin/view/reports.admin.view.html',
+			controller: 'reportsAdminController',
+			cache: false
+		})
+		.state('admin.messages', {
+			url: '/messages',
+			templateUrl: 'public/modules/admin/view/messages.admin.view.html',
+			controller: 'messagessAdminController',
+			cache: false
+		})
+		.state('admin.products', {
+			url: '/products',
+			templateUrl: 'public/modules/admin/view/products.admin.view.html',
+			controller: 'productsAdminController',
+			cache: false
+		})
+		.state('admin.orders', {
+			url: '/orders',
+			templateUrl: 'public/modules/admin/view/orders.admin.view.html',
+			controller: 'ordersAdminController',
+			cache: false
 		})		
 		.state('search.user', {
 			url: '/user/:name',

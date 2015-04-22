@@ -239,6 +239,9 @@ module.exports = function (app, express) {
 		.get('/account/link/:id', account.linkProviderAccount)
 		//admin
 		.get('/admin', admin.index)
+		.get('/admin/users', isAdmin, admin.users)
+		.get('/admin/products', isAdmin, admin.products)
+		.get('/admin/orders', isAdmin, admin.orders)
 		//Users
 		.get('/user', users.index) //get all users
 		.post('/user', isGuest, users.create) //create a new user

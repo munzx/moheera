@@ -8,7 +8,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" ui-sref-active="active" ui-sref="admin"><b>Home</b></a>
+			<a class="navbar-brand" ui-sref-active="active" ui-sref="admin"><b>DashBoard</b></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" collapse="!navbarCollapsed">
@@ -23,25 +23,31 @@
 					<a ui-sref="whyMoheera"><b>Why Moheera</b></a>
 				</li>
 				<li>
-					<a ui-sref="profile" class="active" ui-sref-active="active" ng-show="loggedLink">
+					<a ui-sref="admin.users" class="active" ui-sref-active="active" ng-show="loggedLink">
 						<span class="glyphicon glyphicon-user"></span>
 						<b>Users</b>
 					</a>
 				</li>
 				<li>
-					<a ui-sref="profile.addProduct" ui-sref-active="active" ng-show="loggedLink">
+					<a ui-sref="admin.products" ui-sref-active="active" ng-show="loggedLink">
 						<span style="font-size:16px;" class="glyphicon glyphicon-picture"></span>
 						<b>Products</b>
 					</a>
 				</li>
 				<li>
-					<a ui-sref="profile.order" ng-show="loggedLink">
+					<a ui-sref="admin.messages" ng-show="loggedLink">
 						<span style="font-size:16px;" class="glyphicon glyphicon-envelope"></span>
 						<b>Messages</b>
 					</a>
 				</li>
 				<li>
-					<a ui-sref="profile.cart" ng-show="loggedLink">
+					<a ui-sref="admin.orders" ng-show="loggedLink">
+						<span tyle="font-size:16px;" class="glyphicon glyphicon-inbox"></span>
+						<b>Orders</b>
+					</a>
+				</li>
+				<li>
+					<a ui-sref="admin.reports" ng-show="loggedLink">
 						<span tyle="font-size:16px;" class="glyphicon glyphicon-book"></span>
 						<b>Reports</b>
 					</a>

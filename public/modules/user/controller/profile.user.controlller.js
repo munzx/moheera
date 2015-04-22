@@ -4,7 +4,7 @@ angular.module('userModule').controller('profileUserControlller', ['registerUser
 	$scope.userInfo = registerUserConfigFactory.getUser();
 
 	//if user is not logged then redirect to the sign in page
-	if(!$scope.userInfo) $location.path('/signin');
+	if(!$scope.userInfo || $scope.userInfo.role != 'user') $location.path('/');
 
 	$scope.banner = function () {
 		if($scope.userInfo){

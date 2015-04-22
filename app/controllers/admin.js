@@ -48,3 +48,41 @@ module.exports.index = function (req, res) {
 		}
 	});
 }
+
+
+module.exports.users = function (req, res) {
+	users.find({'role': 'user'}, {password: 0}, function (err, user) {
+		if(err){
+			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+		} else if(user){
+			res.status(200).jsonp({'users': user, count: user.length});
+		} else {
+			res.status(404).jsonp({message: 'No user has been found'});
+		}
+	});
+}
+
+
+module.exports.products = function (req, res) {
+	products.find({}, function (err, product) {
+		if(err){
+			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+		} else if(product){
+			res.status(200).jsonp({'products': product, count: product.length});
+		} else {
+			res.status(404).jsonp({message: 'No product has been found'});
+		}
+	});
+}
+
+module.exports.orders = function (req, res) {
+	users.find({'role': 'user'}, 'order').populate('order').where('order._id').exists().exec(function (err, user) {
+		if(err){
+			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+		} else if(user){
+			res.status(200).jsonp({'orders': user, 'count': user.length});
+		} else {
+			res.status(404).jsonp({message: 'No order has been found'});
+		}
+	});
+}

@@ -8,7 +8,11 @@ angular.module('authModule').controller('signinAuthController', ['registerUserCo
 			if($rootScope.lastPage){
 				$location.path($rootScope.lastPage);
 			} else {
-				$location.path('/profile');
+				if(data.role == 'admin'){
+					$location.path('/admin');
+				} else {
+					$location.path('/profile');
+				}
 			}
 		})
 		.error(function (data, error) {

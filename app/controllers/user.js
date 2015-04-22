@@ -48,7 +48,7 @@ module.exports.create = function(req, res){
 
 // get user by name
 module.exports.getByName = function (req, res){
-	users.findOne({name: req.params.name}, {password: 0}, function(err, user) {
+	users.findOne({role: 'user', name: req.params.name}, {password: 0}, function(err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
