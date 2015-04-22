@@ -64,7 +64,7 @@ module.exports.users = function (req, res) {
 
 
 module.exports.products = function (req, res) {
-	products.find({}, function (err, product) {
+	products.find({}).populate('user').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){

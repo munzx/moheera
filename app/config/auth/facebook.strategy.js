@@ -6,8 +6,8 @@ var passport = require('passport'),
 
 module.exports = function () {
 	passport.use(new FacebookStrategy({
-	    clientID: 1021027227927161,
-	    clientSecret: '9a102053a97f1e018229dd0e5297ced5',
+	    clientID: 677830862246801,
+	    clientSecret: '3fdd192295920a865e01089712263a6a',
 	    callbackURL: "http://www.moheera.com/auth/facebook/callback",
 	    enableProof: false
 	  },
