@@ -9,7 +9,8 @@ async = require("async"),
 _ = require('lodash'),
 users = require('../models/user'),
 products = require('../models/product'),
-accounts = require('../models/account');
+accounts = require('../models/account'),
+contacts = require('../models/contact');
 
 module.exports.createFirst = function (req, res) {
 	users.find({role: 'admin'}, {password: 0}, function (err, user){
@@ -93,6 +94,18 @@ module.exports.orders = function (req, res) {
 			res.status(200).jsonp({'orders': user, 'count': user.length});
 		} else {
 			res.status(404).jsonp({message: 'No order has been found'});
+		}
+	});
+}
+
+module.exports.messages = function (req, res) {
+	contacts.find({}, function (err, contact) {
+		if(err){
+			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+		} else if(contact){
+			res.status(200).jsonp({'messages': contact, 'count': contact.length});
+		} else {
+			res.status(404).jsonp({message: 'No message has been found'});
 		}
 	});
 }

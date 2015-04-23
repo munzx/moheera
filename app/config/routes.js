@@ -230,6 +230,7 @@ module.exports = function (app, express) {
 		.get('/admin/users', isAdmin, admin.users)
 		.get('/admin/products', isAdmin, admin.products)
 		.get('/admin/orders', isAdmin, admin.orders)
+		.get('/admin/messages', isAdmin, admin.messages)
 		//Users
 		.get('/user', users.index) //get all users
 		.post('/user', isGuest, users.create) //create a new user

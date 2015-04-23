@@ -1,1 +1,52 @@
-messages
+<section>
+	<table ng-show="msg" class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>From</th>
+				<th>To</th>
+				<th>Date</th>
+				<th>Reason</th>
+			</tr>			
+		</thead>
+		<tbody>
+			<tr ng-click="openMessage($index)" class="cursor" ng-repeat="msg in messages">
+				<td>{{msg.fullName}}</td>
+				<td>{{msg.department}}</td>
+				<td>{{msg.date | date:'MM/dd/yyyy  HH:mm Z'}}</td>
+				<td>{{msg.reason}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="row" ng-hide="noMsg">
+		<h4 class="alert alert-danger">You dont have any messages</h4>
+	</div>
+
+	<table ng-show="showMsg" class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>
+					<h3 ng-click="back()" class="glyphicon glyphicon-arrow-left cursor"></h3>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>From</th>
+				<td>{{showMsgDetails.fullName}}</td>
+			</tr>
+			<tr>
+				<th>To</th>
+				<td>{{showMsgDetails.department}}</td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td>{{showMsgDetails.date}}</td>
+			</tr>
+			<tr>
+				<th>Message</th>
+				<td>{{showMsgDetails.message}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</section>
