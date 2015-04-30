@@ -1,1 +1,65 @@
-reports
+<section>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="alert" style="background-color: #eefcb0;border: solid 1px #d5f934;">
+				<a ui-sref="admin.users"><h1 class="glyphicon glyphicon-comment" aria-hidden="true"> {{commentsCount}}</h1></a>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="alert alert-danger">
+				<a ui-sref="admin.users"><h1 class="glyphicon glyphicon-heart" aria-hidden="true"> {{heartsCount}}</h1></a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h4>Users</h4>
+			<p class="text-muted">Uploaded products and made orders of the total number</p>
+			<canvas id="polar-area" class="chart chart-polar-area" data="polarData" labels="polarLabels"></canvas>
+  		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="alert alert-info">
+				<a ui-sref="admin.users"><h1 class="glyphicon glyphicon-user" aria-hidden="true"> {{usersCount}}</h1></a>
+			</div>			
+		</div>
+		<div class="col-md-4">
+			<div class="alert alert-success">
+				<a ui-sref="admin.products"><h1 class="glyphicon glyphicon-picture" aria-hidden="true"> {{productsCount}}</h1></a>
+			</div>			
+		</div>
+		<div class="col-md-4">
+			<div class="alert" style="background-color: #f0c0f7;border: solid 1px #f1a6fc;">
+				<a ui-sref="admin.orders"><h1 class="glyphicon glyphicon-inbox" aria-hidden="true"> {{ordersCount}}</h1></a>
+			</div>			
+		</div>
+	</div>
+	<hr class="hr" />
+	<div class="row">
+		<form class="form-inline">
+			<div class="input-group">
+				<div class="input-group-addon">From</div>
+				<input type="date" class="form-control" id="fromDate">
+			</div>
+			<div class="input-group">
+				<div class="input-group-addon">To</div>
+				<input type="date" class="form-control" id="toDate">
+			</div>
+			<div class="input-group">
+				<button class="btn btn-success">Apply</button>
+			</div>
+			<div class="btn-group" role='group'>
+				<button class="btn btn-default">Day</button>
+				<button class="btn btn-default">Week</button>
+				<button class="btn btn-default">Month</button>
+			</div>
+		</form>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h4>Users Subscribtion , Orders, Hearts & Comments</h4>
+			<canvas id="line" class="chart chart-line" data="lineData" labels="lineLabels" legend="true" series="lineSeries" click="onClick"></canvas> 
+		</div>
+	</div>
+</section>

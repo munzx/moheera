@@ -2,10 +2,20 @@
 
 // intitiate the app and Inject all of the app module dependencies
 //configure the routes
-var moheera = angular.module('moheera', ['adminModule', 'angulartics', 'angulartics.google.analytics', 'ui.bootstrap', 'ui.router','ngResource', 'authModule', 'homeModule', 'userModule', 'productModule', 'orderModule', 'cartModule']);
+var moheera = angular.module('moheera', ['adminModule', 'angulartics', 'angulartics.google.analytics', 'ui.bootstrap', 'ui.router','ngResource', 'authModule', 'homeModule', 'userModule', 'productModule', 'orderModule', 'cartModule', 'chart.js']);
 
 //RouteScopes & Routes Configurations 
-moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', function ($urlRouterProvider, $stateProvider, $locationProvider) {
+moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', 'ChartJsProvider', function ($urlRouterProvider, $stateProvider, $locationProvider, ChartJsProvider) {
+    // Configure all charts
+    ChartJsProvider.setOptions({
+    	colours: ['#FF5252', '#FF8A80'],
+    	responsive: true
+    });
+    // Configure all line charts
+    ChartJsProvider.setOptions('Line', {
+    	datasetFill: false,
+    	skipLabels: true
+    });
 	$urlRouterProvider.otherwise('notfound');
 	$stateProvider
 		.state('notfound',{
@@ -236,7 +246,6 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', fun
 	if ($location.hash() === '_=_'){
 		$location.hash(null);
 	}
-
 	//add a query to the page
 	if(window.query){
 		//redirect the user to the needed page

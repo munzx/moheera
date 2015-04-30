@@ -14,6 +14,10 @@ var cartSchema = new Schema({
 		max: 20,
 		required: 'Please Provide the quantity',
 		trim: true
+	},
+	created: {
+		type: Date,
+		default: Date.now
 	}
 }, {strict: true});
 

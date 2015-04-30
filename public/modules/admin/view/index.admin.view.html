@@ -1,21 +1,25 @@
-<div data-ui-view>
-	
+<div data-ui-view>	
 	<div class="row">
-			<div class="col-md-4">
-				<div class="alert alert-info">
-					<a ui-sref="admin.users"><h1 class="glyphicon glyphicon-user" aria-hidden="true"> {{usersCount}}</h1></a>
-				</div>			
-			</div>
-			<div class="col-md-4">
-				<div class="alert alert-success">
-					<a ui-sref="admin.products"><h1 class="glyphicon glyphicon-picture" aria-hidden="true"> {{productsCount}}</h1></a>
-				</div>			
-			</div>
-			<div class="col-md-4">
-				<div class="alert alert-danger">
-					<a ui-sref="admin.orders"><h1 class="glyphicon glyphicon-inbox" aria-hidden="true"> {{ordersCount}}</h1></a>
-				</div>			
-			</div>
+		<div class="col-md-4">
+			<div class="alert alert-info">
+				<a ui-sref="admin.users"><h1 class="glyphicon glyphicon-user" aria-hidden="true"> {{usersCount}}</h1></a>
+			</div>			
+		</div>
+		<div class="col-md-4">
+			<div class="alert alert-success">
+				<a ui-sref="admin.products"><h1 class="glyphicon glyphicon-picture" aria-hidden="true"> {{productsCount}}</h1></a>
+			</div>			
+		</div>
+		<div class="col-md-4">
+			<div class="alert alert-danger">
+				<a ui-sref="admin.orders"><h1 class="glyphicon glyphicon-inbox" aria-hidden="true"> {{ordersCount}}</h1></a>
+			</div>			
+		</div>
 	</div>
-
+	<div class="row">
+		<div class="col-md-12">
+			<h4>Users Subscribtion , Orders, Hearts , Comments & Sales</h4>
+			<canvas id="line" class="chart chart-line" data="lineData" labels="lineLabels" legend="true" series="lineSeries" click="onClick"></canvas> 
+		</div>
+	</div>
 </div>

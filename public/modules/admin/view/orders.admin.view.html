@@ -1,1 +1,75 @@
-orders
+<section>
+	<table ng-show="showOrders" class="table table-hover table-condensed cursor"
+		<thead>
+			<tr>
+				<th>Customer User Name</th>
+				<th>Product Owner</th>
+				<th>Total Price</th>
+				<th>Total Quantity</th>
+				<th>Date</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-click="getOrderDetails($index)" class="cursor" ng-repeat="info in orders">
+				<td>{{info.order.user[0].name}}</td>
+				<td>{{info.user.name}}</td>
+				<td>{{info.order.price}}</td>
+				<td>{{info.order.quantity}}</td>
+				<td>{{info.order.created | date:'MM/dd/yyyy  HH:mm Z'}}</td>
+				<td>{{info.order.status}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="row" ng-show="noOrders">
+		<h4 class="alert alert-danger">You dont have any messages</h4>
+	</div>
+	<table class="table table-hover table-condensed" ng-show="showOrderDetails">
+		<thead>
+			<tr>
+				<th>
+					<h3 ng-click="back()" class="glyphicon glyphicon-arrow-left cursor"></h3>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>Customer User Name</th>
+				<td>{{orderDetails.order.user[0].name}}</td>
+			</tr>
+			<tr>
+				<th>Product Owner</th>
+				<td>{{orderDetails.user.name}}</td>
+			</tr>
+			<tr>
+				<th>Total Price</th>
+				<td>{{orderDetails.order.price}}</td>
+			</tr>
+			<tr>
+				<th>Total Quantity</th>
+				<td>{{orderDetails.order.quantity}}</td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td>{{orderDetails.order.created | date:'MM/dd/yyyy  HH:mm Z'}}</td>
+			</tr>
+				<th>Status</th>
+				<td>{{orderDetails.order.status}}</td>
+			</tr>
+			<tr ng-show="orderDetails.order.statusHistory" class="info">
+				<th>Status History</th>
+			</tr>
+			<tr ng-show="orderDetails.order.statusHistory">
+				<th>Update Remarks</th>
+				<th>Old Status</th>
+				<th>Date</th>
+			</tr>
+			<tr ng-repeat="info in orderDetails.order.statusHistory">
+				<td>{{info.updateRemarks}}</td>
+				<td>{{info.oldStatus}}</td>
+				<td>{{info.created | date:'MM/dd/yyyy  HH:mm Z'}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</section>
