@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('adminModule').controller('indexAdminController', ['$scope', 'registerUserConfigFactory', '$location', 'connectAdminFactory', function ($scope, registerUserConfigFactory, $location, connectAdminFactory) {
+angular.module('adminModule').controller('indexAdminController', ['$q', '$scope', 'registerUserConfigFactory', '$location', 'connectAdminFactory', function ($q, $scope, registerUserConfigFactory, $location, connectAdminFactory) {
 	$scope.userInfo = registerUserConfigFactory.getUser();
 
 	//if the user is not registered or not an admin then go to the home page
@@ -18,17 +18,41 @@ angular.module('adminModule').controller('indexAdminController', ['$scope', 'reg
 		$scope.ordersCount = response.count;
 	});
 
-	$scope.lineLabels = ["January", "February", "March", "April", "May", "June", "July"];
-	$scope.lineSeries = ['Sales', 'Comments', 'Hearts', 'Orders', 'Products', 'Users'];
-	$scope.lineData = [
-	[65, 59, 80, 81, 56, 55, 40],
-	[28, 48, 40, 19, 86, 27, 90],
-	[50, 90, 30, 49, 46, 57, 60],
-	[78, 68, 90, 49, 86, 97, 20],
-	[98, 48, 90, 69, 76, 57, 40]
-	];
-	$scope.onClick = function (points, evt) {
-		console.log(points, evt);
-	};
+	function getAnalysis (dateFrom) {
+		$q.all([
+			connectAdminFactory.get({page: 'carts', action: 'analysis', param: dateFrom}).$promise,
+			connectAdminFactory.get({page: 'orders', action: 'analysis', param: dateFrom}).$promise,
+			connectAdminFactory.get({page: 'hearts', action: 'analysis', param: dateFrom}).$promise,
+			connectAdminFactory.get({page: 'comments', action: 'analysis', param: dateFrom}).$promise,
+			connectAdminFactory.get({page: 'products', action: 'analysis', param: dateFrom}).$promise,
+			connectAdminFactory.get({page: 'users', action: 'analysis', param: dateFrom}).$promise
+		]).then(function (result) {
+			$scope.lineData = [
+				result[0].dataPoints,
+				result[1].dataPoints,
+				result[2].dataPoints,
+				result[3].dataPoints,
+				result[4].dataPoints,
+				result[5].dataPoints
+			]
+			$scope.lineLabels = result[0].fullDate;
+		}, function (err) {
+			console.log(err);
+		});
+
+
+		$scope.lineLabels = ["January", "February", "March", "April", "May", "June", "July"];
+		$scope.lineSeries = ['Products', 'Comments', 'Hearts', 'Orders', 'Cart', 'Users'];
+		$scope.lineData = [
+			[],
+			[],
+			[],
+			[],
+			[],
+			[]
+		];
+	}
+
+	getAnalysis();
 
 }]);

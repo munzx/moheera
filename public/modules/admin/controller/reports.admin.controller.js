@@ -37,7 +37,6 @@ angular.module('adminModule').controller('reportsAdminController', ['$q', '$scop
 			console.log(err);
 		});
 
-
 		$scope.lineLabels = ["January", "February", "March", "April", "May", "June", "July"];
 		$scope.lineSeries = ['Products', 'Comments', 'Hearts', 'Orders', 'Cart', 'Users'];
 		$scope.lineData = [
