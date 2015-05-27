@@ -37,22 +37,13 @@
 	</div>
 	<hr class="hr" />
 	<div class="row">
-		<form class="form-inline">
+		<form name="lineChartForm" class="form-inline">
 			<div class="input-group">
-				<div class="input-group-addon">From</div>
-				<input type="date" class="form-control" id="fromDate">
+				<div class="input-group-addon">Starting from 28 Days prior to </div>
+				<input type="date" name="dateFrom" class="form-control" ng-model="dateFrom" id="dateFrom" required>
 			</div>
 			<div class="input-group">
-				<div class="input-group-addon">To</div>
-				<input type="date" class="form-control" id="toDate">
-			</div>
-			<div class="input-group">
-				<button class="btn btn-success">Apply</button>
-			</div>
-			<div class="btn-group" role='group'>
-				<button class="btn btn-default">Day</button>
-				<button class="btn btn-default">Week</button>
-				<button class="btn btn-default">Month</button>
+				<button class="btn btn-success" ng-disabled="lineChartForm.$invalid" ng-click="getAnalysisButtton()">Apply</button>
 			</div>
 		</form>
 	</div>

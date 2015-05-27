@@ -10,7 +10,10 @@ _ = require('lodash'),
 users = require('../models/user'),
 products = require('../models/product'),
 accounts = require('../models/account'),
-contacts = require('../models/contact');
+contacts = require('../models/contact'),
+moment = require('moment'),
+lineChart = require('../helpers/lineChart'),
+dateInput = require('../helpers/dateInput');
 
 module.exports.createFirst = function (req, res) {
 	users.find({role: 'admin'}, {password: 0}, function (err, user){
@@ -181,280 +184,134 @@ module.exports.hearts = function (req, res) {
 	});
 }
 
-function fromToDates (userDateInput, callback) {
-	var date = new Date(),
-		oldDate = new Date(),
-		fromDate,
-		toDate;
+module.exports.usersAnalysis = function (req, res) {
+	var dataDates;
+	var userDateInput = dateInput(req.params.dateFrom, req.dateTo, function (result) {
+		dataDates = result;
+	});
 
-	if(!userDateInput){
-		fromDate = oldDate.setMonth(oldDate.getMonth() - 1);
-		toDate = date;
-	} else {
-		fromDate = new Date(userDateInput.from);
-		toDate = oldDate.setMonth(userDateInput.to);
-	}
-
-	callback(null, { "from": fromDate, "to": toDate});
-}
-
-module.exports.orderAnalysis = function (req, res) {
-	function userDateInput (callback) {
-		if(req.body.dateFrom && req.body.dateTo){
-			callback(null, {"from": req.body.dateFrom, "to": req.body.dateTo});
-		}
-		callback(null, false);
-	}
-	function orders (dates, callback) {
-		users.find({"order.created": {"$gte": new Date(dates.from), "$lt": new Date(dates.to)}}, 'order').populate('order').where('order._id').exists().sort('created').exec(function (err, user) {
-			if(err){
-				callback(err);
-			} else {
-				//make sense of the data
-				var userInfo = user,
-					result = [],
-					date,
-					getIndex;
-
-				userInfo.forEach(function (info) {
-					info.order.forEach(function (order) {
-						date = new Date(order.created);
-						if(getIndex = _.findIndex(result, function (value) {
-							return value.date == date;
-						}) != -1){
-							console.log(getIndex);
-							result[getIndex].count++;
-							result[getIndex].order.push(order);
-						} else {
-							result.push({
-								"count": 1,
-								"date": date,
-								"order": [order],
-								"day": date.getDate().toString().length == 1 ? "0" + date.getDate(): date.getDate(),
-								"month": date.getMonth().toString().length == 1 ? "0" + date.getMonth(): date.getMonth(),
-								"year": date.getFullYear()
-							});
-						}
-					});
-				});
-				callback(null, result);
-			}
-		});
-	}
-	async.waterfall([userDateInput, fromToDates, orders], function (err, result) {
+	users.find({"created": {"$gte": dataDates.from, "$lt": dataDates.to}}).sort('created').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			res.status(200).jsonp(result);
+			lineChart(dataDates.from, dataDates.to, user, null, function (err, result) {
+				if(err){
+					res.status(500).jsonp(err);
+				} else {
+					res.status(200).jsonp(result);
+				}
+			});
+		}
+	});
+}
+
+module.exports.orderAnalysis = function (req, res) {
+	var dataDates;
+	var userDateInput = dateInput(req.params.dateFrom, req.dateTo, function (result) {
+		dataDates = result;
+	});
+
+	users.find({"order.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'order').populate('order').where('order._id').exists().sort('created').exec(function (err, user) {
+		if(err){
+			res.status(500).jsonp(err);
+		} else {
+			lineChart(dataDates.from, dataDates.to, user, 'order', function (err, result) {
+				if(err){
+					res.status(500).jsonp(err);
+				} else {
+					res.status(200).jsonp(result);
+				}
+			});
 		}
 	});
 }
 
 module.exports.cartAnalysis = function (req, res) {
-	function userDateInput (callback) {
-		if(req.body.dateFrom && req.body.dateTo){
-			callback(null, {"from": req.body.dateFrom, "to": req.body.dateTo});
-		}
-		callback(null, false);
-	}
-	function carts (dates, callback) {
-		users.find({"cart.created": {"$gte": new Date(dates.from), "$lt": new Date(dates.to)}}, 'cart').populate('cart').where('cart._id').exists().sort('created').exec(function (err, user) {
-			if(err){
-				callback(err);
-			} else {
-				//make sense of the data
-				var userInfo = user,
-					result = [],
-					date,
-					getIndex;
+	var dataDates;
+	var userDateInput = dateInput(req.params.dateFrom, req.dateTo, function (result) {
+		dataDates = result;
+	});
 
-				userInfo.forEach(function (info) {
-					info.cart.forEach(function (cart) {
-						date = new Date(cart.created);
-						if(getIndex = _.findIndex(result, function (value) {
-							return value.date == date;
-						}) != -1){
-							result[getIndex].count++;
-							result[getIndex].order.push(cart);
-						} else {
-							result.push({
-								"count": 1,
-								"date": date,
-								"cart": [cart],
-								"day": date.getDate().toString().length == 1 ? "0" + date.getDate(): date.getDate(),
-								"month": date.getMonth().toString().length == 1 ? "0" + date.getMonth(): date.getMonth(),
-								"year": date.getFullYear()
-							});
-						}
-					});
-				});
-				callback(null, result);
-			}
-		});
-	}
-	async.waterfall([userDateInput, fromToDates, carts], function (err, result) {
+	users.find({"cart.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'cart').populate('cart').where('cart._id').exists().sort('created').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			res.status(200).jsonp(result);
+			lineChart(dataDates.from, dataDates.to, user, 'cart', function (err, result) {
+				if(err){
+					res.status(500).jsonp(err);
+				} else {
+					res.status(200).jsonp(result);
+				}
+			});
 		}
 	});
 }
 
 module.exports.commentAnalysis = function (req, res) {
-	function userDateInput (callback) {
-		if(req.body.dateFrom && req.body.dateTo){
-			callback(null, {"from": req.body.dateFrom, "to": req.body.dateTo});
-		}
-		callback(null, false);
-	}
-	function comments (dates, callback) {
-		products.find({"comment.created": {"$gte": new Date(dates.from), "$lt": new Date(dates.to)}}, 'comment').populate('comment').where('comment._id').exists().sort('created').exec(function (err, product) {
-			if(err){
-				callback(err);
-			} else {
-				//make sense of the data
-				var productInfo = product,
-					result = [],
-					date,
-					getIndex;
+	var dataDates;
+	var userDateInput = dateInput(req.params.dateFrom, req.dateTo, function (result) {
+		dataDates = result;
+	});
 
-				productInfo.forEach(function (info) {
-					info.comment.forEach(function (comment) {
-						date = new Date(comment.created);
-						if(getIndex = _.findIndex(result, function (value) {
-							return value.date == date;
-						}) != -1){
-							result[getIndex].count++;
-							result[getIndex].order.push(comment);
-						} else {
-							result.push({
-								"count": 1,
-								"date": date,
-								"comment": [comment],
-								"day": date.getDate().toString().length == 1 ? "0" + date.getDate(): date.getDate(),
-								"month": date.getMonth().toString().length == 1 ? "0" + date.getMonth(): date.getMonth(),
-								"year": date.getFullYear()
-							});
-						}
-					});
-				});
-				callback(null, result);
-			}
-		});
-	}
-	async.waterfall([userDateInput, fromToDates, comments], function (err, result) {
+	products.find({"comment.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'comment').populate('comment').where('comment._id').exists().sort('created').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			res.status(200).jsonp(result);
+			lineChart(dataDates.from, dataDates.to, product, 'comment', function (err, result) {
+				if(err){
+					res.status(200).jsonp(err);
+				} else {
+					res.status(200).jsonp(result);
+				}
+			});
 		}
 	});
 }
 
 module.exports.heartAnalysis = function (req, res) {
-	function userDateInput (callback) {
-		if(req.body.dateFrom && req.body.dateTo){
-			callback(null, {"from": req.body.dateFrom, "to": req.body.dateTo});
-		}
-		callback(null, false);
-	}
-	function hearts (dates, callback) {
-		products.find({"heart.created": {"$gte": new Date(dates.from), "$lt": new Date(dates.to)}}, 'heart').populate('heart').where('heart._id').exists().sort('created').exec(function (err, product) {
-			if(err){
-				callback(err);
-			} else {
-				//make sense of the data
-				var productInfo = product,
-					result = [],
-					date,
-					getIndex;
+	var dataDates;
+	var userDateInput = dateInput(req.params.dateFrom, req.dateTo, function (result) {
+		dataDates = result;
+	});
 
-				productInfo.forEach(function (info) {
-					info.heart.forEach(function (heart) {
-						date = new Date(heart.created);
-						if(getIndex = _.findIndex(result, function (value) {
-							return value.date == date;
-						}) != -1){
-							result[getIndex].count++;
-							result[getIndex].order.push(heart);
-						} else {
-							result.push({
-								"count": 1,
-								"date": date,
-								"heart": [heart],
-								"day": date.getDate().toString().length == 1 ? "0" + date.getDate(): date.getDate(),
-								"month": date.getMonth().toString().length == 1 ? "0" + date.getMonth(): date.getMonth(),
-								"year": date.getFullYear()
-							});
-						}
-					});
-				});
-				callback(null, result);
-			}
-		});
-	}
-	async.waterfall([userDateInput, fromToDates, hearts], function (err, result) {
+	products.find({"heart.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'heart').populate('heart').where('heart._id').exists().sort('created').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			res.status(200).jsonp(result);
+			lineChart(dataDates.from, dataDates.to, product, 'heart', function (err, result) {
+				if(err){
+					res.status(200).jsonp(err);
+				} else {
+					res.status(200).jsonp(result);
+				}				
+			});
 		}
 	});
 }
 
 module.exports.productAnalysis = function (req, res) {
-	function userDateInput (callback) {
-		if(req.body.dateFrom && req.body.dateTo){
-			callback(null, {"from": req.body.dateFrom, "to": req.body.dateTo});
-		}
-		callback(null, false);
-	}
-	function allProducts (dates, callback) {
-		products.find({"created": {"$gte": new Date(dates.from), "$lt": new Date(dates.to)}}).sort('created').exec(function (err, product) {
-			if(err){
-				callback(err);
-			} else {
-				//make sense of the data
-				var productInfo = product,
-					result = [],
-					date,
-					getIndex;
+	var dataDates;
+	var userDateInput = dateInput(req.params.dateFrom, req.dateTo, function (result) {
+		dataDates = result;
+	});
 
-				productInfo.forEach(function (info) {
-					date = new Date(info.created);
-					if(getIndex = _.findIndex(result, function (value) {
-						return value.date == date;
-					}) != -1){
-						result[getIndex].count++;
-						result[getIndex].order.push(info);
-					} else {
-						result.push({
-							"count": 1,
-							"date": date,
-							"product": [product],
-							"day": date.getDate().toString().length == 1 ? "0" + date.getDate(): date.getDate(),
-							"month": date.getMonth().toString().length == 1 ? "0" + date.getMonth(): date.getMonth(),
-							"year": date.getFullYear()
-						});
-					}
-				});
-				callback(null, result);
-			}
-		});
-	}
-	async.waterfall([userDateInput, fromToDates, allProducts], function (err, result) {
+	products.find({"created": {"$gte": dataDates.from, "$lt": dataDates.to}}).sort('created').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			res.status(200).jsonp(result);
+			lineChart(dataDates.from, dataDates.to, product, null, function (err, result) {
+				if(err){
+					res.status(200).jsonp(err);
+				} else {
+					res.status(200).jsonp(result);
+				}	
+			});
 		}
 	});
 }
 
-
 //this return full analysis of all users interaction
-module.exports.usersAnalysis = function (req, res) {
+module.exports.usersInDepthAnalysis = function (req, res) {
 	function userOrders(callback){
 		users.find({}, function (err, user) {
 			if(err){

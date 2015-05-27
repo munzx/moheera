@@ -2,6 +2,7 @@
 
 //Module dependencies
 var logger = require('express-logger'),
+	helmet = require('helmet'),
 	compress = require('compression'),
 	fs = require('fs'),
 	errorHandler = require('errorhandler'),
@@ -53,6 +54,8 @@ module.exports = function (app, express) {
 	app.enable('strict routing');
 	app.set('view engine', 'ejs');
 	app.enable('view cache');
+	//for security!
+	app.use(helmet());
 
 	//use middlewears
 	app.use(bodyParser.json({limit: '50mb'}));
@@ -66,4 +69,6 @@ module.exports = function (app, express) {
 	//Publically accessable folders
 	app.use('/asset', express.static('./bower_components/'));
 	app.use('/public', express.static('./public/'));
+
+
 }

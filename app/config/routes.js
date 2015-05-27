@@ -232,13 +232,14 @@ module.exports = function (app, express) {
 		.get('/admin/orders', isAdmin, admin.orders)
 		.get('/admin/messages', isAdmin, admin.messages)
 		.get('/admin/comments', isAdmin, admin.comments)
-		.get('/admin/hearts', isAdmin, admin.hearts)
-		.get('/admin/users/analysis', isAdmin, admin.usersAnalysis)
-		.get('/admin/orders/analysis',isAdmin, admin.orderAnalysis)
-		.get('/admin/carts/analysis',isAdmin, admin.cartAnalysis)
-		.get('/admin/products/analysis',isAdmin, admin.productAnalysis)
-		.get('/admin/comments/analysis',isAdmin, admin.commentAnalysis)
-		.get('/admin/hearts/analysis',isAdmin, admin.heartAnalysis)
+		.get('/admin/hearts/', isAdmin, admin.hearts)
+		.get('/admin/users/analysis/:dateFrom*?',isAdmin, admin.usersAnalysis)
+		.get('/admin/orders/analysis/:dateFrom*?',isAdmin, admin.orderAnalysis)
+		.get('/admin/carts/analysis/:dateFrom*?',isAdmin, admin.cartAnalysis)
+		.get('/admin/products/analysis/:dateFrom*?',isAdmin, admin.productAnalysis)
+		.get('/admin/comments/analysis/:dateFrom*?',isAdmin, admin.commentAnalysis)
+		.get('/admin/hearts/analysis/:dateFrom*?',isAdmin, admin.heartAnalysis)
+		.get('/admin/users/indepthanalysis/:dateFrom*?', isAdmin, admin.usersInDepthAnalysis)
 		//Users
 		.get('/user', users.index) //get all users
 		.post('/user', isGuest, users.create) //create a new user
