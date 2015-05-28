@@ -15,7 +15,7 @@ angular.module('adminModule').controller('reportsAdminController', ['$q', '$scop
 		$scope.polarData = [response.hasOrderCount, response.hasProductCount, response.usersCount, response.hasNoProductOrOrderCount];
 	});
 
-	function getAnalysis (dateFrom) {
+	function getLineChartAnalysis (dateFrom) {
 		$q.all([
 			connectAdminFactory.get({page: 'carts', action: 'analysis', param: dateFrom}).$promise,
 			connectAdminFactory.get({page: 'orders', action: 'analysis', param: dateFrom}).$promise,
@@ -33,6 +33,7 @@ angular.module('adminModule').controller('reportsAdminController', ['$q', '$scop
 				result[5].dataPoints
 			]
 			$scope.lineLabels = result[0].fullDate;
+			$scope.dateFrom = new Date($scope.lineLabels[0]);
 		}, function (err) {
 			console.log(err);
 		});
@@ -49,10 +50,11 @@ angular.module('adminModule').controller('reportsAdminController', ['$q', '$scop
 		];
 	}
 
-	getAnalysis();
+	//initilize the line chart
+	getLineChartAnalysis();
 
 	$scope.getAnalysisButtton = function () {
-		getAnalysis($scope.dateFrom);
+		getLineChartAnalysis($scope.dateFrom);
 	}
 
 	$scope.onClick = function (points, evt) {

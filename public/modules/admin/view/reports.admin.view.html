@@ -36,21 +36,5 @@
 		</div>
 	</div>
 	<hr class="hr" />
-	<div class="row">
-		<form name="lineChartForm" class="form-inline">
-			<div class="input-group">
-				<div class="input-group-addon">Starting from 28 Days prior to </div>
-				<input type="date" name="dateFrom" class="form-control" ng-model="dateFrom" id="dateFrom" required>
-			</div>
-			<div class="input-group">
-				<button class="btn btn-success" ng-disabled="lineChartForm.$invalid" ng-click="getAnalysisButtton()">Apply</button>
-			</div>
-		</form>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h4>Users Subscribtion , Orders, Hearts & Comments</h4>
-			<canvas id="line" class="chart chart-line" data="lineData" labels="lineLabels" legend="true" series="lineSeries" click="onClick"></canvas> 
-		</div>
-	</div>
+	<div line-chart-admin-directive></div>
 </section>
