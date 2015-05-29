@@ -11,9 +11,10 @@ angular.module('adminModule').controller('reportsAdminController', ['$q', '$scop
 	});
 
 	connectAdminFactory.get({page: 'users', action: 'indepthanalysis'}, function (response) {
-		console.log(response.userHasCommentCount);
-		$scope.pieLabels = ["User has order", "User has product", "User has cart", "User has comment", "User has heart", "User with no product or order"];
-		$scope.pieData = [response.hasOrderCount, response.hasProductCount, response.userHasCartCount, response.userHasCommentCount, response.userHasHeartCount, response.hasNoProductOrOrderCount];
+		$scope.radarLabels = ["User has order", "User has product", "User has cart", "User has comment", "User has heart", "User with no product or order"];
+		$scope.radarData = [
+			[response.hasOrderCount, response.hasProductCount, response.userHasCartCount, response.userHasCommentCount, response.userHasHeartCount, response.hasNoProductOrOrderCount]
+		];
 	});
 
 	function getLineChartAnalysis (dateFrom) {
