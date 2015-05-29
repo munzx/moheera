@@ -13,6 +13,7 @@ angular.module('adminModule').controller('reportsAdminController', ['$q', '$scop
 	connectAdminFactory.get({page: 'users', action: 'indepthanalysis'}, function (response) {
 		$scope.polarLabels = ["User has orders", "User has products", "Number of Users", "User with no product or order"];
 		$scope.polarData = [response.hasOrderCount, response.hasProductCount, response.usersCount, response.hasNoProductOrOrderCount];
+		console.log(response);
 	});
 
 	function getLineChartAnalysis (dateFrom) {
