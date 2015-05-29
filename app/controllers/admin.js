@@ -190,7 +190,7 @@ module.exports.usersAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	users.find({"created": {"$gte": dataDates.from, "$lt": dataDates.to}}).sort('created').exec(function (err, user) {
+	users.find({"created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}).sort('created').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
@@ -211,7 +211,7 @@ module.exports.orderAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	users.find({"order.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'order').populate('order').where('order._id').exists().sort('created').exec(function (err, user) {
+	users.find({"order.created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}, 'order').populate('order').where('order._id').exists().sort('created').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
@@ -232,7 +232,7 @@ module.exports.cartAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	users.find({"cart.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'cart').populate('cart').where('cart._id').exists().sort('created').exec(function (err, user) {
+	users.find({"cart.created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}, 'cart').populate('cart').where('cart._id').exists().sort('created').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
@@ -313,7 +313,7 @@ module.exports.productAnalysis = function (req, res) {
 //this return full analysis of all users interaction
 module.exports.usersInDepthAnalysis = function (req, res) {
 	function userOrders(callback){
-		users.find({}, function (err, user) {
+		users.find({"role": "user"}, function (err, user) {
 			if(err){
 				callback(err, null);
 			} else if(user){
