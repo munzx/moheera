@@ -12,10 +12,17 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<h4>User's Interaction Analysis</h4>
-			<canvas id="radar" class="chart chart-radar" data="radarData" labels="radarLabels"></canvas>
-  		</div>
+		<div class="col-md-12 add-space">
+		<h4>User's Interaction Analysis</h4>
+			<button class="btn btn-default">User has Order <span class="badge">{{pieData[0]}}</span></button>
+			<button class="btn btn-default">User has Product <span class="badge">{{pieData[1]}}</span></button>
+			<button class="btn btn-default">User has Cart <span class="badge">{{pieData[2]}}</span></button>
+			<button class="btn btn-default">User has Heart <span class="badge">{{pieData[4]}}</span></button>
+			<button class="btn btn-default">User with no Product or Order <span class="badge">{{pieData[5]}}</span></button>
+		</div>
+		<div class="col-md-10 col-md-offset-1 add-space">
+			<canvas id="pie" class="chart chart-pie" data="pieData" legend="true" labels="pieLabels"></canvas>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-4">
