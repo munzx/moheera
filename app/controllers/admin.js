@@ -355,28 +355,51 @@ module.exports.usersInDepthAnalysis = function (req, res) {
 				var productInfo = product,
 					userHasProduct = [],
 					productsCount = 0,
+					userHasComment = [],
+					userHasHeart = [],
 					productHasComments = [],
 					productHasCommentsCount = 0,
 					productHasHearts = [],
 					productHasHeartsCount = 0;
 
 				productInfo.forEach(function (info) {
+					productsCount++;
+
+					if(info.heart.length > 0){
+						productHasHearts.push(info.heart);
+						productHasHearts.forEach(function (heart) {
+							if(userHasHeart.indexOf(heart[0].user[0].toString()) == -1){
+								userHasHeart.push(heart[0].user[0].toString());
+							}
+						});	
+					}
+
+					if(info.comment.length > 0){
+						productHasComments.push(info.comment);
+						productHasComments.forEach(function (comment) {
+							if(userHasComment.indexOf(comment[0].author[0].toString()) == -1){
+								userHasComment.push(comment[0].author[0].toString());
+							}
+						});					
+					}
+
 					if(info.user.length > 0){
-						if(userHasProduct.indexOf(info.user[0]) == -1){
-							productsCount++;
+						if(userHasProduct.indexOf(info.user[0].toString()) == -1){
 							userHasProduct.push(info.user[0].toString());
-						}
-						if(info.heart.length > 0){
-							productHasHearts.push(info.heart);
-						}
-						if(info.comment.length > 0){
-							productHasComments.push(info.comment);
 						}
 					}
 				});
+
+
 				callback(null,
-					{"hasProduct": userHasProduct,
-					"hasProductCount": productsCount,
+					{
+					"productsCount": productsCount,
+					"hasProduct": userHasProduct,
+					"hasProductCount": userHasProduct.length,
+					"userHasComment": userHasComment,
+					"userHasCommentCount": userHasComment.length,
+					"userHasHeart": userHasHeart,
+					"userHasHeartCount": userHasHeart.length,
 					"productHasComments": productHasComments,
 					"productHasCommentsCount": productHasComments.length,
 					"productHasHearts": productHasHearts,
@@ -405,6 +428,10 @@ module.exports.usersInDepthAnalysis = function (req, res) {
 				"hasNoProductOrOrder": hasNoProductOrOrder,
 				"hasNoProductOrOrderCount": hasNoProductOrOrder.length,
 				"userHasCart": result[0].userHasCart,
+				"userHasComment": result[1].userHasComment,
+				"userHasCommentCount": result[1].userHasCommentCount,
+				"userHasHeart": result[1].userHasHeart,
+				"userHasHeartCount": result[1].userHasHeartCount,
 				"userHasCartCount": result[0].userHasCartCount,
 				"productHasHearts": result[1].productHasHearts,
 				"productHasHeartsCount": result[1].productHasHeartsCount,
