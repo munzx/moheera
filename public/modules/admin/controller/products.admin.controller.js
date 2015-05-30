@@ -4,6 +4,7 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 	var limit = 20,
 		skip = 0;
 
+	$scope.listLimit = 0;
 	$scope.products = [];
 
 	$scope.addMore = function () {
@@ -13,6 +14,7 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 					$scope.products.push(response.products[i]);
 				}
 				skip+= limit;
+				$scope.listLimit = skip;
 			}
 		});
 	}
