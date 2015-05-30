@@ -116,6 +116,33 @@ module.exports.orders = function (req, res) {
 	});
 }
 
+module.exports.carts = function (req, res) {
+	users.find({'role': 'user'}).populate('cart').populate('cart.product.info').populate('cart.user').where('cart._id').exists().exec(function (err, user) {
+		if(err){
+			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+		} else if(user){
+			var usercarts = user,
+				sortedInfo = [];
+			//Get the user cart info
+			usercarts.forEach(function (userInfo) {
+				var cartInfo = userInfo.cart;
+				cartInfo.forEach(function (cart) {
+					sortedInfo.push({
+						user: {
+							_id: userInfo._id,
+							name: userInfo.name
+						},
+						cart: cart
+					});
+				});
+			});
+			res.status(200).jsonp({'carts': sortedInfo, 'count': sortedInfo.length});
+		} else {
+			res.status(404).jsonp({message: 'No cart has been found'});
+		}
+	});
+}
+
 module.exports.messages = function (req, res) {
 	contacts.find({}, function (err, contact) {
 		if(err){

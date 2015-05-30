@@ -54,12 +54,6 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', 'Ch
 			controller: 'usersAdminController',
 			cache: true
 		})
-		.state('admin.reports', {
-			url: '/reports',
-			templateUrl: 'public/modules/admin/view/reports.admin.view.html',
-			controller: 'reportsAdminController',
-			cache: true
-		})
 		.state('admin.messages', {
 			url: '/messages',
 			templateUrl: 'public/modules/admin/view/messages.admin.view.html',

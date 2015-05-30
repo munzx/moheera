@@ -1,0 +1,26 @@
+<div class=>
+	<div class="col-md-12 add-space">
+		<h4>User's Interaction Analysis</h4>
+		<button class="btn" style="background-color: #97BBCD;">
+			User has Order <span class="badge">{{pieData[0]}}</span>
+		</button>
+		<button class="btn" style="background-color: #DCDCDC;">
+			User has Product <span class="badge">{{pieData[1]}}</span>
+		</button>
+		<button class="btn" style="background-color: #F7464A;">
+			User has Cart <span class="badge">{{pieData[2]}}</span>
+		</button>
+		<button class="btn" style="background-color: #46BFBD;">
+			User has Comment <span class="badge">{{pieData[3]}}</span>
+		</button>
+		<button class="btn" style="background-color: #FDB45C;">
+			User has Heart <span class="badge">{{pieData[4]}}</span>
+		</button>
+		<button class="btn" style="background-color: #949FB1;">
+			User with no Product or Order <span class="badge">{{pieData[5]}}</span>
+		</button>
+	</div>
+	<div class="col-md-10 col-md-offset-1 add-space">
+		<canvas id="pie" class="chart chart-pie" data="pieData" legend="false" labels="pieLabels"></canvas>
+	</div>
+</div>
