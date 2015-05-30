@@ -25,7 +25,8 @@
     "angular-ui-router": "~0.2.13",
     "caman": "~4.1.2",
     "angulartics": "~0.17.2",
-    "angular-chart.js": "~0.7.0"
+    "angular-chart.js": "~0.7.0",
+    "ngInfiniteScroll": "~1.2.1"
   },
   "resolutions": {
     "angular": "~1.4.0"

@@ -227,7 +227,8 @@ module.exports = function (app, express) {
 		//admin
 		.get('/admin', isAdmin, admin.index)
 		.get('/admin/first', admin.createFirst)
-		.get('/admin/users', isAdmin, admin.users)
+		.get('/admin/analysis/indepthanalysis/:dateFrom*?', isAdmin, admin.usersInDepthAnalysis)
+		.get('/admin/users/:limit*?/:skip*?', isAdmin, admin.users)
 		.get('/admin/products', isAdmin, admin.products)
 		.get('/admin/orders', isAdmin, admin.orders)
 		.get('/admin/carts', isAdmin, admin.orders)
@@ -240,7 +241,6 @@ module.exports = function (app, express) {
 		.get('/admin/products/analysis/:dateFrom*?',isAdmin, admin.productAnalysis)
 		.get('/admin/comments/analysis/:dateFrom*?',isAdmin, admin.commentAnalysis)
 		.get('/admin/hearts/analysis/:dateFrom*?',isAdmin, admin.heartAnalysis)
-		.get('/admin/users/indepthanalysis/:dateFrom*?', isAdmin, admin.usersInDepthAnalysis)
 		//Users
 		.get('/user', users.index) //get all users
 		.post('/user', isGuest, users.create) //create a new user
