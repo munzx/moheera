@@ -2,14 +2,14 @@
 	<div class="row">
 		<div class="col-md-offset-3 col-md-6 col-xs-6 col-xs-offset-3">
 			<a ng-href="/{{userLink(item.user[0].name)}}">
-				<img spinner-on-load-config-directive src="{{logo(item.user[0].logo)}}" class="img-responsive text-center">
-				<span class="loading"> <img src="https://www.yugma.com/images/loading-animation-7.gif"/></span>
+				<img src="{{logo(item.user[0].logo)}}" class="img-responsive text-center">
 			</a>
 		</div>
 	</div>
 	<div class="row">
 		<a ng-href="/{{userProductLink(item.user[0].name)}}/{{item.name}}">
-			<img ng-src="{{'public/uploads/' + item.image1}}" class="img-responsive image-center">
+			<img spinner-on-load-config-directive ng-src="{{'public/uploads/' + item.image1}}" class="img-responsive image-center">
+			<span class="loading"><img class="img-responsive image-center" src="public/modules/config/img/placeholder.jpg"/></span>
 		</a>
 	</div>
 	<div class="row">
