@@ -1,4 +1,4 @@
-<section infinite-scroll="getUsers()" infinite-scroll-distance="2">
+<section infinite-scroll="getUsers()">
 	<h4 ng-hide="users.length" class="alert alert-danger">No user has been found.</h4>
 	<div ng-repeat="item in users" user-box-user-directive="item" class="col-md-3"></div>
 </section>

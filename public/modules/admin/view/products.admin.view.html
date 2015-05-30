@@ -1,7 +1,7 @@
 <section>
 	<h4 ng-hide="products.length" class="alert alert-danger">No user has been found.</h4>
 	
-	<div infinite-scroll="getProducts()" infinite-scroll-distance="2">
+	<div infinite-scroll="getProducts()">
 		<div class="col-md-3 col-sm-3 col-xs-12" ng-show="products.length" ng-repeat="product in products" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
 			<!-- Product Inof -->
 			<div product-brief-product-directive="product"></div>
