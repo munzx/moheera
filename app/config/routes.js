@@ -229,7 +229,7 @@ module.exports = function (app, express) {
 		.get('/admin/first', admin.createFirst)
 		.get('/admin/analysis/indepthanalysis/:dateFrom*?', isAdmin, admin.usersInDepthAnalysis)
 		.get('/admin/users/:limit*?/:skip*?', isAdmin, admin.users)
-		.get('/admin/products', isAdmin, admin.products)
+		.get('/admin/products/:limit*?/:skip*?', isAdmin, admin.products)
 		.get('/admin/orders', isAdmin, admin.orders)
 		.get('/admin/carts', isAdmin, admin.orders)
 		.get('/admin/messages', isAdmin, admin.messages)
