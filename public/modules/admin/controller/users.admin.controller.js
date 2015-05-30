@@ -2,7 +2,7 @@
 
 angular.module('adminModule').controller('usersAdminController', ['$scope', 'connectAdminFactory', function ($scope, connectAdminFactory) {
 	var limit = 20,
-		skip = 0;
+		$scope.skip = 0;
 
 	$scope.users = [];
 
