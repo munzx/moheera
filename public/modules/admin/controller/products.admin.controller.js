@@ -8,6 +8,7 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 		connectAdminFactory.get({page: 'products', "limit": limit, "skip": skip}, function (response) {
 			$scope.products = response.products;
 			skip = limit + skip;
+			console.log('Bism Allah');
 		});
 	}
 	
