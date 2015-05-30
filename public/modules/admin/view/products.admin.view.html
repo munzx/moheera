@@ -2,7 +2,7 @@
 	<h4 ng-hide="products.length" class="alert alert-danger">No user has been found.</h4>
 	
 	<div infinite-scroll="addMore()">
-		<div class="col-md-3 col-sm-3 col-xs-12" ng-show="products.length" ng-repeat="product in products | limitTo: listLimit" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
+		<div class="col-md-3 col-sm-3 col-xs-12" ng-show="products.length" ng-repeat="product in products | limitTo: skip" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
 			<!-- Product Inof -->
 			<div product-brief-product-directive="product"></div>
 		</div>

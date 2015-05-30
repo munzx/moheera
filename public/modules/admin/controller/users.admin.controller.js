@@ -4,7 +4,6 @@ angular.module('adminModule').controller('usersAdminController', ['$scope', 'con
 	var limit = 20,
 		skip = 0;
 
-	$scope.listLimit = 0;
 	$scope.users = [];
 
 	$scope.addMore = function () {
@@ -13,10 +12,8 @@ angular.module('adminModule').controller('usersAdminController', ['$scope', 'con
 				for(var i=0; i < response.users.length; i++){
 					$scope.users.push(response.users[i]);
 				}
-				skip+= limit;
-				$scope.listLimit = skip;
+				$scope.skip+= limit;
 			}
 		});
 	}
-
 }]);
