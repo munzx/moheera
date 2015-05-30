@@ -77,6 +77,7 @@ module.exports.users = function (req, res) {
 
 
 module.exports.products = function (req, res) {
+	console.log(req.params.skip);
 	products.find({}, {}, {limit: req.params.limit, skip: req.params.skip}).populate('user').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});

@@ -1,16 +1,13 @@
 'use strict';
 
 angular.module('adminModule').controller('usersAdminController', ['$scope', 'connectAdminFactory', function ($scope, connectAdminFactory) {
-	var limit = 20,
-		skip = 0;
+	var limit = 16;
 
-	function getUsers(){
-		connectAdminFactory.get({page: "users", "limit": limit, "skip": skip}, function (response) {
+	$scope.addMore = function () {
+		connectAdminFactory.get({page: 'users', "limit": limit}, function (response) {
 			$scope.users = response.users;
-			skip = limit + skip;
+			limit++;
 		});
 	}
 
-	//initiate the get users function
-	getUsers();
 }]);
