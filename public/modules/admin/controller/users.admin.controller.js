@@ -7,7 +7,7 @@ angular.module('adminModule').controller('usersAdminController', ['$scope', 'con
 	$scope.users = [];
 
 	$scope.addMore = function () {
-		connectAdminFactory.get({page: 'users', "limit": limit, "skip": skip}, function (response) {
+		connectAdminFactory.get({page: 'users', "limit": limit, "skip": $scope.skip}, function (response) {
 			if(response.users.length > 0){
 				for(var i=0; i < response.users.length; i++){
 					$scope.users.push(response.users[i]);
