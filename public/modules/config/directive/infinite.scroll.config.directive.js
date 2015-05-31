@@ -2,6 +2,7 @@
 
 angular.module('moheera').directive('infiniteScrollConfigDirective', ['$window', function ($window) {
     return function(scope, element, attrs) {
+        scope.addMore();
         var placeSaver = 0;
         angular.element($window).bind("scroll", function() {
              if ( (this.pageYOffset >= 100) && (placeSaver < this.pageYOffset) ) {
