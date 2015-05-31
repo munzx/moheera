@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adminModule').controller('productsAdminController', ['$scope', 'connectAdminFactory', function ($scope, connectAdminFactory) {
-	var limit = 5;
+	var limit = 40;
 
 	$scope.skipProducts = 0;
 	$scope.products = [];
