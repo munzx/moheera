@@ -1,6 +1,6 @@
 <section>
 	<h4 ng-hide="allUsers.length" class="alert alert-danger">No user has been found.</h4>
-	<div infinite-scroll="addMoreUsers()">
-		<div ng-repeat="user in allUsers  | limitTo: skip" user-box-user-directive="user" class="col-md-3"></div>
+	<div infinite-scroll="addMoreUsers()" infinite-scroll-distance="3">
+		<div ng-repeat="user in allUsers" user-box-user-directive="user" class="col-md-3"></div>
 	</div>
 </section>
