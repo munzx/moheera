@@ -64,6 +64,17 @@ module.exports.index = function (req, res) {
 }
 
 module.exports.users = function (req, res) {
+	var limit = 0,
+		skip = 0;
+
+	if(req.params.limit){
+		limit = req.params.limit;
+	}
+
+	if(req.params.skip){
+		skip = req.params.skip;
+	}
+
 	users.find({'role': 'user'}, {password: 0}, {limit: req.params.limit, skip: req.params.skip}, function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
@@ -88,8 +99,8 @@ module.exports.products = function (req, res) {
 		skip = req.params.skip;
 	}
 
-	console.log("skip " + req.params.skip);
-	console.log("limit " + req.params.limit);
+	console.log("skip " + skip);
+	console.log("limit " + limit);
 
 	products.find({}, {}, {limit: limit, skip: skip}).populate('user').exec(function (err, product) {
 		if(err){
