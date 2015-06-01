@@ -230,7 +230,7 @@ module.exports = function (app, express) {
 		.get('/admin/users/:limit?/:skip?', isAdmin, admin.users)
 		.get('/admin/products/:limit?/:skip?', isAdmin, admin.products)
 		.get('/admin/orders', isAdmin, admin.orders)
-		.get('/admin/carts', isAdmin, admin.orders)
+		.get('/admin/carts', isAdmin, admin.carts)
 		.get('/admin/messages', isAdmin, admin.messages)
 		.get('/admin/comments', isAdmin, admin.comments)
 		.get('/admin/hearts/', isAdmin, admin.hearts)

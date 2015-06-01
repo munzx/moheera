@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 angular.module('adminModule').directive('cartsCountAdminDirective', ['connectAdminFactory', function (connectAdminFactory) {
 	return {

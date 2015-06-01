@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adminModule').controller('usersAdminController', ['$scope', 'connectAdminFactory', function ($scope, connectAdminFactory) {
-	var limit = 20;
+	var limit = 40;
 		
 	$scope.skipUsers = 0;
 	$scope.allUsers = [];
