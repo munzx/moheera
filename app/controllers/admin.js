@@ -77,7 +77,21 @@ module.exports.users = function (req, res) {
 
 
 module.exports.products = function (req, res) {
-	products.find({}, {}, {limit: req.params.limit, skip: req.params.skip}).populate('user').exec(function (err, product) {
+	var limit = 0,
+		skip = 0;
+
+	if(req.params.limit){
+		limit = req.params.limit;
+	}
+
+	if(req.params.skip){
+		skip = req.params.skip;
+	}
+
+	console.log("skip " + req.params.skip);
+	console.log("limit " + req.params.limit);
+
+	products.find({}, {}, {limit: limit, skip: skip}).populate('user').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){

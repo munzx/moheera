@@ -9,12 +9,12 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', 'conne
 		link: function (scope, elem, attrs, ngModel) {
 			function getLineChartAnalysis (dateFrom) {
 				$q.all([
-					connectAdminFactory.get({page: 'carts', action: 'analysis', param: dateFrom}).$promise,
-					connectAdminFactory.get({page: 'orders', action: 'analysis', param: dateFrom}).$promise,
-					connectAdminFactory.get({page: 'hearts', action: 'analysis', param: dateFrom}).$promise,
-					connectAdminFactory.get({page: 'comments', action: 'analysis', param: dateFrom}).$promise,
-					connectAdminFactory.get({page: 'products', action: 'analysis', param: dateFrom}).$promise,
-					connectAdminFactory.get({page: 'users', action: 'analysis', param: dateFrom}).$promise
+					connectAdminFactory.get({action: 'carts', page: 'analysis', param: dateFrom}).$promise,
+					connectAdminFactory.get({action: 'orders', page: 'analysis', param: dateFrom}).$promise,
+					connectAdminFactory.get({action: 'hearts', page: 'analysis', param: dateFrom}).$promise,
+					connectAdminFactory.get({action: 'comments', page: 'analysis', param: dateFrom}).$promise,
+					connectAdminFactory.get({action: 'products', page: 'analysis', param: dateFrom}).$promise,
+					connectAdminFactory.get({action: 'users', page: 'analysis', param: dateFrom}).$promise
 				]).then(function (result) {
 					scope.lineData = [
 						result[0].dataPoints,

@@ -227,7 +227,6 @@ module.exports = function (app, express) {
 		//admin
 		.get('/admin', isAdmin, admin.index)
 		.get('/admin/first', admin.createFirst)
-		.get('/admin/analysis/indepthanalysis/:dateFrom*?', isAdmin, admin.usersInDepthAnalysis)
 		.get('/admin/users/:limit?/:skip?', isAdmin, admin.users)
 		.get('/admin/products/:limit?/:skip?', isAdmin, admin.products)
 		.get('/admin/orders', isAdmin, admin.orders)
@@ -235,12 +234,13 @@ module.exports = function (app, express) {
 		.get('/admin/messages', isAdmin, admin.messages)
 		.get('/admin/comments', isAdmin, admin.comments)
 		.get('/admin/hearts/', isAdmin, admin.hearts)
-		.get('/admin/users/analysis/:dateFrom*?',isAdmin, admin.usersAnalysis)
-		.get('/admin/orders/analysis/:dateFrom*?',isAdmin, admin.orderAnalysis)
-		.get('/admin/carts/analysis/:dateFrom*?',isAdmin, admin.cartAnalysis)
-		.get('/admin/products/analysis/:dateFrom*?',isAdmin, admin.productAnalysis)
-		.get('/admin/comments/analysis/:dateFrom*?',isAdmin, admin.commentAnalysis)
-		.get('/admin/hearts/analysis/:dateFrom*?',isAdmin, admin.heartAnalysis)
+		.get('/admin/analysis/indepthanalysis/:dateFrom*?', isAdmin, admin.usersInDepthAnalysis)
+		.get('/admin/analysis/users/:dateFrom*?',isAdmin, admin.usersAnalysis)
+		.get('/admin/analysis/orders/:dateFrom*?',isAdmin, admin.orderAnalysis)
+		.get('/admin/analysis/carts/:dateFrom*?',isAdmin, admin.cartAnalysis)
+		.get('/admin/analysis/products/:dateFrom*?',isAdmin, admin.productAnalysis)
+		.get('/admin/analysis/comments/:dateFrom*?',isAdmin, admin.commentAnalysis)
+		.get('/admin/analysis/hearts/:dateFrom*?',isAdmin, admin.heartAnalysis)
 		//Users
 		.get('/user', users.index) //get all users
 		.post('/user', isGuest, users.create) //create a new user
