@@ -111,7 +111,7 @@ module.exports.products = function (req, res) {
 }
 
 module.exports.orders = function (req, res) {
-	users.find({'role': 'user'}).populate('order').populate('order.product.info').populate('order.user').where('order._id').exists().exec(function (err, user) {
+	users.find().populate('order').populate('order.product.info').populate('order.user').where('order._id').exists().exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -138,7 +138,7 @@ module.exports.orders = function (req, res) {
 }
 
 module.exports.carts = function (req, res) {
-	users.find({'role': 'user'}).populate('cart').populate('cart.product.info').populate('cart.user').where('cart._id').exists().exec(function (err, user) {
+	users.find().populate('cart').populate('cart.product.info').populate('cart.user').where('cart._id').exists().exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
