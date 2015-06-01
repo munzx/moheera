@@ -99,9 +99,6 @@ module.exports.products = function (req, res) {
 		skip = req.params.skip;
 	}
 
-	console.log("skip " + skip);
-	console.log("limit " + limit);
-
 	products.find({}, {}, {limit: limit, skip: skip}).populate('user').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
