@@ -2,6 +2,7 @@
 
 angular.module('adminModule').controller('ordersAdminController', ['$scope', 'connectAdminFactory', function ($scope, connectAdminFactory) {
 	connectAdminFactory.get({page: 'orders'}, function (response) {
+		console.log(response);
 		$scope.orders = response.orders;
 		if($scope.orders.length > 0){
 			$scope.showOrders = true;
