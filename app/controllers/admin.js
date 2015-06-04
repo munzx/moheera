@@ -280,7 +280,7 @@ module.exports.cartAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	users.find({"cart.created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}, 'cart').populate('cart').where('cart._id').exists().sort('created').exec(function (err, user) {
+	users.find({"cart.created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}, 'cart').populate('cart').populate('cart').where('cart._id').exists().sort('created').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
