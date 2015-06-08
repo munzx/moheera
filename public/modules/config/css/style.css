@@ -80,11 +80,11 @@ hr {
 .ng-enter, 
 .ng-leave
 { 
-    -webkit-transition: 475ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 475ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 475ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 475ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 475ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -webkit-transition: 625ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 625ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 625ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 625ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 625ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     position: relative;
     display: block;
 } 
@@ -99,6 +99,6 @@ hr {
 .ng-leave.ng-leave-active,
 .ng-enter {
     opacity: 0;
-    top: -100px;
+    top: -50px;
     height: 0px;
 }
