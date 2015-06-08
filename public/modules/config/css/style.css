@@ -75,3 +75,29 @@ hr {
 .spinner-show .loading {
 	visibility: hidden;
 }
+
+.ng-enter {
+	transition: 0.75s;
+	opacity: 0;
+}
+
+.ng-enter-trigger {
+	transition-delay: 0.1s;
+}
+
+.ng-enter-active {
+	opacity: 1;
+}
+
+.ng-leave {
+	opacity: 0.75;
+}
+
+.ng-leave-trigger {
+	transition-delay: 0.1s;
+}
+
+.ng-leave-active {
+	transition: 0.75;
+	opacity: 0;
+}
