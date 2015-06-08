@@ -263,19 +263,15 @@ module.exports.orderAnalysis = function (req, res) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			if(user.length > 0){
-				users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
-					lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
-						if(err){
-							res.status(500).jsonp(err);
-						} else {
-							res.status(200).jsonp(result);
-						}
-					});
+			users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
+				lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
+					if(err){
+						res.status(500).jsonp(err);
+					} else {
+						res.status(200).jsonp(result);
+					}
 				});
-			} else {
-				res.status(200).jsonp({});
-			}
+			});
 		}
 	});
 }
@@ -290,17 +286,13 @@ module.exports.cartAnalysis = function (req, res) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			if(user.length > 0){
-				lineChart(dataDates.from, dataDates.to, user, 'cart', function (err, result) {
-					if(err){
-						res.status(500).jsonp(err);
-					} else {
-						res.status(200).jsonp(result);
-					}
-				});
-			} else {
-				res.status(200).jsonp({});
-			}
+			lineChart(dataDates.from, dataDates.to, user, 'cart', function (err, result) {
+				if(err){
+					res.status(500).jsonp(err);
+				} else {
+					res.status(200).jsonp(result);
+				}
+			});
 		}
 	});
 }

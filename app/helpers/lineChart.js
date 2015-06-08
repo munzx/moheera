@@ -25,7 +25,7 @@ function getRangeDays(rangeDates, callback){
 	       	"month": day.month() + 1,
 	       	"day": day.day(),
 	       	"info": []
-	    });		
+	    });
 	});
 
     return callback(null, {"dataPoints": dataPoints, "data": daysInfo, "dates": {"from": dateFrom, "to": dateTo}, "fullDate": fullDate });
