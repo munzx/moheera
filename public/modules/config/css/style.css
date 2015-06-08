@@ -82,7 +82,7 @@ hr {
 }
 
 .ng-enter-trigger {
-	transition-delay: 0.1s;
+	transition-delay: 0.2s;
 }
 
 .ng-enter-active {
@@ -94,7 +94,7 @@ hr {
 }
 
 .ng-leave-trigger {
-	transition-delay: 0.1s;
+	transition-delay: 0.2s;
 }
 
 .ng-leave-active {
