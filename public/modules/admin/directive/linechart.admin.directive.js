@@ -54,21 +54,20 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 
 			scope.getPointInfo = function (points, evt) {
 				var pointer = scope.lineLabels.indexOf(points[0].label);
-				console.log(points);
 				scope.pointerInfo = {
 					'date': points[0].label,
 					'Products': scope.data[0][pointer],
-					'ProductsColor': points[0].fillColor,
+					'ProductsColor': points[0].strokeColor,
 					'Comments': scope.data[1][pointer],
-					'CommentsColor': points[1].fillColor,
+					'CommentsColor': points[1].strokeColor,
 					'Hearts': scope.data[2][pointer],
-					'HeartsColor': points[2].fillColor,
+					'HeartsColor': points[2].strokeColor,
 					'Orders': scope.data[3][pointer],
-					'OrdersColor': points[3].fillColor,
+					'OrdersColor': points[3].strokeColor,
 					'Carts': scope.data[4][pointer],
-					'CartsColor': points[4].fillColor,
+					'CartsColor': points[4].strokeColor,
 					'Users': scope.data[5][pointer],
-					'UsersColor': points[5].fillColor
+					'UsersColor': points[5].strokeColor
 				}
 			}
 
