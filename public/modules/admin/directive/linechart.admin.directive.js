@@ -58,17 +58,17 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 				scope.pointerInfo = {
 					'date': points[0].label,
 					'Products': scope.data[0][pointer],
-					'ProductsColor': points[0].strokeColor,
+					'ProductsColor': points[0].fillColor,
 					'Comments': scope.data[1][pointer],
-					'CommentsColor': points[1].strokeColor,
+					'CommentsColor': points[1].fillColor,
 					'Hearts': scope.data[2][pointer],
-					'HeartsColor': points[2].strokeColor,
+					'HeartsColor': points[2].fillColor,
 					'Orders': scope.data[3][pointer],
-					'OrdersColor': points[3].strokeColor,
+					'OrdersColor': points[3].fillColor,
 					'Carts': scope.data[4][pointer],
-					'CartsColor': points[4].strokeColor,
+					'CartsColor': points[4].fillColor,
 					'Users': scope.data[5][pointer],
-					'UsersColor': points[5].strokeColor
+					'UsersColor': points[5].fillColor
 				}
 			}
 
