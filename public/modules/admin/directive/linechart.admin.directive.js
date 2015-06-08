@@ -69,6 +69,7 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 					'Users': scope.data[5][pointer],
 					'UsersColor': points[5].strokeColor
 				}
+				console.log(scope.pointerInfo);
 			}
 
 			scope.showProducts = function (point) {

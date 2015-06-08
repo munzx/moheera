@@ -14,12 +14,24 @@
 		<div ng-show="pointerInfo" class="row">
 			<div class="col-md-8">
 				<span class="alert alert-success">Results of the date {{pointerInfo.date}}</span>
-				<button class="btn" style="background-color: {{pointerInfo.ProductsColor}};" ng-click="showProducts()">Products</button>
-				<button class="btn" style="background-color: {{pointerInfo.CommentsColor}};" ng-click="showComments()">Comments</button>
-				<button class="btn" style="background-color: {{pointerInfo.HeartsColor}};" ng-click="showHearts()">Hearts</button>
-				<button class="btn" style="background-color: {{pointerInfo.OrdersColor}};" ng-click="showOrders()">Orders</button>
-				<button class="btn" style="background-color: {{pointerInfo.CartsColor}};" ng-click="showCarts()">Carts</button>
-				<button class="btn" style="background-color: {{pointerInfo.UsersColor}};" ng-click="showUsers()">Users</button>
+				<button class="btn" style="background-color: {{pointerInfo.ProductsColor}};" ng-click="showProducts()">
+					Products <span class="badge">{{pointerInfo.Products.info.length}}</span>
+				</button>
+				<button class="btn" style="background-color: {{pointerInfo.CommentsColor}};" ng-click="showComments()">
+					Comments <span class="badge">{{pointerInfo.Comments.info.length}}</span>
+				</button>
+				<button class="btn" style="background-color: {{pointerInfo.HeartsColor}};" ng-click="showHearts()">
+					Hearts <span class="badge">{{pointerInfo.Hearts.info.length}}</span>
+				</button>
+				<button class="btn" style="background-color: {{pointerInfo.OrdersColor}};" ng-click="showOrders()">
+					Orders <span class="badge">{{pointerInfo.Orders.info.length}}</span>
+				</button>
+				<button class="btn" style="background-color: {{pointerInfo.CartsColor}};" ng-click="showCarts()">
+					Carts <span class="badge">{{pointerInfo.Carts.info.length}}</span>
+				</button>
+				<button class="btn" style="background-color: {{pointerInfo.UsersColor}};" ng-click="showUsers()">
+					Users <span class="badge">{{pointerInfo.Users.info.length}}</span>
+				</button>
 			</div>
 		</div>
 		<div class="col-md-12">
