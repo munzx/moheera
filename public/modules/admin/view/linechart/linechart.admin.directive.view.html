@@ -10,14 +10,10 @@
 			</div>
 		</form>
 	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h4>Users Activity</h4>
-			<p class="text-muted">Users Subscribtion ,Products, Carts , Orders, Hearts & Comments</p>
-			<canvas id="line" class="chart chart-line" data="lineData" labels="lineLabels" legend="true" series="lineSeries" click="getPointInfo"></canvas> 
-		</div>
+	<div class="row add-space">
 		<div ng-show="pointerInfo" class="row">
-			<div class="col-md-12">
+			<div class="col-md-8">
+				<span class="alert alert-success">Results of the date {{pointerInfo.date}}</span>
 				<button class="btn" style="background-color: {{pointerInfo.ProductsColor}};" ng-click="showProducts()">Products</button>
 				<button class="btn" style="background-color: {{pointerInfo.CommentsColor}};" ng-click="showComments()">Comments</button>
 				<button class="btn" style="background-color: {{pointerInfo.HeartsColor}};" ng-click="showHearts()">Hearts</button>
@@ -25,9 +21,11 @@
 				<button class="btn" style="background-color: {{pointerInfo.CartsColor}};" ng-click="showCarts()">Carts</button>
 				<button class="btn" style="background-color: {{pointerInfo.UsersColor}};" ng-click="showUsers()">Users</button>
 			</div>
-			<div class="col-md-12">
-				{{pointerDetails}}
-			</div>
+		</div>
+		<div class="col-md-12">
+			<h4>Users Activity</h4>
+			<p class="text-muted">Users Subscribtion ,Products, Carts , Orders, Hearts & Comments</p>
+			<canvas id="line" class="chart chart-line" data="lineData" labels="lineLabels" legend="true" series="lineSeries" click="getPointInfo"></canvas> 
 		</div>
 	</div>
 </section>

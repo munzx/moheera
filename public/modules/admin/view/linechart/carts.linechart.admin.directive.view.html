@@ -1,1 +1,11 @@
-{{info}}
+<div class="row">
+	<div class="col-md-offset-1 col-md-10">
+		<div ng-repeat="i in info.info">
+			<h4 class="muted">{{i.name}}'s cart</h4>
+			<div ng-repeat="item in i.cart">
+				<div product-brief-product-directive="item.product[0]"></div>
+			</div>
+			<hr>
+		</div>
+	</div>
+</div>

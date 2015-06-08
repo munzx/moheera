@@ -177,7 +177,7 @@ module.exports.messages = function (req, res) {
 }
 
 module.exports.comments = function (req, res) {
-	products.find({}).where('comment._id').exists().populate('comment').exec(function (err, user) {
+	products.find({}, 'comment').where('comment._id').exists().populate('comment').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -205,7 +205,7 @@ module.exports.comments = function (req, res) {
 }
 
 module.exports.hearts = function (req, res) {
-	products.find({}).where('heart._id').exists().populate('heart').exec(function (err, user) {
+	products.find({}, 'heart').where('heart._id').exists().populate('heart').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -259,17 +259,23 @@ module.exports.orderAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	users.find({"order.created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}, 'order').populate('order').where('order._id').exists().sort('created').exec(function (err, user) {
+	users.find({"order.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'order').populate('order.product.info').populate('order.user').where('order._id').exists().sort('created').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			lineChart(dataDates.from, dataDates.to, user, 'order', function (err, result) {
-				if(err){
-					res.status(500).jsonp(err);
-				} else {
-					res.status(200).jsonp(result);
-				}
-			});
+			if(user.length > 0){
+				users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
+					lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
+						if(err){
+							res.status(500).jsonp(err);
+						} else {
+							res.status(200).jsonp(result);
+						}
+					});
+				});
+			} else {
+				res.status(200).jsonp({});
+			}
 		}
 	});
 }
@@ -280,17 +286,21 @@ module.exports.cartAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	users.find({"cart.created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}, 'cart').populate('cart').populate('cart').where('cart._id').exists().sort('created').exec(function (err, user) {
+	users.find({"cart.created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}).populate('user').populate('cart.product').where('cart._id').exists().sort('created').exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			lineChart(dataDates.from, dataDates.to, user, 'cart', function (err, result) {
-				if(err){
-					res.status(500).jsonp(err);
-				} else {
-					res.status(200).jsonp(result);
-				}
-			});
+			if(user.length > 0){
+				lineChart(dataDates.from, dataDates.to, user, 'cart', function (err, result) {
+					if(err){
+						res.status(500).jsonp(err);
+					} else {
+						res.status(200).jsonp(result);
+					}
+				});
+			} else {
+				res.status(200).jsonp({});
+			}
 		}
 	});
 }
@@ -301,7 +311,7 @@ module.exports.commentAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	products.find({"comment.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'comment').populate('comment').where('comment._id').exists().sort('created').exec(function (err, product) {
+	products.find({"comment.created": {"$gte": dataDates.from, "$lt": dataDates.to}}).populate('user').populate('comment.author').where('comment._id').exists().sort('created').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
@@ -322,7 +332,7 @@ module.exports.heartAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	products.find({"heart.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'heart').populate('heart').where('heart._id').exists().sort('created').exec(function (err, product) {
+	products.find({"heart.created": {"$gte": dataDates.from, "$lt": dataDates.to}}).populate('user').populate('heart.user').where('heart._id').exists().sort('created').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
@@ -343,7 +353,7 @@ module.exports.productAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	products.find({"created": {"$gte": dataDates.from, "$lt": dataDates.to}}).sort('created').exec(function (err, product) {
+	products.find({"created": {"$gte": dataDates.from, "$lt": dataDates.to}}).populate('user').sort('created').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
