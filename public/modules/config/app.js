@@ -240,6 +240,11 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', 'Ch
 	if ($location.hash() === '_=_'){
 		$location.hash(null);
 	}
+
+	$rootScope.$on('$stateChangeSuccess', function() {
+	   document.body.scrollTop = document.documentElement.scrollTop = 20;
+	});
+
 	//add a query to the page
 	if(window.query){
 		//redirect the user to the needed page
