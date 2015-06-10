@@ -5,7 +5,6 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 
 	$scope.skipProducts = 0;
 	$scope.products = [];
-	$scope.busy = true;
 
 	$scope.addMoreProducts = function () {
 		connectAdminFactory.get({page: 'products', "limit": limit, "skip": $scope.skipProducts}, function (response) {
@@ -14,8 +13,9 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 					$scope.products.push(response.products[i]);
 				}
 			}
-			$scope.busy = false;
+			$scope.busy = true;
 		});
+		$scope.busy = false;
 		$scope.skipProducts+= limit;
 	}
 

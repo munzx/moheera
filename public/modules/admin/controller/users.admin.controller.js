@@ -5,7 +5,6 @@ angular.module('adminModule').controller('usersAdminController', ['$scope', 'con
 		
 	$scope.skipUsers = 0;
 	$scope.allUsers = [];
-	$scope.busy = true;
 
 	$scope.addMoreUsers = function () {
 		connectAdminFactory.get({page: 'users', "limit": limit, "skip": $scope.skipUsers}, function (response) {
@@ -14,8 +13,9 @@ angular.module('adminModule').controller('usersAdminController', ['$scope', 'con
 					$scope.allUsers.push(response.users[i]);
 				}
 			}
-			$scope.busy = false;
+			$scope.busy = true;
 		});
+		$scope.busy = false;
 		$scope.skipUsers+= limit;
 	}
 
