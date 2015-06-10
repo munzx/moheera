@@ -8,16 +8,16 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 
 	$scope.addMoreProducts = function () {
 		if($scope.busy == false){
+			$scope.busy = true;
 			connectAdminFactory.get({page: 'products', "limit": limit, "skip": $scope.skipProducts}, function (response) {
 				if(response.products.length > 0){
 					for(var i=0; i < response.products.length; i++){
 						$scope.products.push(response.products[i]);
 					}
 				}
-				$scope.busy = true;
+				$scope.busy = false;
 			});
 		}
-		$scope.busy = false;
 		$scope.skipProducts+= limit;
 	}
 
