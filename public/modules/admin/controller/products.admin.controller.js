@@ -7,14 +7,14 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 	$scope.products = [];
 
 	$scope.addMoreProducts = function () {
-		moheera.busy = true;
+		$scope.busy = true;
 		connectAdminFactory.get({page: 'products', "limit": limit, "skip": $scope.skipProducts}, function (response) {
 			if(response.products.length > 0){
 				for(var i=0; i < response.products.length; i++){
 					$scope.products.push(response.products[i]);
 				}
 			}
-			moheera.busy = false;
+			$scope.busy = false;
 		});
 		$scope.skipProducts+= limit;
 	}

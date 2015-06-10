@@ -7,14 +7,14 @@ angular.module('adminModule').controller('usersAdminController', ['$scope', 'con
 	$scope.allUsers = [];
 
 	$scope.addMoreUsers = function () {
-		moheera.busy = true;
+		$scope.busy = true;
 		connectAdminFactory.get({page: 'users', "limit": limit, "skip": $scope.skipUsers}, function (response) {
 			if(response.users.length > 0){
 				for(var i=0; i < response.users.length; i++){
 					$scope.allUsers.push(response.users[i]);
 				}
 			}
-			moheera.busy = false;
+			$scope.busy = false;
 		});
 		$scope.skipUsers+= limit;
 	}

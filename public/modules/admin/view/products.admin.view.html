@@ -4,13 +4,13 @@
 			<img class="text-center" src="public/modules/config/img/placeholder.gif">
 		</div>
 	</div>
-	<h4 ng-hide="products.length > 0" class="alert alert-danger">No user has been found.</h4>
+	<h4 ng-hide="products.length" class="alert alert-danger">No user has been found.</h4>
 
 	<div infinite-scroll="addMoreProducts()" infinite-scroll-disabled='busy'>
 		<div class="col-md-3 col-sm-3 col-xs-12" ng-show="products.length" ng-repeat="product in products" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
 			<!-- Product Inof -->
 			<div product-brief-product-directive="product"></div>
 		</div>
-		<div ng-show='moheera.busy'>Loading data...</div>
+		<div ng-show='busy'>Loading data...</div>
 	</div>
 </section>
