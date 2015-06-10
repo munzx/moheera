@@ -15,9 +15,9 @@ angular.module('adminModule').controller('usersAdminController', ['$scope', 'con
 			}
 			$scope.busy = false;
 		});
-		$scope.busy = true;
 		$scope.skipUsers+= limit;
 	}
 
+	$scope.busy = true;
 
 }]);
