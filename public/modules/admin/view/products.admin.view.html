@@ -1,4 +1,4 @@
-<section>
+<div class="row">
 	<h4 ng-hide="products.length" class="alert alert-danger">No user has been found.</h4>
 
 	<div infinite-scroll="addMoreProducts()" infinite-scroll-disabled='busy'>
@@ -6,6 +6,9 @@
 			<!-- Product Inof -->
 			<div product-brief-product-directive="product"></div>
 		</div>
-		<div ng-show='busy'>Loading data...</div>
 	</div>
-</section>
+
+	<div class="col-md-12">
+		<div ng-show='busy' class="text-center"><h4>Loading data...</h4></div>
+	</div>
+</div>

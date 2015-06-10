@@ -1,7 +1,9 @@
-<section>
+<div class="row">
 	<h4 ng-hide="allUsers.length" class="alert alert-danger">No user has been found.</h4>
 	<div infinite-scroll="addMoreUsers()" infinite-scroll-disabled='busy'>
 		<div ng-repeat="user in allUsers" user-box-user-directive="user" class="col-md-3"></div>
-		<div ng-show='busy'>Loading data...</div>
 	</div>
-</section>
+	<div class="col-md-12">
+		<div ng-show='busy' class="text-center"><h4>Loading data...</h4></div>
+	</div>
+</div>
