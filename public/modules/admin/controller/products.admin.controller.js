@@ -17,9 +17,9 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 					}
 				}
 			});
+			$scope.skipProducts+= limit;
 		}
 		$scope.busy = false;
-		$scope.skipProducts+= limit;
 	}
 
 }]);
