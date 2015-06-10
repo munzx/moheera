@@ -13,9 +13,9 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 					$scope.products.push(response.products[i]);
 				}
 			}
-			$scope.busy = true;
+			$scope.busy = false;
 		});
-		$scope.busy = false;
+		$scope.busy = true;
 		$scope.skipProducts+= limit;
 	}
 
