@@ -27,7 +27,8 @@
     "angulartics": "~0.17.2",
     "angular-chart.js": "~0.7.0",
     "ngInfiniteScroll": "~1.2.1",
-    "angular-animate": "~1.4.0"
+    "angular-animate": "~1.4.0",
+    "angular-deckgrid": "~0.5.0"
   },
   "resolutions": {
     "angular": "~1.4.0"

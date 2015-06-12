@@ -1,0 +1,23 @@
+<div class="thumbnail" ng-controller='cardViewProductController'>
+	<div class="thumbnail-img-wrapper">
+		<div class="caption">
+			<div class="author-info">
+				<a ng-href="/{{userLink(card.user[0].name)}}">
+					<img ng-src="{{logo(card.user[0].logo)}}" style="width: 40%; margin: 0 auto;" class="img-responsive">
+				</a>
+			</div>
+		</div>
+		<a ng-href="/{{userProductLink(card.user[0].name)}}/{{card.name}}">
+			<img class="img-responsive" ng-src="{{'public/uploads/' + card.image1}}" ng-click="showDetails = !showDetails">
+		</a>
+		<div class="caption">
+			<h4>{{card.name}}</h4>
+			<p>{{card.desc}}</p>
+		</div>
+		<div class="info-box">
+			<div class="pull-right" cart-icon-product-directive="card"></div>
+			<div class="pull-left" heart-icon-product-directive="card"></div>
+			<div class="pull-left" comment-icon-product-directive="card"></div>
+		</div>
+	</div>
+</div>
