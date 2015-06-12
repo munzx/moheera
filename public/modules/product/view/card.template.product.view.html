@@ -11,8 +11,9 @@
 			<img class="img-responsive" ng-src="{{'public/uploads/' + card.image1}}" ng-click="showDetails = !showDetails">
 		</a>
 		<div class="caption">
-			<h4>{{card.name}}</h4>
-			<p>{{card.desc}}</p>
+			<h4>{{card.name | excerpt:50}}</h4>
+			<p>{{card.desc | excerpt:100}}</p>
+			<p class="label label-success"><i class="glyphicon glyphicon-tag"></i>AED {{card.price}}</p>
 		</div>
 		<div class="info-box">
 			<div class="pull-right" cart-icon-product-directive="card"></div>

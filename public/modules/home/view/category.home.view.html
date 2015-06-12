@@ -15,8 +15,7 @@
 				</select>
 			</div>
 		</div>
-		
-	<div ng-show="result.length" ng-repeat="item in result | filter: country" class="col-md-3 col-sm-4 col-xs-12" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
-	<div product-brief-product-directive="item"></div>
-	</div>
+		<div infinite-scroll="addMoreProducts()" infinite-scroll-disabled='busy'>
+			<div deckgrid class="deckgrid" source="result  | filter: country" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
+		</div>
 </div>

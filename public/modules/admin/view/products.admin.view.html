@@ -1,25 +1,3 @@
 <div infinite-scroll="addMoreProducts()" infinite-scroll-disabled='busy'>
-<div deckgrid class="deckgrid" source="products" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
-
-<!-- 	<div deckgrid class="deckgrid" source="products">
-	    <div class="a-card">
-	        <h1>{{card.name}}</h1>
-
-	        <img src="" data-ng-src="{{'public/uploads/' + card.image1}}">
-	    </div>
-	</div> -->
+	<div deckgrid class="deckgrid" source="products" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
 </div>
-<!-- 
-<div class="row">
-	<h4 ng-hide="products.length" class="alert alert-danger">No user has been found.</h4>
-
-	<div infinite-scroll="addMoreProducts()" infinite-scroll-disabled='busy'>
-		<div class="col-md-3 col-sm-3 col-xs-12" ng-show="products.length" ng-repeat="product in products" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
-			<div product-brief-product-directive="product"></div>
-		</div>
-	</div>
-
-	<div class="col-md-12">
-		<div ng-show='busy' class="text-center"><h4>Loading data...</h4></div>
-	</div>
-</div> -->
