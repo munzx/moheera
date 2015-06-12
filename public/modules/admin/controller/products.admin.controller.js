@@ -19,6 +19,4 @@ angular.module('adminModule').controller('productsAdminController', ['$scope', '
 		$scope.skipProducts+= limit;
 	}
 
-
-
 }]);
