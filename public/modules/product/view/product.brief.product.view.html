@@ -1,33 +1,24 @@
-<div>
-	<div class="row">
-		<div class="col-md-offset-3 col-md-6 col-xs-6 col-xs-offset-3">
-			<a ng-href="/{{userLink(item.user[0].name)}}">
-				<img src="{{logo(item.user[0].logo)}}" class="img-responsive text-center">
-			</a>
+<div class="thumbnail">
+	<div class="thumbnail-img-wrapper">
+		<div class="caption">
+			<div class="author-info">
+				<a ng-href="/{{userLink(item.user[0].name)}}">
+					<img ng-src="{{logo(item.user[0].logo)}}" style="width: 40%; margin: 0 auto;" class="img-responsive">
+				</a>
+			</div>
 		</div>
-	</div>
-	<div class="row">
 		<a ng-href="/{{userProductLink(item.user[0].name)}}/{{item.name}}">
-			<img spinner-on-load-config-directive ng-src="{{'public/uploads/' + item.image1}}" class="img-responsive image-center">
-			<span class="loading"><img class="img-responsive image-center" src="public/modules/config/img/placeholder.gif"/></span>
+			<img class="img-responsive" ng-src="{{'public/uploads/' + item.image1}}" ng-click="showDetails = !showDetails">
 		</a>
-	</div>
-	<div class="row">
-		<div class="col-md-8  col-sm-8 col-xs-8">
-			<h5><a ng-href="/{{userProductLink(item.user[0].name)}}/{{item.name}}">{{item.name | excerpt:10}}</a></h5>
+		<div class="caption">
+			<h4>{{item.name | excerpt:50}}</h4>
+			<p>{{item.desc | excerpt:100}}</p>
+			<p class="label label-success"><i class="glyphicon glyphicon-tag"></i>AED {{item.price}}</p>
 		</div>
-		<div class="col-md-3 col-md-offset-1  col-sm-offset-1 col-xs-offset-1 col-sm-3 col-xs-3">
-			<img src="public/modules/config/img/flags/{{item.user[0].country[0].code.toLowerCase()}}.png" class="img-responsive">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12" style="height: 130px;">
-			<p>{{item.desc | excerpt:90}}</p>
+		<div class="info-box">
+			<div class="pull-right" cart-icon-product-directive="item"></div>
+			<div class="pull-left" heart-icon-product-directive="item"></div>
+			<div class="pull-left" comment-icon-product-directive="item"></div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="label label-success pull-left"><i class="glyphicon glyphicon-tag"></i>AED {{item.price}}</div>
-		<div class="pull-right" heart-icon-product-directive="item">
-	</div>
-	<div class="clearfix"></div>
 </div>

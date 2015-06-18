@@ -16,5 +16,5 @@
 			</div>
 		</div>
 	
-		<div deckgrid class="deckgrid" source="result" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
+	<div ng-repeat="card in result | filter:country:strict" product-brief-product-directive="card"></div>
 </div>

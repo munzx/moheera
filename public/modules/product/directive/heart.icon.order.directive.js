@@ -42,7 +42,6 @@ angular.module('productModule').directive('heartIconProductDirective', ['registe
 				if(scope.isChecked == false){
 					connectHeartProductFactory.save({productId: productId}, function (response) {
 						scope.product.heart = response.heart;
-						console.log(response);
 						scope.isChecked = true;
 					}, function (err) {
 						if(err.status == 403){

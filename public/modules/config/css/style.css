@@ -108,7 +108,9 @@ hr {
     margin-bottom: 10px;
     background: transparent;
     border: 0;
-    padding: 0;
+    float: left;
+    padding: 5px;
+    width: 33.33333333333%;
 }
 .thumbnail .thumbnail-img-wrapper {
     position: relative;
