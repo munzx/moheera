@@ -9,12 +9,12 @@
 
 		<div class="row" ng-show="result.length">
 			<div class="col-md-12">
-				<select ng-model="country" class="form-control">
+				<select ng-model="country" ng-change="getByCountry()" class="form-control">
 					<option value="">-- Show products from all countries --</option>
 					<option ng-repeat="name in result | unique" value="{{name}}">{{name}}</option>
 				</select>
 			</div>
 		</div>
 	
-	<div ng-repeat="card in result | filter:country:strict" product-brief-product-directive="card"></div>
+		<div deckgrid class="deckgrid" source="result | filter:mother.country" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
 </div>

@@ -7,7 +7,8 @@ angular.module('productModule').factory('connectProductFactory', ['$resource', f
 				action: "@action",
 				categoryName: "@categoryName",
 				getByName: "@getByName",
-				userName: "@userName"
+				userName: "@userName",
+				countryName: '@countryName'
 			},
 			{
 				"update": {

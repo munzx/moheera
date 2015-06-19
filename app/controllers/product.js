@@ -371,7 +371,24 @@ module.exports.certainCategory = function (req, res) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){
-			res.status(200).jsonp(product);
+			var country;
+			if(req.params.country){
+				country = req.params.country;
+
+				var allProduct = product,
+					result = [];
+
+				allProduct.forEach(function (item) {
+					console.log(country);
+					console.log(item.user[0].country[0].name);
+					if(item.user[0].country[0].name.toString().toLowerCase() == country.toString().toLowerCase()){
+						result.push(item);
+					}
+				});
+				res.status(200).jsonp(result);
+			} else {
+				res.status(200).jsonp(product);	
+			}
 		} else {
 			res.status(404).jsonp({message: 'No products has been found'});
 		}
