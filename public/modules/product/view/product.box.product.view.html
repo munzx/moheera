@@ -1,24 +1,34 @@
-<div class="thumbnail">
-	<div class="thumbnail-img-wrapper">
-		<div class="caption">
-			<div class="author-info">
-				<a ng-href="/{{userLink(card.user[0].name)}}">
-					<img ng-src="{{logo(card.user[0].logo)}}" style="width: 40%; margin: 0 auto;" class="img-responsive">
-				</a>
+<div>
+	<div class="row">
+		<!-- Product name -->
+		<div class="col-md-12 text-center">
+			<h4 class="alert alert-info">{{product.name}}</h4>
+		</div><!-- End Product name -->		
+	</div>
+
+	<div class="row">
+		<div class="col-md-9 col-xs-12 col-sm-12">
+			<!-- product image -->
+			<a ng-href="{{productLink}}"><img ng-src="{{viewImageLink || public/modules/home/img/loading.gif}}" class="img-responsive profile-center"></a><!-- end product image -->
+		</div>
+
+		<div class="col-md-2 col-sm-12 col-xs-12">
+			<div class="row">
+				<!-- product other images -->
+				<div class="col-md-12 col-sm-3 col-xs-3">
+					<img class="cursor" ng-src="{{'public/uploads/'+product.image1 || public/modules/home/img/loading.gif}}" ng-click="viewImage('1')" ng-class="{'img-responsive img-thumbnail': highlightImage == 1,'img-responsive img-rounded': highlightImage != 1}">
+				</div>
+				<div class="col-md-12 col-sm-3 col-xs-3">
+					<img class="cursor" ng-src="public/uploads/{{product.image2}}" ng-click="viewImage('2')"  ng-class="{'img-responsive img-thumbnail': highlightImage == 2,'img-responsive img-rounded': highlightImage != 2}">
+				</div>
+				<div class="col-md-12 col-sm-3 col-xs-3">
+					<img class="cursor" ng-src="public/uploads/{{product.image3}}" ng-click="viewImage('3')" ng-class="{'img-responsive img-thumbnail': highlightImage == 3,'img-responsive img-rounded': highlightImage != 3}">
+				</div>
+				<div class="col-md-12 col-sm-3 col-xs-3">
+					<img class="cursor" ng-src="public/uploads/{{product.image4}}" ng-click="viewImage('4')" ng-class="{'img-responsive img-thumbnail': highlightImage == 4,'img-responsive img-rounded': highlightImage != 4}">
+				</div>
+				<!-- end product other images -->
 			</div>
-		</div>
-		<a ng-href="/{{userProductLink(card.user[0].name)}}/{{card.name}}">
-			<img class="img-responsive" ng-src="{{'public/uploads/' + card.image1}}" ng-click="showDetails = !showDetails">
-		</a>
-		<div class="caption">
-			<h4>{{card.name | excerpt:50}}</h4>
-			<p>{{card.desc | excerpt:100}}</p>
-			<p class="label label-success"><i class="glyphicon glyphicon-tag"></i>AED {{card.price}}</p>
-		</div>
-		<div class="info-box">
-			<div class="pull-right" cart-icon-product-directive="card"></div>
-			<div class="pull-left" heart-icon-product-directive="card"></div>
-			<div class="pull-left" comment-icon-product-directive="card"></div>
 		</div>
 	</div>
 </div>

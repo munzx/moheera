@@ -25,13 +25,7 @@
 				<div data-ui-view>
 					<!-- Wrapp the 'default view' in a div to avoid error as elements if were not inclused in one parent element it causes errors -->
 					<div class="row">
-						<div class="col-md-12" ng-hide="userProducts.length">
-							<h4 class="alert alert-success text-center">You don't have any products added yet!</h4>
-						</div>
-						<div class="col-md-4 col-sm-4 col-xs-12" ng-show="userProducts.length" ng-repeat="product in userProducts" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;">
-							<!-- Product Inof -->
-							<div product-brief-product-directive="product"></div>
-						</div>
+						<div deckgrid class="deckgrid" source="userProducts" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
 					</div>
 				</div>
 			</div>

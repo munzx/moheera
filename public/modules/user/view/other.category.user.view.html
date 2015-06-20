@@ -5,8 +5,5 @@
 </div>
 
 <div class="row">
-	<div class="col-md-4" style="padding-top:2%;background-color:#fff;border:2px solid #EEEEEE;" ng-show="productByCategory.length" ng-repeat="product in productByCategory">
-		<!-- Product Inof -->
-		<div product-brief-product-directive="product"></div>
-	</div>
+	<div deckgrid class="deckgrid" source="productByCategory" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
 </div>

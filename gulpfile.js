@@ -12,6 +12,11 @@ var gulp = require('gulp'),
 	autoprefixer = require('gulp-autoprefixer'),
 	connect = require('gulp-connect');
 
+
+function onError(err) {
+    console.log(err);
+}
+
 // Folder and files paths
 var paths = {
 	desFolder: 'public/dest/',
@@ -60,7 +65,7 @@ gulp.task('minifyJS', function () {
 gulp.task('minifyCSS', function () {
 	return gulp.src(paths.cssFiles)
 			.pipe(plumber())
-			.pipe(autoprefixer('last 5 versions'))
+			.pipe(autoprefixer('last 10 versions'))
 			.pipe(concat('app.css'))
 			.pipe(cssMinify())
 			.pipe(rename('app.min.css'))

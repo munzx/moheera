@@ -367,20 +367,29 @@ module.exports.allUserCategory = function (req, res) {
 
 //get all products in a certain category
 module.exports.certainCategory = function (req, res) {
-	products.find({category: req.params.name}).populate('user').exec(function (err, product) {
+	var limit = 0,
+		skip = 0;
+
+	if(req.params.limit){
+		limit = req.params.limit;
+	}
+
+	if(req.params.skip){
+		skip = req.params.skip;
+	}
+
+	products.find({category: req.params.name}, {}, {limit: limit, skip: skip}).populate('user').exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){
 			var country;
-			if(req.params.country){
+			if(req.params.country && req.params.country != 'null'){
 				country = req.params.country;
 
 				var allProduct = product,
 					result = [];
 
 				allProduct.forEach(function (item) {
-					console.log(country);
-					console.log(item.user[0].country[0].name);
 					if(item.user[0].country[0].name.toString().toLowerCase() == country.toString().toLowerCase()){
 						result.push(item);
 					}
