@@ -17,18 +17,18 @@ angular.module('homeModule').controller('categoryHomeController', ['$scope', 'co
 	}
 
 	$scope.addMoreProducts = function () {
-		$scope.busy = true;
 		connectProductFactory.query({action: 'category', getByName: $stateParams.name, countryName: $scope.country || 'null', "limit": limit, "skip": $scope.skipProducts}, function (response) {
+			console.log(limit);
 			if(response.length > 0){
 				$scope.allResult = $scope.allResult || angular.copy(response);
 				for(var i=0; i < response.length; i++){
 					$scope.products.push(response[i]);
+					$scope.busy = true;
 				}
 			}
+			$scope.busy = false;
 		});
 		$scope.skipProducts+= limit;
-		$scope.busy = false;
-		console.log($scope.skipProducts);
 	}
 
 }]);

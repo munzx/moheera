@@ -1,4 +1,4 @@
-<div class="row">
+<div style='clear: both;' class="row" infinite-scroll="addMoreProducts()" infinite-scroll-distance=3 infinite-scroll-disabled='busy'>
 	<div class="col-md-10 col-md-offset-1">
 		<img src="{{categoryBanner}}" class="img-responsive image-center">
 		<h4 ng-hide="products.length" class="alert alert-danger">Category is empty.</h4>
@@ -16,7 +16,5 @@
 			</div>
 		</div>
 		
-		<div infinite-scroll="addMoreProducts()" infinite-scroll-disabled='busy'>
-			<div deckgrid class="deckgrid" source="products" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
-		</div>
+		<div deckgrid class="deckgrid" source="products" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
 </div>
