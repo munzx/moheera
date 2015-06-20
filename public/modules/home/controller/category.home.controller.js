@@ -26,8 +26,8 @@ angular.module('homeModule').controller('categoryHomeController', ['$scope', 'co
 				}
 			}
 			$scope.busy = false;
+			$scope.skipProducts+= limit;
 		});
-		$scope.skipProducts+= limit;
 	}
 
 }]);
