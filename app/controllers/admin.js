@@ -254,26 +254,27 @@ module.exports.usersAnalysis = function (req, res) {
 }
 
 module.exports.orderAnalysis = function (req, res) {
-	var dataDates;
-	var userDateInput = dateInput(req.params.dateFrom, req.dateTo, function (result) {
-		dataDates = result;
-	});
+	res.status(200).jsonp('Bism Allah');
+	// var dataDates;
+	// var userDateInput = dateInput(req.params.dateFrom, req.dateTo, function (result) {
+	// 	dataDates = result;
+	// });
 
-	users.find({"order.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'order').populate('order.product.info').populate('order.user').where('order._id').exists().sort('created').exec(function (err, user) {
-		if(err){
-			res.status(500).jsonp(err);
-		} else {
-			users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
-				lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
-					if(err){
-						res.status(500).jsonp(err);
-					} else {
-						res.status(200).jsonp(result);
-					}
-				});
-			});
-		}
-	});
+	// users.find({"order.created": {"$gte": dataDates.from, "$lt": dataDates.to}}, 'order').populate('order.product.info').populate('order.user').where('order._id').exists().sort('created').exec(function (err, user) {
+	// 	if(err){
+	// 		res.status(500).jsonp(err);
+	// 	} else {
+	// 		users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
+	// 			lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
+	// 				if(err){
+	// 					res.status(500).jsonp(err);
+	// 				} else {
+	// 					res.status(200).jsonp(result);
+	// 				}
+	// 			});
+	// 		});
+	// 	}
+	// });
 }
 
 module.exports.cartAnalysis = function (req, res) {
