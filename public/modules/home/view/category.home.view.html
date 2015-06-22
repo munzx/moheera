@@ -1,4 +1,4 @@
-<div style='clear: both;' class="row">
+<div class="row">
 	<div class="col-md-10 col-md-offset-1">
 		<img src="{{categoryBanner}}" class="img-responsive image-center">
 		<h4 ng-hide="products.length" class="alert alert-danger">Category is empty.</h4>
@@ -16,5 +16,9 @@
 			</div>
 		</div>
 		
-		<div deckgrid class="deckgrid" source="products" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<div deckgrid class="deckgrid" source="products" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
+			</div>
+		</div>
 </div>

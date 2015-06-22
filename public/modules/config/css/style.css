@@ -2,7 +2,7 @@ body {
 	font-weight: 300;
 	line-height: 1.42857143;
 	padding-top: 6em;
-	padding-bottom: 120px;
+	padding-bottom: 70%;
 	background-color: #EEEEEE;
 }
 
@@ -49,6 +49,7 @@ textarea {
 
 #footer {
 	opacity: 0.85;
+    margin-top: 12em;
 }
 
 canvas {
