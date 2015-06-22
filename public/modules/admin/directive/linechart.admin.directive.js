@@ -12,26 +12,26 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 					connectAdminFactory.get({page: 'analysis', action: 'products', param: dateFrom}).$promise,
 					connectAdminFactory.get({page: 'analysis', action: 'comments', param: dateFrom}).$promise,
 					connectAdminFactory.get({page: 'analysis', action: 'hearts', param: dateFrom}).$promise,
-					//connectAdminFactory.get({page: 'analysis', action: 'orders', param: dateFrom}).$promise,
+					connectAdminFactory.get({page: 'analysis', action: 'orders', param: dateFrom}).$promise,
 					connectAdminFactory.get({page: 'analysis', action: 'carts', param: dateFrom}).$promise,
 					connectAdminFactory.get({page: 'analysis', action: 'users', param: dateFrom}).$promise
 				]).then(function (result) {
 					scope.lineData = [
 						result[0].dataPoints,
 						result[1].dataPoints,
-						//result[2].dataPoints,
 						result[2].dataPoints,
 						result[3].dataPoints,
-						result[4].dataPoints
+						result[4].dataPoints,
+						result[5].dataPoints
 					]
 
 					scope.data = [
 						result[0].data,
 						result[1].data,
-						//result[2].data,
 						result[2].data,
 						result[3].data,
-						result[4].data
+						result[4].data,
+						result[5].data
 					]
 
 					scope.lineLabels = result[0].fullDate;
@@ -41,8 +41,9 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 				});
 
 				scope.lineLabels = ["January", "February", "March", "April", "May", "June", "July"];
-				scope.lineSeries = ['Products', 'Comments', 'Hearts', 'Carts', 'Users'];
+				scope.lineSeries = ['Products', 'Comments', 'Hearts', 'Orders', 'Carts', 'Users'];
 				scope.lineData = [
+					[],
 					[],
 					[],
 					[],
@@ -61,10 +62,12 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 					'CommentsColor': points[1].strokeColor,
 					'Hearts': scope.data[2][pointer],
 					'HeartsColor': points[2].strokeColor,
-					'Carts': scope.data[3][pointer],
-					'CartsColor': points[3].strokeColor,
-					'Users': scope.data[4][pointer],
-					'UsersColor': points[4].strokeColor
+					'Orders': scope.data[3][pointer],
+					'OrdersColor': points[3].strokeColor,
+					'Carts': scope.data[4][pointer],
+					'CartsColor': points[4].strokeColor,
+					'Users': scope.data[5][pointer],
+					'UsersColor': points[5].strokeColor
 				}
 				console.log(scope.pointerInfo);
 			}
