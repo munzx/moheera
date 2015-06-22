@@ -274,7 +274,7 @@ module.exports.orderAnalysis = function (req, res) {
 					});
 				});
 			} else {
-				res.status(200).jsonp(0);
+				res.status(200).jsonp({"dataPoints": '', "data": '', "dates": {"from": dataDates.from, "to": dataDates.to}, "fullDate": '' });
 			}
 		}
 	});
