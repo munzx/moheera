@@ -274,7 +274,7 @@ module.exports.orderAnalysis = function (req, res) {
 					});
 				});
 			} else {
-				lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
+				lineChart(dataDates.from, dataDates.to, [], null, function (err, result) {
 					if(err){
 						res.status(500).jsonp(err);
 					} else {
