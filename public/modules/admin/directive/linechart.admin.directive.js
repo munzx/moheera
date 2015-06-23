@@ -54,6 +54,7 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 
 			scope.getPointInfo = function (points, evt) {
 				var pointer = scope.lineLabels.indexOf(points[0].label);
+				console.log(points);
 				scope.pointerInfo = {
 					'date': points[0].label,
 					'Products': scope.data[0][pointer],
@@ -69,7 +70,6 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 					'Users': scope.data[5][pointer],
 					'UsersColor': points[5].strokeColor
 				}
-				console.log(scope.pointerInfo);
 			}
 
 			scope.showProducts = function (point) {
