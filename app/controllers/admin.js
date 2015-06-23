@@ -263,7 +263,17 @@ module.exports.orderAnalysis = function (req, res) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
+			if(user.length > 0){
+				users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
+					lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
+						if(err){
+							res.status(500).jsonp(err);
+						} else {
+							res.status(200).jsonp(result);
+						}
+					});
+				});
+			} else {
 				lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
 					if(err){
 						res.status(500).jsonp(err);
@@ -271,7 +281,7 @@ module.exports.orderAnalysis = function (req, res) {
 						res.status(200).jsonp(result);
 					}
 				});
-			});
+			}
 		}
 	});
 }
