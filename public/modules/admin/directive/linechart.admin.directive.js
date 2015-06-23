@@ -25,6 +25,8 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 						result[5].dataPoints
 					]
 
+					console.log(scope.lineData);
+
 					scope.data = [
 						result[0].data,
 						result[1].data,
