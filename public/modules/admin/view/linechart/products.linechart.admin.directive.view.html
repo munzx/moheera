@@ -1,8 +1,1 @@
-<div class="row">
-	<div class="col-md-offset-1 col-md-10">
-		<div ng-repeat="i in info.info">
-			<div product-brief-product-directive="i"></div>
-			<hr>
-		</div>
-	</div>
-</div>
+<div deckgrid class="deckgrid" source="info.info" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>

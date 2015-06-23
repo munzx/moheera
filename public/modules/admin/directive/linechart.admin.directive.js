@@ -25,8 +25,6 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 						result[5].dataPoints
 					]
 
-					console.log(scope.lineData);
-
 					scope.data = [
 						result[0].data,
 						result[1].data,
@@ -56,7 +54,6 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 
 			scope.getPointInfo = function (points, evt) {
 				var pointer = scope.lineLabels.indexOf(points[0].label);
-				console.log(points);
 				scope.pointerInfo = {
 					'date': points[0].label,
 					'Products': scope.data[0][pointer],
@@ -77,7 +74,7 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 			scope.showProducts = function (point) {
 				$modal.open({
 					templateUrl: '/public/modules/admin/view/linechart/products.linechart.admin.directive.view.html',
-					size: 'md',
+					size: 'lg',
 					controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 						$scope.info = scope.pointerInfo.Products;
 					}]
@@ -104,7 +101,7 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 			scope.showOrders = function (point) {
 				$modal.open({
 					templateUrl: '/public/modules/admin/view/linechart/orders.linechart.admin.directive.view.html',
-					size: 'md',
+					size: 'lg',
 					controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 						$scope.info = scope.pointerInfo.Orders;
 					}]
@@ -113,7 +110,7 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 			scope.showCarts = function (point) {
 				$modal.open({
 					templateUrl: '/public/modules/admin/view/linechart/carts.linechart.admin.directive.view.html',
-					size: 'md',
+					size: 'lg',
 					controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 						$scope.info = scope.pointerInfo.Carts;
 					}]
