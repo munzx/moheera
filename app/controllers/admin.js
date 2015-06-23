@@ -65,7 +65,7 @@ module.exports.index = function (req, res) {
 
 module.exports.users = function (req, res) {
 	var limit = 0,
-		skip = 0;
+	skip = 0;
 
 	if(req.params.limit){
 		limit = req.params.limit;
@@ -89,7 +89,7 @@ module.exports.users = function (req, res) {
 
 module.exports.products = function (req, res) {
 	var limit = 0,
-		skip = 0;
+	skip = 0;
 
 	if(req.params.limit){
 		limit = req.params.limit;
@@ -116,7 +116,7 @@ module.exports.orders = function (req, res) {
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
 			var userOrders = user,
-				sortedInfo = [];
+			sortedInfo = [];
 			//Get the user order info
 			userOrders.forEach(function (userInfo) {
 				var orderInfo = userInfo.order;
@@ -143,7 +143,7 @@ module.exports.carts = function (req, res) {
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
 			var usercarts = user,
-				sortedInfo = [];
+			sortedInfo = [];
 			//Get the user cart info
 			usercarts.forEach(function (userInfo) {
 				var cartInfo = userInfo.cart;
@@ -182,7 +182,7 @@ module.exports.comments = function (req, res) {
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
 			var userComments = user,
-				sortedInfo = [];
+			sortedInfo = [];
 			//Get the user comment info
 			userComments.forEach(function (userInfo) {
 				var commentInfo = userInfo.comment;
@@ -210,7 +210,7 @@ module.exports.hearts = function (req, res) {
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
 			var userhearts = user,
-				sortedInfo = [];
+			sortedInfo = [];
 			//Get the user heart info
 			userhearts.forEach(function (userInfo) {
 				var heartInfo = userInfo.heart;
@@ -263,19 +263,15 @@ module.exports.orderAnalysis = function (req, res) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
-			if(user.length > 0){
-				users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
-					lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
-						if(err){
-							res.status(500).jsonp(err);
-						} else {
-							res.status(200).jsonp(result);
-						}
-					});
+			users.populate(user, {path: 'order.product.info.user', model: 'user'}, function (err, userInfo) {
+				lineChart(dataDates.from, dataDates.to, userInfo[0].order, null, function (err, result) {
+					if(err){
+						res.status(500).jsonp(err);
+					} else {
+						res.status(200).jsonp(result);
+					}
 				});
-			} else {
-				res.status(200).jsonp({"dataPoints": '', "data": '', "dates": {"from": dataDates.from, "to": dataDates.to}, "fullDate": '' });
-			}
+			});
 		}
 	});
 }
@@ -372,10 +368,10 @@ module.exports.usersInDepthAnalysis = function (req, res) {
 				callback(err, null);
 			} else if(user){
 				var userInfo = user,
-					allUsers = [],
-					userHasOrder = [],
-					userHasCart = [],
-					usersCount = 0;
+				allUsers = [],
+				userHasOrder = [],
+				userHasCart = [],
+				usersCount = 0;
 
 				userInfo.forEach(function (info) {
 					usersCount++;
@@ -394,7 +390,7 @@ module.exports.usersInDepthAnalysis = function (req, res) {
 					'hasOrderCount': userHasOrder.length,
 					"userHasCart": userHasCart,
 					"userHasCartCount": userHasCart.length
-					});
+				});
 			} else {
 				callback(err, null);
 			}
@@ -407,14 +403,14 @@ module.exports.usersInDepthAnalysis = function (req, res) {
 				callback(err, null);
 			} else if(product){
 				var productInfo = product,
-					userHasProduct = [],
-					productsCount = 0,
-					userHasComment = [],
-					userHasHeart = [],
-					productHasComments = [],
-					productHasCommentsCount = 0,
-					productHasHearts = [],
-					productHasHeartsCount = 0;
+				userHasProduct = [],
+				productsCount = 0,
+				userHasComment = [],
+				userHasHeart = [],
+				productHasComments = [],
+				productHasCommentsCount = 0,
+				productHasHearts = [],
+				productHasHeartsCount = 0;
 
 				productInfo.forEach(function (info) {
 					productsCount++;
@@ -446,7 +442,7 @@ module.exports.usersInDepthAnalysis = function (req, res) {
 
 
 				callback(null,
-					{
+				{
 					"productsCount": productsCount,
 					"hasProduct": userHasProduct,
 					"hasProductCount": userHasProduct.length,
@@ -458,41 +454,41 @@ module.exports.usersInDepthAnalysis = function (req, res) {
 					"productHasCommentsCount": productHasComments.length,
 					"productHasHearts": productHasHearts,
 					"productHasHeartsCount": productHasHearts.length
-					});
+				});
 			} else {
 				callback(err, null);
 			}
 		});	
-	}
+}
 
-	async.parallel([userOrders, userProducts], function (err, result) {
-		if(err){
-			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
-		} else {
-			var OrdersAndProductsUsers = _.union(result[0].hasOrder, result[1].hasProduct),
-				hasNoProductOrOrder = _.difference(result[0].allUsers, OrdersAndProductsUsers);
+async.parallel([userOrders, userProducts], function (err, result) {
+	if(err){
+		res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+	} else {
+		var OrdersAndProductsUsers = _.union(result[0].hasOrder, result[1].hasProduct),
+		hasNoProductOrOrder = _.difference(result[0].allUsers, OrdersAndProductsUsers);
 
-			var info = {
-				"allUsers": result[0].allUsers,
-				"usersCount": result[0].usersCount,
-				"hasOrders": result[0].hasOrder,
-				"hasOrderCount": result[0].hasOrderCount,
-				"hasProduct": result[1].hasProduct,
-				"hasProductCount": result[1].hasProductCount,
-				"hasNoProductOrOrder": hasNoProductOrOrder,
-				"hasNoProductOrOrderCount": hasNoProductOrOrder.length,
-				"userHasCart": result[0].userHasCart,
-				"userHasComment": result[1].userHasComment,
-				"userHasCommentCount": result[1].userHasCommentCount,
-				"userHasHeart": result[1].userHasHeart,
-				"userHasHeartCount": result[1].userHasHeartCount,
-				"userHasCartCount": result[0].userHasCartCount,
-				"productHasHearts": result[1].productHasHearts,
-				"productHasHeartsCount": result[1].productHasHeartsCount,
-				"productHasComments": result[1].productHasCommentsC,
-				"productHasCommentsCount": result[1].productHasCommentsCount,
-			}
-			res.status(200).jsonp(info);
+		var info = {
+			"allUsers": result[0].allUsers,
+			"usersCount": result[0].usersCount,
+			"hasOrders": result[0].hasOrder,
+			"hasOrderCount": result[0].hasOrderCount,
+			"hasProduct": result[1].hasProduct,
+			"hasProductCount": result[1].hasProductCount,
+			"hasNoProductOrOrder": hasNoProductOrOrder,
+			"hasNoProductOrOrderCount": hasNoProductOrOrder.length,
+			"userHasCart": result[0].userHasCart,
+			"userHasComment": result[1].userHasComment,
+			"userHasCommentCount": result[1].userHasCommentCount,
+			"userHasHeart": result[1].userHasHeart,
+			"userHasHeartCount": result[1].userHasHeartCount,
+			"userHasCartCount": result[0].userHasCartCount,
+			"productHasHearts": result[1].productHasHearts,
+			"productHasHeartsCount": result[1].productHasHeartsCount,
+			"productHasComments": result[1].productHasCommentsC,
+			"productHasCommentsCount": result[1].productHasCommentsCount,
 		}
-	});
+		res.status(200).jsonp(info);
+	}
+});
 }
