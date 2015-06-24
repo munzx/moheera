@@ -165,7 +165,7 @@ module.exports.carts = function (req, res) {
 }
 
 module.exports.messages = function (req, res) {
-	contacts.find({}).sort({created: 1}).exec(function (err, contact) {
+	contacts.find({}).sort({date: -1}).exec(function (err, contact) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(contact){
