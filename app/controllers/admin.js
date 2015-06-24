@@ -75,7 +75,7 @@ module.exports.users = function (req, res) {
 		skip = req.params.skip;
 	}
 
-	users.find({'role': 'user'}, {password: 0}, {limit: req.params.limit, skip: req.params.skip}, function (err, user) {
+	users.find({'role': 'user'}, {password: 0}, {limit: req.params.limit, skip: req.params.skip}).sort({created: -1}).exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -99,7 +99,7 @@ module.exports.products = function (req, res) {
 		skip = req.params.skip;
 	}
 
-	products.find({}, {}, {limit: limit, skip: skip}).populate('user').exec(function (err, product) {
+	products.find({}, {}, {limit: limit, skip: skip}).populate('user').sort({created: -1}).exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){
@@ -111,7 +111,7 @@ module.exports.products = function (req, res) {
 }
 
 module.exports.orders = function (req, res) {
-	users.find({}).populate('order').populate('order.product.info').populate('order.user').where('order._id').exists().exec(function (err, user) {
+	users.find({}).populate('order').populate('order.product.info').populate('order.user').where('order._id').exists().sort({created: -1}).exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -138,7 +138,7 @@ module.exports.orders = function (req, res) {
 }
 
 module.exports.carts = function (req, res) {
-	users.find({}).populate('cart').populate('cart.product.info').populate('cart.user').where('cart._id').exists().exec(function (err, user) {
+	users.find({}).populate('cart').populate('cart.product.info').populate('cart.user').where('cart._id').sort({created: -1}).exists().exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -165,7 +165,7 @@ module.exports.carts = function (req, res) {
 }
 
 module.exports.messages = function (req, res) {
-	contacts.find({}, function (err, contact) {
+	contacts.find({}).sort({created: -1}).exec(function (err, contact) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(contact){
@@ -177,7 +177,7 @@ module.exports.messages = function (req, res) {
 }
 
 module.exports.comments = function (req, res) {
-	products.find({}, 'comment').where('comment._id').exists().populate('comment').exec(function (err, user) {
+	products.find({}, 'comment').where('comment._id').exists().populate('comment').sort({created: -1}).exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -205,7 +205,7 @@ module.exports.comments = function (req, res) {
 }
 
 module.exports.hearts = function (req, res) {
-	products.find({}, 'heart').where('heart._id').exists().populate('heart').exec(function (err, user) {
+	products.find({}, 'heart').where('heart._id').exists().populate('heart').sort({created: -1}).exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -238,7 +238,7 @@ module.exports.usersAnalysis = function (req, res) {
 		dataDates = result;
 	});
 
-	users.find({"created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}).sort('created').exec(function (err, user) {
+	users.find({"created": {"$gte": dataDates.from, "$lt": dataDates.to}, "role": "user"}).exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp(err);
 		} else {
