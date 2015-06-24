@@ -130,7 +130,7 @@ module.exports.orders = function (req, res) {
 					});
 				});
 			});
-			res.status(200).jsonp({'orders': sortedInfo, 'count': sortedInfo.length});
+			res.status(200).jsonp({'orders': _.sortBy(sortedInfo, 'created'), 'count': sortedInfo.length});
 		} else {
 			res.status(404).jsonp({message: 'No order has been found'});
 		}

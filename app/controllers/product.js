@@ -314,7 +314,7 @@ module.exports.delete = function(req, res){
 }
 
 module.exports.categoryName = function(req, res){
-	users.findOne({name: req.params.userName}, function (err, user) {
+	users.findOne({name: req.params.userName}).sort({created: -1}).exec(function (err, user) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(user){
@@ -378,7 +378,7 @@ module.exports.certainCategory = function (req, res) {
 		skip = req.params.skip;
 	}
 
-	products.find({category: req.params.name}, {}, {limit: limit, skip: skip}).populate('user').exec(function (err, product) {
+	products.find({category: req.params.name}, {}, {limit: limit, skip: skip}).populate('user').sort({created: -1}).exec(function (err, product) {
 		if(err){
 			res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 		} else if(product){
