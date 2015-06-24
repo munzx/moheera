@@ -1,4 +1,9 @@
 <section>
+	<select ng-show="showOrders" class="form-control label-primary" ng-model="getStatus.order.status">
+		<option value="">All</option>
+		<option ng-repeat="option in statusOptions" value="{{option}}">{{option}}</option>
+	</select>
+
 	<table ng-show="showOrders" class="table table-hover table-condensed cursor"
 		<thead>
 			<tr>
@@ -11,7 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-click="getOrderDetails($index)" class="cursor" ng-repeat="info in orders">
+			<tr ng-click="getOrderDetails($index)" class="cursor" ng-class="{'alert alert-warning': info.order.status=='pending', 'alert alert-danger': info.order.status=='canceled', 'alert alert-success': info.order.status=='delivered', 'alert alert-info': info.order.status=='processing'}" ng-repeat="info in orders| filter:getStatus">
 				<td>{{info.order.user[0].name}}</td>
 				<td>{{info.user.name}}</td>
 				<td>{{info.order.price}}</td>

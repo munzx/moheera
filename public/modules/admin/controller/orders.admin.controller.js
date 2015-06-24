@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('adminModule').controller('ordersAdminController', ['$scope', 'connectAdminFactory', function ($scope, connectAdminFactory) {
+angular.module('adminModule').controller('ordersAdminController', ['$scope', 'connectAdminFactory', 'statusOrderFactory', function ($scope, connectAdminFactory, statusOrderFactory) {
 	connectAdminFactory.get({page: 'orders'}, function (response) {
 		$scope.orders = response.orders;
 		if($scope.orders.length > 0){
@@ -11,6 +11,8 @@ angular.module('adminModule').controller('ordersAdminController', ['$scope', 'co
 			$scope.noOrders = true;
 		}
 	});
+
+	$scope.statusOptions = statusOrderFactory.status;
 
 	$scope.getOrderDetails = function (index) {
 		$scope.orderDetails = $scope.orders[index];
