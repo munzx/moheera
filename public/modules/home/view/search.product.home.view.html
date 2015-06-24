@@ -1,7 +1,5 @@
 <div class="row">
 	<h4 ng-hide="result.length" class="alert alert-danger">No product has been found.</h4>
 	<h4 ng-show="result.length" class="alert alert-success">Products Search Result</h4>
-	<div ng-show="result.length" ng-repeat="item in result" class="col-md-3 col-sm-3 col-xs-12" style="background-color:#fff;border:1px solid #ccc;">
-		<div product-brief-product-directive="item"></div>
-	</div>
+	<div deckgrid class="deckgrid" source="result" cardTemplate="public/modules/product/view/card.template.product.view.html"></div>
 </div>
