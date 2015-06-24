@@ -8,7 +8,6 @@ var moheera = angular.module('moheera', ['akoenig.deckgrid', 'ngAnimate', 'infin
 moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', 'ChartJsProvider', function ($urlRouterProvider, $stateProvider, $locationProvider, ChartJsProvider) {
     // Configure all charts
     ChartJsProvider.setOptions({
-    	colours: ['#FF5252', '#FF8A80'],
     	responsive: true
     });
     // Configure all line charts

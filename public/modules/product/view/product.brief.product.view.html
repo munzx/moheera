@@ -1,0 +1,24 @@
+<div class="thumbnail">
+	<div class="thumbnail-img-wrapper">
+		<div class="caption">
+			<div class="author-info">
+				<a ng-href="/{{userLink(item.user[0].name)}}">
+					<img ng-src="{{logo(item.user[0].logo)}}" style="width: 40%; margin: 0 auto;" class="img-responsive">
+				</a>
+			</div>
+		</div>
+		<a ng-href="/{{userProductLink(item.user[0].name)}}/{{item.name}}">
+			<img class="img-responsive" ng-src="{{'public/uploads/' + item.image1}}" ng-click="showDetails = !showDetails">
+		</a>
+		<div class="caption">
+			<h4>{{item.name}}</h4>
+			<p>{{item.desc}}</p>
+			<p class="label label-success"><i class="glyphicon glyphicon-tag"></i>AED {{item.price}}</p>
+		</div>
+		<div class="info-box">
+			<div class="pull-right" cart-icon-product-directive="item"></div>
+			<div class="pull-left" heart-icon-product-directive="item"></div>
+			<div class="pull-left" comment-icon-product-directive="item"></div>
+		</div>
+	</div>
+</div>

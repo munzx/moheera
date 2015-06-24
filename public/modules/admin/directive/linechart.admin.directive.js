@@ -101,16 +101,17 @@ angular.module('adminModule').directive('lineChartAdminDirective', ['$q', '$moda
 			scope.showOrders = function (point) {
 				$modal.open({
 					templateUrl: '/public/modules/admin/view/linechart/orders.linechart.admin.directive.view.html',
-					size: 'lg',
+					size: 'md',
 					controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 						$scope.info = scope.pointerInfo.Orders;
+						console.log($scope.info);
 					}]
 				});	
 			}
 			scope.showCarts = function (point) {
 				$modal.open({
 					templateUrl: '/public/modules/admin/view/linechart/carts.linechart.admin.directive.view.html',
-					size: 'lg',
+					size: 'md',
 					controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 						$scope.info = scope.pointerInfo.Carts;
 					}]
