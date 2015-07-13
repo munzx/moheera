@@ -28,7 +28,8 @@
     "angular-chart.js": "~0.7.0",
     "ngInfiniteScroll": "~1.2.1",
     "angular-animate": "~1.4.0",
-    "angular-deckgrid": "~0.5.0"
+    "angular-deckgrid": "~0.5.0",
+    "angular-xeditable": "~0.1.9"
   },
   "resolutions": {
     "angular": "1.4.0"

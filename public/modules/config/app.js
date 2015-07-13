@@ -2,7 +2,7 @@
 
 // intitiate the app and Inject all of the app module dependencies
 //configure the routes
-var moheera = angular.module('moheera', ['akoenig.deckgrid', 'ngAnimate', 'infinite-scroll', 'adminModule', 'angulartics', 'angulartics.google.analytics', 'ui.bootstrap', 'ui.router','ngResource', 'authModule', 'homeModule', 'userModule', 'productModule', 'orderModule', 'cartModule', 'chart.js']);
+var moheera = angular.module('moheera', ['xeditable', 'akoenig.deckgrid', 'ngAnimate', 'infinite-scroll', 'adminModule', 'angulartics', 'angulartics.google.analytics', 'ui.bootstrap', 'ui.router','ngResource', 'authModule', 'homeModule', 'userModule', 'productModule', 'orderModule', 'cartModule', 'chart.js']);
 
 //RouteScopes & Routes Configurations 
 moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', 'ChartJsProvider', function ($urlRouterProvider, $stateProvider, $locationProvider, ChartJsProvider) {
@@ -51,6 +51,12 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', 'Ch
 			url: '/users',
 			templateUrl: 'public/modules/admin/view/users.admin.view.html',
 			controller: 'usersAdminController',
+			cache: true
+		})
+		.state('admin.category', {
+			url: '/category',
+			templateUrl: 'public/modules/admin/view/category.admin.view.html',
+			controller: 'categoryAdminController',
 			cache: true
 		})
 		.state('admin.messages', {
@@ -233,7 +239,8 @@ moheera.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', 'Ch
 		});
 		$locationProvider.html5Mode(true).hashPrefix('!');
 }])
-.run(['$rootScope', '$location', function ($rootScope, $location) {
+.run(['$rootScope', '$location', 'editableOptions', function ($rootScope, $location, editableOptions) {
+	editableOptions.theme = 'bs3';
 	//remove the extra sympoles that is inserted by facebook redirect "when facebook redirect to the success login pagein server side"
 	//when  a user try to sign up through facebook
 	if ($location.hash() === '_=_'){

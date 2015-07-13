@@ -1,0 +1,51 @@
+<div class="row">
+	<div class="col-md-12">
+		<button ng-hide="entryMode" ng-click="showNewCategoryForm()" class="btn btn-success add-space">
+			<span class="glyphicon glyphicon-plus"></span>
+			Add
+		</button>
+		<h4 ng-show="error" class="alert alert-danger">{{error}}</h4>
+		<h4 ng-hide="categories" class="alert alert-danger">No categories has been found</h4>
+
+		<table ng-hide="entryMode" class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Parent</th>
+					<th>Created At</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in categories">
+					<td editable-text="item.name" onbeforesave="updateCategory($index, item._id)">{{item.name || 'empty'}}</td>
+					<td>
+						<a href="#" editable-select="item.parent" onbeforesave="updateCategory($index, item._id)" e-ng-options="cat as cat for cat in catName">{{item.parent}}</a>
+					</td>
+					<td>{{item.created | date:'MM/dd/yyyy  HH:mm Z'}}</td>
+					<td><span ng-click="removeCategory(item._id, $index)" class="glyphicon glyphicon-remove cursor"></span></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<form ng-show="entryMode" class="form-inline">
+			<div class="input-group">
+				<div class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span></div>
+				<input type="text" class="form-control" ng-model='categoryName' placeholder="Category Name">
+			</div>
+			<div class="input-group">
+				<div class="input-group-addon"><span class="text-muted">Parent</span></div>
+				<select ng-model="parentCategory" class="form-control">
+					<option selected value="root">Root</option>
+					<option ng-repeat="item in categories" value="{{item.name}}">{{item.name}}</option>
+				</select>
+			</div>
+			<div class="input-group">
+				<button ng-click="addCategory()" class="btn btn-success">Save</button>
+			</div>
+			 <div class="input-group">
+				<button ng-click="cancel()" class="btn btn-danger">Cancel</button>
+			</div>
+		</form>
+
+	</div>
+</div>
