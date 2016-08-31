@@ -9,7 +9,7 @@ var passport = require('passport'),
 module.exports = function () {
 	passport.use(new InstagramStrategy({
 	    clientID: 'cda7ad13fe2b4d76933b8ed346aafdec',
-	    clientSecret: '634c0c264c9a44a2acb78931e8d408b1',
+	    clientSecret: 'b7b86dc115954dd79d84cb368bb2a935',
 	    callbackURL: "http://www.moheera.com/auth/instagram/callback",
 	    enableProof: false
 	  },
