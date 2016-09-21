@@ -114,14 +114,12 @@ var usersSchema = Schema({
 	firstName: {
 		type: String,
 		default: '',
-		required: 'Pease provide the first name',
 		trim: true,
 		lowercase: true
 	},
 	lastName: {
 		type: String,
 		default: '',
-		required: 'Please provide the last name',
 		trim: true,
 		lowercase: true
 	},
@@ -137,7 +135,6 @@ var usersSchema = Schema({
 	email: {
 		type: String,
 		default: '',
-		required: 'Please fill the email field',
 		trim: true,
 		unique: true,
 		lowercase: true,

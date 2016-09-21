@@ -137,9 +137,9 @@ module.exports.create = function(req, res){
 					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 				} else {
 					//send sms to the product owner
-					sms.sendMsg(mobilePhoneNumbers);
+					//sms.sendMsg(mobilePhoneNumbers);
 					//send email to the product owner
-					email.sendEmail(emailAddresses);
+					//email.sendEmail(emailAddresses);
 					res.status(200).json({"uCart": req.user.cart});
 				}
 			});

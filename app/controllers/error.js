@@ -6,6 +6,10 @@
 var getUniqueErrorMessage = function(err) {
 	var output;
 
+	if(!err.err){
+		err.err = err.errmsg;
+	}
+
 	try {
 		var fieldName = err.err.substring(err.err.lastIndexOf('.$') + 2, err.err.lastIndexOf('_1'));
 		output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' already exist';
