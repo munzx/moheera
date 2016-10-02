@@ -138,7 +138,7 @@ var usersSchema = Schema({
 		trim: true,
 		index: true,
 		unique: true,
-		sparse: true
+		sparse: true,
 		lowercase: true,
 		match: [/.+\@.+\..+/, 'Please provide a valid email address']
 	},
