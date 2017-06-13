@@ -125,26 +125,30 @@ module.exports.update = function(req, res){
 			users.findOne({_id: req.user._id}, function(err, user){
 				if(err){
 					removeImages();
-					res.status(500).jsonp({message: err});
+					res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
 				} else if(user) {
 					user.firstName = formData.firstName;
 					user.lastName = formData.lastName;
 					user.email = formData.email;
 					user.mobilePhone = formData.mobilePhone;
 					user.pageDesc = formData.pageDesc;
-					user.save();
+					user.save(function(err, result){
+						if(err){
+							res.status(500).jsonp({message: errorHandler.getErrorMessage(err)});
+						} else {
+							if(formData.banner){
+								if (fs.existsSync(dest + user.banner)) {fs.unlink(dest + user.banner)};
+								user.banner = formData.banner;
+							}
 
-					if(formData.banner){
-						if (fs.existsSync(dest + user.banner)) {fs.unlink(dest + user.banner)};
-						user.banner = formData.banner;
-					}
+							if(formData.logo){
+								if (fs.existsSync(dest + user.logo)) {fs.unlink(dest + user.logo)};
+								user.logo = formData.logo;
+							}
 
-					if(formData.logo){
-						if (fs.existsSync(dest + user.logo)) {fs.unlink(dest + user.logo)};
-						user.logo = formData.logo;
-					}
-
-					res.status(200).jsonp(user);
+							res.status(200).jsonp(user);
+						}
+					});
 				} else {
 					res.status(404).json({message: 'User has not been found'});
 				}

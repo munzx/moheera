@@ -7,7 +7,7 @@ var getUniqueErrorMessage = function(err) {
 	var output;
 
 	if(!err.err){
-		err.err = err.errmsg;
+		err.err = err.message;
 	}
 
 	try {
